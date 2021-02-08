@@ -15,16 +15,14 @@ pygame.display.set_caption("Sniper Game Name Placeholder")
 
 run = True
 
-player = Player.Player()
-
-pygame.display.update()
+player = Player.Player("player_sprite")
 
 clock = pygame.time.Clock()
 
 def redrawGameWindow():
     # Graphics updates handled here
     window.fill("Black")
-    player.draw_player(window)
+    player.draw(window)
     pygame.display.update()
 
 while run:
