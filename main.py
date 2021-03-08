@@ -6,7 +6,6 @@ HEIGHT = 700
 
 pygame.init()
 
-
 window = pygame.display.set_mode((WIDTH, HEIGHT))
 # Sets the pygame window
 
@@ -15,15 +14,21 @@ pygame.display.set_caption("Sniper Game Name Placeholder")
 
 run = True
 
-player = Player.Player("player_sprite")
-
 clock = pygame.time.Clock()
 
-def redrawGameWindow():
+entities = []
+# Contains entities currently in level
+
+# player = Player.Player("player_sprite")
+
+
+def redraw_game_window():
     # Graphics updates handled here
     window.fill("Black")
-    player.draw(window)
+    for entity in entities:
+        entity.draw(window)
     pygame.display.update()
+
 
 while run:
     # Main Game Loop
@@ -35,5 +40,5 @@ while run:
         if event.type == pygame.QUIT:
             run = False
         # Add event handlers here (e.g: Object "Update()"s)
-    redrawGameWindow()
 
+    redraw_game_window()

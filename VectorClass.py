@@ -1,5 +1,6 @@
 import math
 
+
 # The Vector class
 class Vector:
 
@@ -65,7 +66,7 @@ class Vector:
 
     # Divides the vector by a scalar
     def divide(self, k):
-        return self.multiply(1/k)
+        return self.multiply(1 / k)
 
     def __truediv__(self, k):
         return self.copy().divide(k)
@@ -84,16 +85,16 @@ class Vector:
 
     # Returns the length of the vector
     def length(self):
-        return math.sqrt(self.x**2 + self.y**2)
+        return math.sqrt(self.x ** 2 + self.y ** 2)
 
     # Returns the squared length of the vector
     def length_squared(self):
-        return self.x**2 + self.y**2
+        return self.x ** 2 + self.y ** 2
 
     # Reflect this vector on a normal
     def reflect(self, normal):
         n = normal.copy()
-        n.multiply(2*self.dot(normal))
+        n.multiply(2 * self.dot(normal))
         self.subtract(n)
         return self
 
@@ -117,10 +118,8 @@ class Vector:
     def rotate(self, theta):
         theta_rad = theta / 180 * math.pi
         return self.rotate_rad(theta_rad)
-    
+
     # project the vector onto a given vector
     def get_proj(self, vec):
         unit = vec.get_normalized()
         return unit.multiply(self.dot(unit))
-        
-        
