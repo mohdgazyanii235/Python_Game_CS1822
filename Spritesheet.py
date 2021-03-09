@@ -52,9 +52,5 @@ class Spritesheet:
 
         source_size = (self.frame_width, self.frame_height)
 
-        canvas.draw_image(self.img,
-                          source_centre,
-                          source_size,
-                          position,
-                          self.dest_size)
+        canvas.draw_image(self.img, source_centre, source_size, position, self.dest_size)
 

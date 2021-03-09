@@ -33,7 +33,7 @@ Clock()
 # Spritesheet(SpriteURL, X, Y, columns, rows, frame_duration, location on canvas, Cell size, Number of animation cells
 # (to loop animation w/o white frames))
 
-player = Entity.Entity("https://i.imgur.com/wp1QgXP.png", 4, 8, Clock.frame_duration, (WIDTH / 2, HEIGHT / 2),
+player = Player.Player("https://i.imgur.com/wp1QgXP.png", 4, 8, Clock.frame_duration, (WIDTH / 2, HEIGHT / 2),
                        (300, 120), 30)
 
 entities.append(player)
@@ -41,9 +41,10 @@ entities.append(player)
 
 def draw_entities(canvas):
     for entity in entities:
-        entity.draw(canvas)
+        entity.update(canvas)
 
 
+frame.set_keydown_handler(player.keyDown)
 frame.set_canvas_background('white')
 frame.set_draw_handler(draw_entities)
 

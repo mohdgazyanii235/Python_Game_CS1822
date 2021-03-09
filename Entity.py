@@ -28,8 +28,7 @@ class Entity(VectorClass.Vector):
                                                        movement_rows, movement_frame_duration, super().get_p(),
                                                        movement_dest_size, movement_cells)
 
-    def draw(self, canvas):
-        self.move_up()
+    def update(self, canvas):
         print(super().get_p())
         self.movement_sprite.draw(canvas, super().get_p())
 
