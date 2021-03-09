@@ -45,6 +45,7 @@ def draw_entities(canvas):
 
 
 frame.set_keydown_handler(player.keyDown)
+frame.set_keyup_handler(player.keyUp)
 frame.set_canvas_background('white')
 frame.set_draw_handler(draw_entities)
 
