@@ -11,7 +11,6 @@ except ImportError:
 
 
 class Entity(VectorClass.Vector):
-
     movement_sprite = None
     death_animation = None
     speed = 1
@@ -19,7 +18,6 @@ class Entity(VectorClass.Vector):
     def __init__(self, movement_imgurl, movement_columns,
                  movement_rows, movement_frame_duration, movement_dest_centre, movement_dest_size, movement_cells,
                  speed=1):
-
         super().__init__(movement_dest_centre[0], movement_dest_centre[1])
 
         self.speed = speed
@@ -28,7 +26,20 @@ class Entity(VectorClass.Vector):
                                                        movement_rows, movement_frame_duration, super().get_p(),
                                                        movement_dest_size, movement_cells)
 
-    def update(self, canvas):
+    def update(self, canvas, moving_left=False, moving_right=False, moving_up=False, moving_down=False):
+
+        if moving_left:
+            self.move_left()
+
+        if moving_right:
+            self.move_right()
+
+        if moving_up:
+            self.move_up()
+
+        if moving_down:
+            self.move_down()
+
         print(super().get_p())
         self.movement_sprite.draw(canvas, super().get_p())
 

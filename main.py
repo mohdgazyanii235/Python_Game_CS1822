@@ -34,7 +34,7 @@ Clock()
 # (to loop animation w/o white frames))
 
 player = Player.Player("https://i.imgur.com/wp1QgXP.png", 4, 8, Clock.frame_duration, (WIDTH / 2, HEIGHT / 2),
-                       (300, 120), 30)
+                       (300, 120), 30, 3)
 
 entities.append(player)
 
@@ -45,6 +45,7 @@ def draw_entities(canvas):
 
 
 frame.set_keydown_handler(player.keyDown)
+frame.set_keyup_handler(player.keyUp)
 frame.set_canvas_background('white')
 frame.set_draw_handler(draw_entities)
 
