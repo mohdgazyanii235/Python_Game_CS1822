@@ -9,7 +9,7 @@ class Spritesheet:
                  imgurl,
                  columns, rows,
                  frame_duration,
-                 dest_centre, dest_size, cells):
+                 dest_centre, dest_size, cells, loop):
 
         self.img = simplegui.load_image(imgurl)
         self.width = self.img.get_width()
@@ -20,6 +20,7 @@ class Spritesheet:
         self.dest_centre = dest_centre
         self.dest_size = dest_size
         self.cells = cells
+        self.loop = loop
         self.cell_count = 0
 
         self.frame_width = self.width / columns
@@ -32,6 +33,9 @@ class Spritesheet:
 
     def update_index(self):
         self.cell_count += 1
+        if self.loop == False:
+            if self.cell_count == self.cells:
+                self.dest_size = (0,0)
         if self.cell_count == self.cells:
             self.cell_count = 1
             self.frame_index[0] = 0

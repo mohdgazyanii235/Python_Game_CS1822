@@ -31,10 +31,10 @@ frame = simplegui.create_frame("Game Name Placeholder", WIDTH, HEIGHT)
 Clock()
 
 # Spritesheet(SpriteURL, X, Y, columns, rows, frame_duration, location on canvas, Cell size, Number of animation cells
-# (to loop animation w/o white frames))
+# (to loop animation w/o white frames), loop boolean)
 
 player = Player.Player("https://i.imgur.com/wp1QgXP.png", 4, 8, Clock.frame_duration, (WIDTH / 2, HEIGHT / 2),
-                       (300, 120), 30)
+                       (300, 120), 30, True)
 
 entities.append(player)
 
