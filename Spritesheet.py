@@ -40,7 +40,7 @@ class Spritesheet:
         if self.frame_index[0] == 0:
             self.frame_index[1] = (self.frame_index[1] + 1) % self.rows
 
-    def draw(self, canvas):
+    def draw(self, canvas, position):
         self.frame_clock += 1
         if self.frame_clock % self.frame_duration == 0:
             self.update_index()
@@ -55,6 +55,6 @@ class Spritesheet:
         canvas.draw_image(self.img,
                           source_centre,
                           source_size,
-                          self.dest_centre,
+                          position,
                           self.dest_size)
 

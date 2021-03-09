@@ -27,5 +27,9 @@ class Entity(VectorClass.Vector):
                                                        movement_dest_size, movement_cells)
 
     def draw(self, canvas):
-        self.movement_sprite.draw(canvas)
+        self.move_up()
+        print(super().get_p())
+        self.movement_sprite.draw(canvas, super().get_p())
 
+    def move_up(self):
+        super().add(VectorClass.Vector(1, 0))
