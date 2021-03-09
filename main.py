@@ -42,7 +42,6 @@ entities.append(player)
 
 def draw_entities(canvas):
     for entity in entities:
-        print("Ran in main")
         entity.draw(canvas)
 
 

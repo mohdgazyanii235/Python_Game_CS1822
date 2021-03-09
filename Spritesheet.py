@@ -41,7 +41,6 @@ class Spritesheet:
             self.frame_index[1] = (self.frame_index[1] + 1) % self.rows
 
     def draw(self, canvas):
-        print("Ran in spritesheet")
         self.frame_clock += 1
         if self.frame_clock % self.frame_duration == 0:
             self.update_index()
