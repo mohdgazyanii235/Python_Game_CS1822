@@ -32,4 +32,13 @@ class Entity(VectorClass.Vector):
         self.movement_sprite.draw(canvas, super().get_p())
 
     def move_up(self):
+        super().add(VectorClass.Vector(0, 1))
+
+    def move_down(self):
+        super().add(VectorClass.Vector(0, -1))
+
+    def move_right(self):
         super().add(VectorClass.Vector(1, 0))
+
+    def move_left(self):
+        super().add(VectorClass.Vector(-1, 0))
