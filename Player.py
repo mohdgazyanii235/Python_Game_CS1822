@@ -45,10 +45,12 @@ class Player(DroneEntity.Drone):
         if key == simplegui.KEY_MAP['left']:
             self.moving_left = False
             self.rotation = 0
+            self.skid_value = -self.speed
 
         if key == simplegui.KEY_MAP['right']:
             self.moving_right = False
             self.rotation = 0
+            self.skid_value = self.speed
 
         if key == simplegui.KEY_MAP['up']:
             self.moving_up = False

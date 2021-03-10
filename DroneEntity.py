@@ -4,6 +4,8 @@ import VectorClass
 
 class Drone(Entity.Entity):
 
+    skid_value = 0
+
     def __init__(self, movement_imgurl, movement_columns,
                  movement_rows, movement_frame_duration, movement_dest_centre, movement_dest_size, movement_cells,
                  movement_loop, speed):
@@ -28,6 +30,8 @@ class Drone(Entity.Entity):
         if moving_down:
             self.move_down()
 
+        self.skid()
+
         self.movement_sprite.draw(canvas, super().get_p(), self.rotation)
 
     def move_up(self):
@@ -41,3 +45,18 @@ class Drone(Entity.Entity):
 
     def move_left(self):
         super().add(VectorClass.Vector(-1, 0).multiply(self.speed))
+
+    def skid(self):
+        if self.skid_value > 0:
+            super().add(VectorClass.Vector(1, 0).multiply(self.skid_value))
+            self.skid_value -= 0.25
+            if self.skid_value < 0:
+                self.skid_value = 0
+        elif self.skid_value < 0:
+            super().add(VectorClass.Vector(1, 0).multiply(self.skid_value))
+            self.skid_value += 0.25
+            if self.skid_value > 0:
+                self.skid_value = 0
+
+
+
