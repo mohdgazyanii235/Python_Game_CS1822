@@ -1,4 +1,4 @@
-import Entity
+import DroneEntity
 
 try:
     import simplegui
@@ -6,7 +6,7 @@ except ImportError:
     import SimpleGUICS2Pygame.simpleguics2pygame as simplegui
 
 
-class Player(Entity.Entity):
+class Player(DroneEntity.Drone):
 
     moving_left = False
     moving_right = False
