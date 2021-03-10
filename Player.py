@@ -33,6 +33,7 @@ class Player(DroneEntity.Drone):
                 self.rotation = -math.radians(12)
             else:
                 self.queued_direction = "left"
+                # If the player is currently moving right it will queue moving left
 
         if key == simplegui.KEY_MAP['right']:
             if not self.moving_left:
@@ -52,17 +53,21 @@ class Player(DroneEntity.Drone):
         if key == simplegui.KEY_MAP['left']:
             if self.queued_direction == "left":
                 self.queued_direction = ""
+                # If the key is released then remove it from the queue, as otherwise you could tap left whilst moving
+                # right, yet once the right key is released left will still be queued, moving the player left
 
             elif self.queued_direction == "right":
                 self.moving_left = False
                 self.moving_right = True
                 self.queued_direction = ""
                 self.rotation = math.radians(12)
+                # If key is released and right is queued, change player direction to right
 
             else:
                 self.moving_left = False
                 self.rotation = 0
                 self.skid_value = -self.speed
+                # If key is released and right is not queued, then stop the player's movement
 
         if key == simplegui.KEY_MAP['right']:
 
