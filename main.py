@@ -32,8 +32,8 @@ Clock()
 # Spritesheet(SpriteURL, X, Y, columns, rows, frame_duration, location on canvas, Cell size, Number of animation cells
 # (to loop animation w/o white frames), loop boolean)
 
-player = Player.Player("https://i.imgur.com/wp1QgXP.png", 4, 8, Clock.frame_duration, (WIDTH / 2, HEIGHT / 2),
-                       (300, 120), 30, True, 6.5)
+player = Player.Player("DroneSSTransparent.png", 4, 8, Clock.frame_duration, (WIDTH / 2, HEIGHT / 2),
+                       (250, 65), 32, True, 6.5)
 
 entities.append(player)
 
@@ -49,4 +49,3 @@ frame.set_canvas_background('white')
 frame.set_draw_handler(draw_entities)
 
 frame.start()
-

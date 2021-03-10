@@ -11,7 +11,7 @@ class Spritesheet:
                  frame_duration,
                  dest_centre, dest_size, cells, loop):
 
-        self.img = simplegui.load_image(imgurl)
+        self.img = simplegui._load_local_image(imgurl)
         self.width = self.img.get_width()
         self.height = self.img.get_height()
         self.columns = columns
