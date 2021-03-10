@@ -30,7 +30,8 @@ class Drone(Entity.Entity):
         if moving_down:
             self.move_down()
 
-        self.skid()
+        if not (moving_left or moving_right or moving_up or moving_down):
+            self.skid()
 
         self.movement_sprite.draw(canvas, super().get_p(), self.rotation)
 
@@ -51,7 +52,9 @@ class Drone(Entity.Entity):
         # of skidding to a halt
         if self.skid_value > 0:
             super().add(VectorClass.Vector(1, 0).multiply(self.skid_value))
-            self.skid_value -= 0.25
+            self.skid_value -= 0.3
+            # A higher value deducted from the skid_value will result in a shorter skid, a smaller value results in
+            # a longer one
 
             if self.skid_value < 0:
                 self.skid_value = 0
