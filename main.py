@@ -1,5 +1,4 @@
 import Player
-import Entity
 
 try:
     import simplegui
@@ -34,7 +33,7 @@ Clock()
 # (to loop animation w/o white frames), loop boolean)
 
 player = Player.Player("https://i.imgur.com/wp1QgXP.png", 4, 8, Clock.frame_duration, (WIDTH / 2, HEIGHT / 2),
-                       (300, 120), 30, True)
+                       (300, 120), 30, True, 6.5)
 
 entities.append(player)
 

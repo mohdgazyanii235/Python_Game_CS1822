@@ -15,11 +15,11 @@ class Player(DroneEntity.Drone):
 
     def __init__(self, movement_imgurl, movement_columns,
                  movement_rows, movement_frame_duration, movement_dest_centre, movement_dest_size, movement_cells,
-                 speed=1):
+                 movement_loop, speed):
 
         super().__init__(movement_imgurl, movement_columns,
                          movement_rows, movement_frame_duration, movement_dest_centre, movement_dest_size,
-                         movement_cells, speed)
+                         movement_cells, movement_loop, speed)
 
     def update(self, canvas):
         super().update(canvas, self.moving_left, self.moving_right, self.moving_up, self.moving_down)
@@ -27,9 +27,11 @@ class Player(DroneEntity.Drone):
     def keyDown(self, key):
         if key == simplegui.KEY_MAP['left']:
             self.moving_left = True
+            self.rotation = 75
 
         if key == simplegui.KEY_MAP['right']:
             self.moving_right = True
+            self.rotation = -75
 
         if key == simplegui.KEY_MAP['up']:
             self.moving_up = True
@@ -40,9 +42,11 @@ class Player(DroneEntity.Drone):
     def keyUp(self, key):
         if key == simplegui.KEY_MAP['left']:
             self.moving_left = False
+            self.rotation = 0
 
         if key == simplegui.KEY_MAP['right']:
             self.moving_right = False
+            self.rotation = 0
 
         if key == simplegui.KEY_MAP['up']:
             self.moving_up = False

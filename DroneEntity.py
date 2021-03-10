@@ -1,13 +1,12 @@
 import Entity
 import VectorClass
 
-class Drone(Entity.Entity):
 
-    speed = 1
+class Drone(Entity.Entity):
 
     def __init__(self, movement_imgurl, movement_columns,
                  movement_rows, movement_frame_duration, movement_dest_centre, movement_dest_size, movement_cells,
-                 movement_loop, speed=1):
+                 movement_loop, speed):
 
         super().__init__(movement_imgurl, movement_columns,
                          movement_rows, movement_frame_duration, movement_dest_centre, movement_dest_size,
@@ -29,7 +28,7 @@ class Drone(Entity.Entity):
         if moving_down:
             self.move_down()
 
-        self.movement_sprite.draw(canvas, super().get_p())
+        self.movement_sprite.draw(canvas, super().get_p(), self.rotation)
 
     def move_up(self):
         super().add(VectorClass.Vector(0, -1).multiply(self.speed))

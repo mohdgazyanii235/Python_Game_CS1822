@@ -22,7 +22,6 @@ class Spritesheet:
         self.cells = cells
         self.loop = loop
         self.cell_count = 0
-
         self.frame_width = self.width / columns
         self.frame_height = self.height / rows
         self.frame_centre_x = self.frame_width / 2
@@ -44,7 +43,7 @@ class Spritesheet:
         if self.frame_index[0] == 0:
             self.frame_index[1] = (self.frame_index[1] + 1) % self.rows
 
-    def draw(self, canvas, position):
+    def draw(self, canvas, position, rotation):
         self.frame_clock += 1
         if self.frame_clock % self.frame_duration == 0:
             self.update_index()
@@ -56,5 +55,5 @@ class Spritesheet:
 
         source_size = (self.frame_width, self.frame_height)
 
-        canvas.draw_image(self.img, source_centre, source_size, position, self.dest_size)
+        canvas.draw_image(self.img, source_centre, source_size, position, self.dest_size, rotation)
 

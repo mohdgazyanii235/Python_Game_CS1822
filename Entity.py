@@ -13,12 +13,13 @@ except ImportError:
 class Entity(VectorClass.Vector):
     movement_sprite = None
     death_animation = None
+    rotation = 0
 
     def __init__(self, movement_imgurl, movement_columns,
                  movement_rows, movement_frame_duration, movement_dest_centre, movement_dest_size, movement_cells,
                  movement_loop):
         super().__init__(movement_dest_centre[0], movement_dest_centre[1])
-
+        print(self.rotation)
         self.movement_sprite = Spritesheet.Spritesheet(movement_imgurl, movement_columns,
                                                        movement_rows, movement_frame_duration, super().get_p(),
                                                        movement_dest_size, movement_cells, movement_loop)
