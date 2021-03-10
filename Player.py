@@ -26,12 +26,14 @@ class Player(DroneEntity.Drone):
 
     def keyDown(self, key):
         if key == simplegui.KEY_MAP['left']:
-            self.moving_left = True
-            self.rotation = 75
+            if not self.moving_right:
+                self.moving_left = True
+                self.rotation = 75
 
         if key == simplegui.KEY_MAP['right']:
-            self.moving_right = True
-            self.rotation = -75
+            if not self.moving_left:
+                self.moving_right = True
+                self.rotation = -75
 
         if key == simplegui.KEY_MAP['up']:
             self.moving_up = True
