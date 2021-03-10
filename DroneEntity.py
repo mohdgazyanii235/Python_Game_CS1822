@@ -47,11 +47,17 @@ class Drone(Entity.Entity):
         super().add(VectorClass.Vector(-1, 0).multiply(self.speed))
 
     def skid(self):
+        # Skid value comes from the speed; by moving at slower increments of the skid value it gives the sense
+        # of skidding to a halt
         if self.skid_value > 0:
             super().add(VectorClass.Vector(1, 0).multiply(self.skid_value))
             self.skid_value -= 0.25
+
             if self.skid_value < 0:
                 self.skid_value = 0
+                # Ensures that is taking 0.25 sends the skid_value the elif statement won't run (so the drone doesn't
+                # get stuck eternally skidding back and forth)
+
         elif self.skid_value < 0:
             super().add(VectorClass.Vector(1, 0).multiply(self.skid_value))
             self.skid_value += 0.25
