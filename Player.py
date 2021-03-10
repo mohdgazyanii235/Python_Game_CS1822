@@ -13,6 +13,7 @@ class Player(DroneEntity.Drone):
     moving_right = False
     moving_up = False
     moving_down = False
+    queued_direction = ""
 
     def __init__(self, movement_imgurl, movement_columns,
                  movement_rows, movement_frame_duration, movement_dest_centre, movement_dest_size, movement_cells,
@@ -27,12 +28,18 @@ class Player(DroneEntity.Drone):
 
     def keyDown(self, key):
         if key == simplegui.KEY_MAP['left']:
-            self.moving_left = True
-            self.rotation = -math.radians(12)
+            if not self.moving_right:
+                self.moving_left = True
+                self.rotation = -math.radians(12)
+            else:
+                self.queued_direction = "left"
 
         if key == simplegui.KEY_MAP['right']:
-            self.moving_right = True
-            self.rotation = math.radians(12)
+            if not self.moving_left:
+                self.moving_right = True
+                self.rotation = math.radians(12)
+            else:
+                self.queued_direction = "right"
 
         if key == simplegui.KEY_MAP['up']:
             self.moving_up = True
@@ -41,15 +48,37 @@ class Player(DroneEntity.Drone):
             self.moving_down = True
 
     def keyUp(self, key):
+
         if key == simplegui.KEY_MAP['left']:
-            self.moving_left = False
-            self.rotation = 0
-            self.skid_value = -self.speed
+            if self.queued_direction == "left":
+                self.queued_direction = ""
+
+            elif self.queued_direction == "right":
+                self.moving_left = False
+                self.moving_right = True
+                self.queued_direction = ""
+                self.rotation = math.radians(12)
+
+            else:
+                self.moving_left = False
+                self.rotation = 0
+                self.skid_value = -self.speed
 
         if key == simplegui.KEY_MAP['right']:
-            self.moving_right = False
-            self.rotation = 0
-            self.skid_value = self.speed
+
+            if self.queued_direction == "right":
+                self.queued_direction = ""
+
+            elif self.queued_direction == "left":
+                self.moving_right = False
+                self.moving_left = True
+                self.queued_direction = ""
+                self.rotation = -math.radians(12)
+
+            else:
+                self.moving_right = False
+                self.rotation = 0
+                self.skid_value = self.speed
 
         if key == simplegui.KEY_MAP['up']:
             self.moving_up = False
