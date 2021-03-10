@@ -5,6 +5,9 @@ import VectorClass
 class Drone(Entity.Entity):
 
     skid_value = 0
+    bob_range = 4
+    bob_value = 0
+    bob_ascending = True
 
     def __init__(self, movement_imgurl, movement_columns,
                  movement_rows, movement_frame_duration, movement_dest_centre, movement_dest_size, movement_cells,
@@ -32,6 +35,9 @@ class Drone(Entity.Entity):
 
         if not (moving_left or moving_right or moving_up or moving_down):
             self.skid()
+            # By having calling skid only when the drone isn't moving we prevent it from disrupting snappy direction
+            # changes
+            self.bob()
 
         self.movement_sprite.draw(canvas, super().get_p(), self.rotation)
 
@@ -67,5 +73,21 @@ class Drone(Entity.Entity):
             if self.skid_value > 0:
                 self.skid_value = 0
 
+    def bob(self):
+
+        if self.bob_ascending:
+            self.bob_value += 0.1
+
+            super().add(VectorClass.Vector(0, -0.2))
+
+            if self.bob_value >= self.bob_range/2:
+                self.bob_ascending = False
+        else:
+            self.bob_value -= 0.1
+
+            super().add(VectorClass.Vector(0, 0.2))
+
+            if self.bob_value <= -self.bob_range/2:
+                self.bob_ascending = True
 
 
