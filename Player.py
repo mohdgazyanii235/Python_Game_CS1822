@@ -1,4 +1,5 @@
 import DroneEntity
+import math
 
 try:
     import simplegui
@@ -26,14 +27,12 @@ class Player(DroneEntity.Drone):
 
     def keyDown(self, key):
         if key == simplegui.KEY_MAP['left']:
-            if not self.moving_right:
-                self.moving_left = True
-                self.rotation = 75
+            self.moving_left = True
+            self.rotation = -math.radians(12)
 
         if key == simplegui.KEY_MAP['right']:
-            if not self.moving_left:
-                self.moving_right = True
-                self.rotation = -75
+            self.moving_right = True
+            self.rotation = math.radians(12)
 
         if key == simplegui.KEY_MAP['up']:
             self.moving_up = True
