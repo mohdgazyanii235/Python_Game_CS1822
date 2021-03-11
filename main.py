@@ -52,7 +52,7 @@ class Menu:
                               selector_dimensions, (self.width / 2 - button_dimensions[0] - 35, self.height / 2 - 60),
                               button_dimensions)
             if self.button_selected:
-                pass
+                start_game()
 
         elif self.selection_num == 1:
             canvas.draw_image(self.selector, (selector_dimensions[0] / 2, selector_dimensions[1] / 2),
@@ -98,6 +98,7 @@ def start_game():
     player = Player.Player("sprite_assets/player_sprite/DroneSSTransparent.png", 4, 8, Clock.frame_duration,
                            (WIDTH / 2, HEIGHT / 2), (320, 83.2), 32, True, 6.5)
 
+    entities.pop(0)
     entities.append(player)
     frame.set_keydown_handler(player.keyDown)
     frame.set_keyup_handler(player.keyUp)
