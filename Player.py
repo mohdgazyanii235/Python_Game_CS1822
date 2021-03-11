@@ -14,13 +14,17 @@ class Player(DroneEntity.Drone):
     moving_down = False
     queued_direction = ""
     exit_request = False
+    size_multiplier = 1
 
     def __init__(self, movement_imgurl, movement_columns,
                  movement_rows, movement_frame_duration, movement_dest_centre, movement_dest_size, movement_cells,
                  movement_loop, speed):
 
         super().__init__(movement_imgurl, movement_columns,
-                         movement_rows, movement_frame_duration, movement_dest_centre, movement_dest_size,
+                         movement_rows, movement_frame_duration, movement_dest_centre, (movement_dest_size[0] *
+                                                                                        self.size_multiplier,
+                                                                                        movement_dest_size[1] *
+                                                                                        self.size_multiplier),
                          movement_cells, movement_loop, speed)
 
     def update(self, canvas):
@@ -50,6 +54,9 @@ class Player(DroneEntity.Drone):
 
     def get_exit_request(self):
         return self.exit_request
+
+    def fire(self):
+        pass
 
     def keyUp(self, key):
 
@@ -93,6 +100,9 @@ class Player(DroneEntity.Drone):
 
         if key == simplegui.KEY_MAP['down']:
             self.moving_down = False
+
+        if key == simplegui.KEY_MAP['space']:
+            self.fire()
 
         if key == simplegui.KEY_MAP['x']:
             self.exit_request = True
