@@ -8,12 +8,12 @@ except ImportError:
 
 
 class Player(DroneEntity.Drone):
-
     moving_left = False
     moving_right = False
     moving_up = False
     moving_down = False
     queued_direction = ""
+    exit_request = False
 
     def __init__(self, movement_imgurl, movement_columns,
                  movement_rows, movement_frame_duration, movement_dest_centre, movement_dest_size, movement_cells,
@@ -47,6 +47,9 @@ class Player(DroneEntity.Drone):
 
         if key == simplegui.KEY_MAP['down']:
             self.moving_down = True
+
+    def get_exit_request(self):
+        return self.exit_request
 
     def keyUp(self, key):
 
@@ -90,3 +93,6 @@ class Player(DroneEntity.Drone):
 
         if key == simplegui.KEY_MAP['down']:
             self.moving_down = False
+
+        if key == simplegui.KEY_MAP['x']:
+            self.exit_request = True

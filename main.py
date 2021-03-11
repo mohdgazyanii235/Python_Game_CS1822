@@ -52,6 +52,7 @@ class Menu:
                               selector_dimensions, (self.width / 2 - button_dimensions[0] - 35, self.height / 2 - 60),
                               button_dimensions)
             if self.button_selected:
+                self.button_selected = False
                 start_game()
 
         elif self.selection_num == 1:
@@ -89,6 +90,9 @@ Clock()
 
 
 def open_menu():
+    for i in range(len(entities)):
+        entities.pop(i)
+
     menu = Menu(WIDTH, HEIGHT)
     frame.set_keydown_handler(menu.keyDown)
     entities.append(menu)
@@ -105,6 +109,9 @@ def start_game():
 
 
 def draw_entities(canvas):
+    if isinstance(entities[0], Player.Player) and entities[0].get_exit_request():
+        open_menu()
+
     for entity in entities:
         entity.update(canvas)
 
