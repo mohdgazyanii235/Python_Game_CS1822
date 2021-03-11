@@ -32,9 +32,9 @@ class Spritesheet:
 
     def update_index(self):
         self.cell_count += 1
-        if self.loop == False:
+        if not self.loop:
             if self.cell_count == self.cells:
-                self.dest_size = (0,0)
+                self.dest_size = (0, 0)
         if self.cell_count == self.cells:
             self.cell_count = 1
             self.frame_index[0] = 0
@@ -56,4 +56,3 @@ class Spritesheet:
         source_size = (self.frame_width, self.frame_height)
 
         canvas.draw_image(self.img, source_centre, source_size, position, self.dest_size, rotation)
-

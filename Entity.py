@@ -1,6 +1,3 @@
-import os
-import pygame
-import sprite_assets
 import VectorClass
 import Spritesheet
 
