@@ -1,5 +1,4 @@
 import DroneEntity
-import math
 
 try:
     import simplegui
@@ -27,6 +26,9 @@ class Player(DroneEntity.Drone):
                                                                                         self.size_multiplier),
                          movement_cells, movement_loop, speed)
 
+        self.frame_width = movement_dest_centre[0] * 2
+        self.frame_height = movement_dest_centre[1] * 2
+
     def update(self, canvas):
         super().update(canvas, self.moving_left, self.moving_right, self.moving_up, self.moving_down)
 
@@ -34,7 +36,6 @@ class Player(DroneEntity.Drone):
         if key == simplegui.KEY_MAP['left']:
             if not self.moving_right:
                 self.moving_left = True
-                self.rotation = -math.radians(12)
             else:
                 self.queued_direction = "left"
                 # If the player is currently moving right it will queue moving left
@@ -42,7 +43,6 @@ class Player(DroneEntity.Drone):
         if key == simplegui.KEY_MAP['right']:
             if not self.moving_left:
                 self.moving_right = True
-                self.rotation = math.radians(12)
             else:
                 self.queued_direction = "right"
 
@@ -70,12 +70,10 @@ class Player(DroneEntity.Drone):
                 self.moving_left = False
                 self.moving_right = True
                 self.queued_direction = ""
-                self.rotation = math.radians(12)
                 # If key is released and right is queued, change player direction to right
 
             else:
                 self.moving_left = False
-                self.rotation = 0
                 self.skid_value = -self.speed
                 # If key is released and right is not queued, then stop the player's movement
 
@@ -88,7 +86,6 @@ class Player(DroneEntity.Drone):
                 self.moving_right = False
                 self.moving_left = True
                 self.queued_direction = ""
-                self.rotation = -math.radians(12)
 
             else:
                 self.moving_right = False

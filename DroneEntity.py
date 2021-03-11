@@ -1,17 +1,20 @@
 import Entity
 import VectorClass
-
+import math
 
 class Drone(Entity.Entity):
-
     skid_value = 0
     bob_range = 6
     bob_value = 0
     bob_ascending = True
+    frame_width = 0
+    frame_height = 0
 
     def __init__(self, movement_imgurl, movement_columns,
                  movement_rows, movement_frame_duration, movement_dest_centre, movement_dest_size, movement_cells,
                  movement_loop, speed):
+
+        self.drone_dimensions = movement_dest_size
 
         super().__init__(movement_imgurl, movement_columns,
                          movement_rows, movement_frame_duration, movement_dest_centre, movement_dest_size,
@@ -21,10 +24,28 @@ class Drone(Entity.Entity):
 
     def update(self, canvas, moving_left=False, moving_right=False, moving_up=False, moving_down=False):
 
+        if super().get_p()[0] - self.drone_dimensions[0] / 2 - 6 < 0:
+            # Checks if leftmost point of drone less than five pixels from the left screen boundary
+            moving_left = False
+            self.skid_value = 0
+            # Ensures drone can't skid outside the screen boundary
+
+        if super().get_p()[0] + self.drone_dimensions[0] / 2 + 6 > self.frame_width:
+            moving_right = False
+            self.skid_value = 0
+
+        if super().get_p()[1] - self.drone_dimensions[1] / 2 - 6 < 0:
+            moving_up = False
+
+        if super().get_p()[1] + self.drone_dimensions[1] / 2 + 6 > self.frame_height:
+            moving_down = False
+
         if moving_left:
+            self.rotation = -math.radians(12)
             self.move_left()
 
         if moving_right:
+            self.rotation = math.radians(12)
             self.move_right()
 
         if moving_up:
@@ -33,7 +54,8 @@ class Drone(Entity.Entity):
         if moving_down:
             self.move_down()
 
-        if not (moving_left or moving_right or moving_up or moving_down):
+        if not (moving_left or moving_right):
+            self.rotation = 0
             self.skid()
             # By having calling skid only when the drone isn't moving we prevent it from disrupting snappy direction
             # changes
@@ -81,7 +103,7 @@ class Drone(Entity.Entity):
 
             super().add(VectorClass.Vector(0, -0.2))
 
-            if self.bob_value >= self.bob_range/2:
+            if self.bob_value >= self.bob_range / 2:
                 self.bob_ascending = False
 
         else:
@@ -89,7 +111,5 @@ class Drone(Entity.Entity):
 
             super().add(VectorClass.Vector(0, 0.2))
 
-            if self.bob_value <= -self.bob_range/2:
+            if self.bob_value <= -self.bob_range / 2:
                 self.bob_ascending = True
-
-
