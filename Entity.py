@@ -9,7 +9,7 @@ except ImportError:
 
 class Entity(VectorClass.Vector):
     movement_sprite = None
-    #changing death_animation to the helicopter death for the sake of testing
+    # changing death_animation to the helicopter death for the sake of testing
     death_animation = "sprite_assets/player_sprite/HelicopterDeathSS.png"
     remove_sprite = False
     rotation = 0
