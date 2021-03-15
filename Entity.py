@@ -25,4 +25,10 @@ class Entity(VectorClass.Vector):
 
     def death(self):
         print(self.death_animation)
+        self.movement_sprite.movement_imgurl = death_animation
+        self.movement_sprite.movement_columns = 4
+        self.movement_sprite.movement_rows = 5
+        self.movement_sprite.movement_frame_duration = Clock.frame_duration
+        self.movement_sprite.movement_cells = 20
+        self.movement_sprite.movement_loop = False
         self.remove_sprite = True
