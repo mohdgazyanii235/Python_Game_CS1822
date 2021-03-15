@@ -22,7 +22,7 @@ class Drone(Entity.Entity):
 
         self.speed = speed
 
-    def update(self, canvas, moving_left=False, moving_right=False, moving_up=False, moving_down=False):
+    def update(self, canvas, moving_left=False, moving_right=False, moving_up=False, moving_down=False, death=False):
 
         if super().get_p()[0] - self.drone_dimensions[0] / 2 - 6 < 0:
             # Checks if leftmost point of drone less than five pixels from the left screen boundary
@@ -75,6 +75,8 @@ class Drone(Entity.Entity):
 
     def move_left(self):
         super().add(VectorClass.Vector(-1, 0).multiply(self.speed))
+
+
 
     def skid(self):
         # Skid value comes from the speed; by moving at slower increments of the skid value it gives the sense

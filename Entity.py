@@ -10,6 +10,7 @@ except ImportError:
 class Entity(VectorClass.Vector):
     movement_sprite = None
     death_animation = None
+    remove_sprite = False
     rotation = 0
 
     def __init__(self, movement_imgurl, movement_columns,
@@ -21,3 +22,6 @@ class Entity(VectorClass.Vector):
                                                        movement_dest_size, movement_cells, movement_loop)
 
 
+    def death(self):
+        print(self.death_animation)
+        self.remove_sprite = True
