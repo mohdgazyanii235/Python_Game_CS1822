@@ -2,7 +2,9 @@ import Entity
 import VectorClass
 import math
 
+
 class Drone(Entity.Entity):
+
     skid_value = 0
     bob_range = 6
     bob_value = 0
