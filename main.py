@@ -1,5 +1,7 @@
 import Player
 
+#prevent from crash
+
 try:
     import simplegui
 except ImportError:
