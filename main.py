@@ -114,6 +114,8 @@ def start_game():
 
 
 def draw_entities(canvas):
+    # Runs once per frame
+
     # after 300 miliseconds, new helicopter is created and counter resets
     global counter
     counter += 1
@@ -126,6 +128,7 @@ def draw_entities(canvas):
         open_menu()
 
     for entity in entities:
+        # Updates everything in the array
         entity.update(canvas)
 
 
