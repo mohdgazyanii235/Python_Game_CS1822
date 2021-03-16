@@ -2,7 +2,7 @@ import Player
 import enemies
 import random
 
-#prevent from crash
+# prevent from crash
 from Clock import Clock
 
 try:
@@ -10,8 +10,9 @@ try:
 except ImportError:
     import SimpleGUICS2Pygame.simpleguics2pygame as simplegui
 
-#used for drones
+# used for drones
 counter = 0
+
 
 class Menu:
     start_btn = None
@@ -53,7 +54,6 @@ class Menu:
             if self.button_selected:
                 frame.stop()
 
-
     def keyDown(self, key):
         if key == simplegui.KEY_MAP['up']:
             if self.selection_num == 0:
@@ -88,12 +88,13 @@ def open_menu():
     frame.set_keydown_handler(menu.keyDown)
     entities.append(menu)
 
-#enemy drone. Randoms location and sets it there
+
+# enemy drone. Randoms location and sets it there
 def draw_drone():
-    width = random.randint(80, WIDTH-80)
+    width = random.randint(80, WIDTH - 80)
     height = random.randint(5, HEIGHT // 2.5)
     drone = enemies.enemyDrone("sprite_assets/helicopter_assets/HelicopterSS.png", 4, 8, Clock.frame_duration,
-                           (width, height), (320, 83.2), 32, True, 1)
+                               (width, height), (320, 83.2), 32, True, 1)
     return drone
 
 
@@ -102,7 +103,7 @@ def start_game():
                            (WIDTH / 2, HEIGHT / 2), (320, 83.2), 32, True, 1)
 
     entities.pop(0)
-    #draws the drone and adds it to the entities
+    # draws the drone and adds it to the entities
     drone = draw_drone()
     entities.append(drone)
     entities.append(player)
@@ -111,14 +112,13 @@ def start_game():
 
 
 def draw_entities(canvas):
-    #after 300 miliseconds, new helicopter is created and counter resets
+    # after 300 miliseconds, new helicopter is created and counter resets
     global counter
     counter += 1
     if counter == 300:
         drone = draw_drone()
         entities.append(drone)
         counter = 0
-
 
     if isinstance(entities[0], Player.Player) and entities[0].get_exit_request():
         open_menu()

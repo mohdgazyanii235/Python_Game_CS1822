@@ -131,12 +131,10 @@ class enemyDrone(DroneEntity.Drone):
 
         if key == simplegui.KEY_MAP['x']:
             self.exit_request = True
-<<<<<<< HEAD
         #main loop. All possible movements are
         #added in the list. Value gets randomed
         #and action does. Next drone stops for 2
         #sec and waits next random command.
-=======
 
     def main_moves(self):
         #Idea is to call moves by semi-random algorithm
@@ -144,4 +142,4 @@ class enemyDrone(DroneEntity.Drone):
         #Then move occurs and bot stops for 5 sec. Then
         #it starts to get random and go again.
         pass
->>>>>>> db40a07f70ebb82d2188ff2c05c3759d92a3bef2
+
