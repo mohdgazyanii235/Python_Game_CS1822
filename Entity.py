@@ -1,5 +1,6 @@
 import VectorClass
 import Spritesheet
+from Clock import Clock
 
 try:
     import simplegui
@@ -14,18 +15,18 @@ class Entity(VectorClass.Vector):
     remove_sprite = False
     rotation = 0
 
-    def __init__(self, movement_imgurl, movement_columns,
+    def __init__(self, movement_img_url, movement_columns,
                  movement_rows, movement_frame_duration, movement_dest_centre, movement_dest_size, movement_cells,
                  movement_loop):
         super().__init__(movement_dest_centre[0], movement_dest_centre[1])
-        self.movement_sprite = Spritesheet.Spritesheet(movement_imgurl, movement_columns,
+        self.movement_sprite = Spritesheet.Spritesheet(movement_img_url, movement_columns,
                                                        movement_rows, movement_frame_duration, super().get_p(),
                                                        movement_dest_size, movement_cells, movement_loop)
 
 
     def death(self):
         print(self.death_animation)
-        self.movement_sprite.movement_imgurl = death_animation
+        self.movement_sprite.movement_img_url = self.death_animation
         self.movement_sprite.movement_columns = 4
         self.movement_sprite.movement_rows = 5
         self.movement_sprite.movement_frame_duration = Clock.frame_duration

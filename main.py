@@ -3,25 +3,12 @@ import enemies
 import random
 
 #prevent from crash
+from Clock import Clock
+
 try:
     import simplegui
 except ImportError:
     import SimpleGUICS2Pygame.simpleguics2pygame as simplegui
-
-
-class Clock:
-    frame_duration = 1
-
-    def __init__(self):
-        self.time = 0
-        frame_duration = 1
-
-    def tick(self):
-        self.time += 1
-
-    def transition(self, frame_duration):
-        if self.tick == frame_duration:
-            return True
 
 #used for drones
 counter = 0
@@ -66,8 +53,8 @@ class Menu:
             if self.button_selected:
                 frame.stop()
 
-    def keyDown(self, key):
 
+    def keyDown(self, key):
         if key == simplegui.KEY_MAP['up']:
             if self.selection_num == 0:
                 self.selection_num = 1
