@@ -6,18 +6,17 @@ import math
 class Drone(Entity.Entity):
 
     skid_value = 0
-    skid_value_y = 0
     bob_range = 6
     bob_value = 0
     bob_ascending = True
     frame_width = 0
     frame_height = 0
-    START_SPEED = 0
-    MAX_SPEED = 12
+    speed = 0
 
     def __init__(self, movement_imgurl, movement_columns,
                  movement_rows, movement_frame_duration, movement_dest_centre, movement_dest_size, movement_cells,
                  movement_loop, speed):
+
         self.drone_dimensions = movement_dest_size
 
         super().__init__(movement_imgurl, movement_columns,
@@ -25,9 +24,8 @@ class Drone(Entity.Entity):
                          movement_cells, movement_loop)
 
         self.speed = speed
-        self.START_SPEED = speed
 
-    def update(self, canvas, moving_left=False, moving_right=False, moving_up=False, moving_down=False, death=False):
+    def update(self, canvas, moving_left=False, moving_right=False, moving_up=False, moving_down=False):
 
         if super().get_p()[0] - self.drone_dimensions[0] / 2 - 6 < 0:
             # Checks if leftmost point of drone less than five pixels from the left screen boundary
@@ -41,11 +39,9 @@ class Drone(Entity.Entity):
 
         if super().get_p()[1] - self.drone_dimensions[1] / 2 - 6 < 0:
             moving_up = False
-            self.skid_value_y = 0
 
         if super().get_p()[1] + self.drone_dimensions[1] / 2 + 6 > self.frame_height:
             moving_down = False
-            self.skid_value_y = 0
 
         if moving_left:
             self.rotation = -math.radians(12)
@@ -61,7 +57,7 @@ class Drone(Entity.Entity):
         if moving_down:
             self.move_down()
 
-        if not (moving_left or moving_right or moving_up or moving_down):
+        if not (moving_left or moving_right):
             self.rotation = 0
             self.skid()
             # By having calling skid only when the drone isn't moving we prevent it from disrupting snappy direction
@@ -73,33 +69,22 @@ class Drone(Entity.Entity):
 
     def move_up(self):
         super().add(VectorClass.Vector(0, -1).multiply(self.speed))
-        if self.speed < self.MAX_SPEED:
-            self.speed += 0.25
-        self.skid_value_y -= 0.25
 
     def move_down(self):
         super().add(VectorClass.Vector(0, 1).multiply(self.speed))
-        if self.speed < self.MAX_SPEED:
-            self.speed += 0.25
-        self.skid_value_y += 0.25
 
     def move_right(self):
         super().add(VectorClass.Vector(1, 0).multiply(self.speed))
-        if self.speed < self.MAX_SPEED:
-            self.speed += 0.25
 
     def move_left(self):
         super().add(VectorClass.Vector(-1, 0).multiply(self.speed))
-        if self.speed < self.MAX_SPEED:
-            self.speed += 0.25
-
 
     def skid(self):
         # Skid value comes from the speed; by moving at slower increments of the skid value it gives the sense
         # of skidding to a halt
         if self.skid_value > 0:
             super().add(VectorClass.Vector(1, 0).multiply(self.skid_value))
-            self.skid_value -= 0.7
+            self.skid_value -= 0.3
             # A higher value deducted from the skid_value will result in a shorter skid, a smaller value results in
             # a longer one
 
@@ -110,26 +95,9 @@ class Drone(Entity.Entity):
 
         elif self.skid_value < 0:
             super().add(VectorClass.Vector(1, 0).multiply(self.skid_value))
-            self.skid_value += 0.7
+            self.skid_value += 0.25
             if self.skid_value > 0:
                 self.skid_value = 0
-
-        if self.skid_value_y > 0:
-            super().add(VectorClass.Vector(0, 1).multiply(self.skid_value_y))
-            self.skid_value_y -= 0.4
-
-            if self.skid_value_y < 0:
-                self.skid_value_y = 0
-
-        elif self.skid_value_y < 0:
-            super().add(VectorClass.Vector(0, 1).multiply(self.skid_value_y))
-            self.skid_value_y += 0.4
-
-            if self.skid_value_y > 0:
-                self.skid_value_y = 0
-
-        self.speed = self.START_SPEED
-        # self.speed brought back to original speed so it left doesn't affect right.
 
     def bob(self):
 

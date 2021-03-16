@@ -96,13 +96,13 @@ def draw_drone():
     width = random.randint(80, WIDTH - 80)
     height = random.randint(5, HEIGHT // 2.5)
     drone = enemies.enemyDrone("sprite_assets/helicopter_assets/HelicopterSS.png", 4, 8, Clock.frame_duration,
-                               (width, height), (320, 83.2), 32, True, 1)
+                               (width, height), (320, 83.2), 32, True, 6.5)
     return drone
 
 
 def start_game():
     player = Player.Player("sprite_assets/player_sprite/DroneSSTransparent.png", 4, 8, Clock.frame_duration,
-                           (WIDTH / 2, HEIGHT / 2), (320, 83.2), 32, True, 1)
+                           (WIDTH / 2, HEIGHT / 2), (320, 83.2), 32, True, 6.5)
 
     entities.pop(0)
     # draws the drone and adds it to the entities
