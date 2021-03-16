@@ -1,5 +1,7 @@
 import Player
 
+#prevent from crash
+
 try:
     import simplegui
 except ImportError:
@@ -85,7 +87,7 @@ HEIGHT = 750
 
 entities = []
 
-frame = simplegui.create_frame("Game Name Placeholder", WIDTH, HEIGHT)
+frame = simplegui.create_frame("Name Of The Game...", WIDTH, HEIGHT)
 Clock()
 
 
@@ -100,7 +102,7 @@ def open_menu():
 
 def start_game():
     player = Player.Player("sprite_assets/player_sprite/DroneSSTransparent.png", 4, 8, Clock.frame_duration,
-                           (WIDTH / 2, HEIGHT / 2), (320, 83.2), 32, True, 6.5)
+                           (WIDTH / 2, HEIGHT / 2), (320, 83.2), 32, True, 1)
 
     entities.pop(0)
     entities.append(player)

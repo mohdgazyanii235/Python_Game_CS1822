@@ -9,7 +9,9 @@ except ImportError:
 
 class Entity(VectorClass.Vector):
     movement_sprite = None
-    death_animation = None
+    # changing death_animation to the helicopter death for the sake of testing
+    death_animation = "sprite_assets/player_sprite/HelicopterDeathSS.png"
+    remove_sprite = False
     rotation = 0
 
     def __init__(self, movement_imgurl, movement_columns,
@@ -21,3 +23,12 @@ class Entity(VectorClass.Vector):
                                                        movement_dest_size, movement_cells, movement_loop)
 
 
+    def death(self):
+        print(self.death_animation)
+        self.movement_sprite.movement_imgurl = death_animation
+        self.movement_sprite.movement_columns = 4
+        self.movement_sprite.movement_rows = 5
+        self.movement_sprite.movement_frame_duration = Clock.frame_duration
+        self.movement_sprite.movement_cells = 20
+        self.movement_sprite.movement_loop = False
+        self.remove_sprite = True
