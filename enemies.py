@@ -131,6 +131,7 @@ class enemyDrone(DroneEntity.Drone):
 
         if key == simplegui.KEY_MAP['x']:
             self.exit_request = True
+
         #main loop. All possible movements are
         #added in the list. Value gets randomed
         #and action does. Next drone stops for 2
