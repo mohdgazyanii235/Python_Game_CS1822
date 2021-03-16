@@ -4,6 +4,7 @@ import math
 
 
 class Drone(Entity.Entity):
+
     skid_value = 0
     skid_value_y = 0
     bob_range = 6
