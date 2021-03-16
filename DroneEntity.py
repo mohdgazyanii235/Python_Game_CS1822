@@ -5,6 +5,7 @@ import math
 
 class Drone(Entity.Entity):
     skid_value = 0
+    skid_value_y = 0
     bob_range = 6
     bob_value = 0
     bob_ascending = True
@@ -39,9 +40,11 @@ class Drone(Entity.Entity):
 
         if super().get_p()[1] - self.drone_dimensions[1] / 2 - 6 < 0:
             moving_up = False
+            self.skid_value_y = 0
 
         if super().get_p()[1] + self.drone_dimensions[1] / 2 + 6 > self.frame_height:
             moving_down = False
+            self.skid_value_y = 0
 
         if moving_left:
             self.rotation = -math.radians(12)
@@ -70,10 +73,12 @@ class Drone(Entity.Entity):
     def move_up(self):
         super().add(VectorClass.Vector(0, -1).multiply(self.speed))
         self.speed += 0.25
+        self.skid_value_y -= 0.25
 
     def move_down(self):
         super().add(VectorClass.Vector(0, 1).multiply(self.speed))
         self.speed += 0.25
+        self.skid_value_y += 0.25
 
     def move_right(self):
         super().add(VectorClass.Vector(1, 0).multiply(self.speed))
@@ -104,6 +109,20 @@ class Drone(Entity.Entity):
             self.skid_value += 0.7
             if self.skid_value > 0:
                 self.skid_value = 0
+
+        if self.skid_value_y > 0:
+            super().add(VectorClass.Vector(0, 1).multiply(self.skid_value_y))
+            self.skid_value_y -= 0.3
+
+            if self.skid_value_y < 0:
+                self.skid_value_y = 0
+
+        elif self.skid_value_y < 0:
+            super().add(VectorClass.Vector(0, 1).multiply(self.skid_value_y))
+            self.skid_value_y += 0.3
+
+            if self.skid_value_y > 0:
+                self.skid_value_y = 0
 
         self.speed = self.START_SPEED
         # self.speed brought back to original speed so it left doesn't affect right.

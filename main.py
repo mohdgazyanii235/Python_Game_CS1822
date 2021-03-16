@@ -87,7 +87,7 @@ HEIGHT = 750
 
 entities = []
 
-frame = simplegui.create_frame("Game Name Placeholder", WIDTH, HEIGHT)
+frame = simplegui.create_frame("Name Of The Game...", WIDTH, HEIGHT)
 Clock()
 
 
