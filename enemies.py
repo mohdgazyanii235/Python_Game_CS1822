@@ -6,6 +6,8 @@ try:
 except ImportError:
     import SimpleGUICS2Pygame.simpleguics2pygame as simplegui
 
+counter = 0
+options = 0
 
 class enemyDrone(DroneEntity.Drone):
     moving_left = False
@@ -31,7 +33,32 @@ class enemyDrone(DroneEntity.Drone):
         self.frame_height = movement_dest_centre[1] * 2
 
     def update(self, canvas):
+        global counter, options
+        counter += 1
         super().update(canvas, self.moving_left, self.moving_right, self.moving_up, self.moving_down)
+        if counter == 150:
+            options = random.randint(1, 4)
+            counter = 0
+        if options == 1:
+            self.moving_left = True
+            self.moving_right = False
+            self.moving_up = False
+            self.moving_bottom = False
+        if options == 2:
+            self.moving_left = False
+            self.moving_right = True
+            self.moving_up = False
+            self.moving_bottom = False
+        if options == 3:
+            self.moving_left = False
+            self.moving_right = False
+            self.moving_up = True
+            self.moving_bottom = False
+        if options == 4:
+            self.moving_left = False
+            self.moving_right = False
+            self.moving_up = False
+            self.moving_down = True
 
     def keyDown(self, key):
         if key == simplegui.KEY_MAP['left']:
@@ -104,6 +131,12 @@ class enemyDrone(DroneEntity.Drone):
 
         if key == simplegui.KEY_MAP['x']:
             self.exit_request = True
+<<<<<<< HEAD
+        #main loop. All possible movements are
+        #added in the list. Value gets randomed
+        #and action does. Next drone stops for 2
+        #sec and waits next random command.
+=======
 
     def main_moves(self):
         #Idea is to call moves by semi-random algorithm
@@ -111,3 +144,4 @@ class enemyDrone(DroneEntity.Drone):
         #Then move occurs and bot stops for 5 sec. Then
         #it starts to get random and go again.
         pass
+>>>>>>> db40a07f70ebb82d2188ff2c05c3759d92a3bef2

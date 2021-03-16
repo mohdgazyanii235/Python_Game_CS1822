@@ -18,7 +18,6 @@ class Drone(Entity.Entity):
     def __init__(self, movement_imgurl, movement_columns,
                  movement_rows, movement_frame_duration, movement_dest_centre, movement_dest_size, movement_cells,
                  movement_loop, speed):
-
         self.drone_dimensions = movement_dest_size
 
         super().__init__(movement_imgurl, movement_columns,
@@ -93,8 +92,6 @@ class Drone(Entity.Entity):
         super().add(VectorClass.Vector(-1, 0).multiply(self.speed))
         if self.speed < self.MAX_SPEED:
             self.speed += 0.25
-
-
 
 
     def skid(self):
