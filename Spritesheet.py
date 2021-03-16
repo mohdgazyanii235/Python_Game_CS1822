@@ -1,3 +1,5 @@
+from Clock import Clock
+
 try:
     import simplegui
 except ImportError:
