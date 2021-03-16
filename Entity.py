@@ -12,7 +12,7 @@ class Entity(VectorClass.Vector):
     movement_sprite = None
     # changing death_animation to the helicopter death for the sake of testing
     death_animation = "sprite_assets/player_sprite/HelicopterDeathSS.png"
-    remove_sprite = False
+    remove_request = False
     rotation = 0
 
     def __init__(self, movement_img_url, movement_columns,
@@ -22,7 +22,6 @@ class Entity(VectorClass.Vector):
         self.movement_sprite = Spritesheet.Spritesheet(movement_img_url, movement_columns,
                                                        movement_rows, movement_frame_duration, super().get_p(),
                                                        movement_dest_size, movement_cells, movement_loop)
-
 
     def death(self):
         print(self.death_animation)

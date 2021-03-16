@@ -1,6 +1,7 @@
 import Player
 import enemies
 import random
+import EnemyShot
 
 # prevent from crash
 from Clock import Clock
@@ -20,6 +21,7 @@ class Menu:
     selector = None
     selection_num = 0
     button_selected = False
+    remove_request = False
 
     def __init__(self, width, height):
         self.start_btn = simplegui._load_local_image("sprite_assets/menu_assets/PyGameStartBtn.png")
