@@ -110,3 +110,4 @@ class enemyDrone(DroneEntity.Drone):
         #It should be randomed whether to go up or down.
         #Then move occurs and bot stops for 5 sec. Then
         #it starts to get random and go again.
+        pass

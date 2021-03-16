@@ -13,6 +13,7 @@ class Drone(Entity.Entity):
     frame_width = 0
     frame_height = 0
     START_SPEED = 0
+    MAX_SPEED = 12
 
     def __init__(self, movement_imgurl, movement_columns,
                  movement_rows, movement_frame_duration, movement_dest_centre, movement_dest_size, movement_cells,
@@ -73,21 +74,26 @@ class Drone(Entity.Entity):
 
     def move_up(self):
         super().add(VectorClass.Vector(0, -1).multiply(self.speed))
-        self.speed += 0.25
+        if self.speed < self.MAX_SPEED:
+            self.speed += 0.25
         self.skid_value_y -= 0.25
 
     def move_down(self):
         super().add(VectorClass.Vector(0, 1).multiply(self.speed))
-        self.speed += 0.25
+        if self.speed < self.MAX_SPEED:
+            self.speed += 0.25
         self.skid_value_y += 0.25
 
     def move_right(self):
         super().add(VectorClass.Vector(1, 0).multiply(self.speed))
-        self.speed += 0.25
+        if self.speed < self.MAX_SPEED:
+            self.speed += 0.25
 
     def move_left(self):
         super().add(VectorClass.Vector(-1, 0).multiply(self.speed))
-        self.speed += 0.25
+        if self.speed < self.MAX_SPEED:
+            self.speed += 0.25
+
 
 
 
@@ -113,14 +119,14 @@ class Drone(Entity.Entity):
 
         if self.skid_value_y > 0:
             super().add(VectorClass.Vector(0, 1).multiply(self.skid_value_y))
-            self.skid_value_y -= 0.3
+            self.skid_value_y -= 0.4
 
             if self.skid_value_y < 0:
                 self.skid_value_y = 0
 
         elif self.skid_value_y < 0:
             super().add(VectorClass.Vector(0, 1).multiply(self.skid_value_y))
-            self.skid_value_y += 0.3
+            self.skid_value_y += 0.4
 
             if self.skid_value_y > 0:
                 self.skid_value_y = 0
