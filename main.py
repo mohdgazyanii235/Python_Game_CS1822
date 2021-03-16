@@ -1,6 +1,6 @@
 import Player
 
-#prevent from crash
+# prevent from crash
 
 try:
     import simplegui
