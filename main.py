@@ -102,7 +102,7 @@ def open_menu():
 
 def start_game():
     player = Player.Player("sprite_assets/player_sprite/DroneSSTransparent.png", 4, 8, Clock.frame_duration,
-                           (WIDTH / 2, HEIGHT / 2), (320, 83.2), 32, True, 6.5)
+                           (WIDTH / 2, HEIGHT / 2), (320, 83.2), 32, True, 1)
 
     entities.pop(0)
     entities.append(player)

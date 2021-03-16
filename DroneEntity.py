@@ -2,6 +2,7 @@ import Entity
 import VectorClass
 import math
 
+
 class Drone(Entity.Entity):
     skid_value = 0
     bob_range = 6
@@ -9,6 +10,7 @@ class Drone(Entity.Entity):
     bob_ascending = True
     frame_width = 0
     frame_height = 0
+    START_SPEED = 0
 
     def __init__(self, movement_imgurl, movement_columns,
                  movement_rows, movement_frame_duration, movement_dest_centre, movement_dest_size, movement_cells,
@@ -21,6 +23,7 @@ class Drone(Entity.Entity):
                          movement_cells, movement_loop)
 
         self.speed = speed
+        self.START_SPEED = speed
 
     def update(self, canvas, moving_left=False, moving_right=False, moving_up=False, moving_down=False, death=False):
 
@@ -54,7 +57,7 @@ class Drone(Entity.Entity):
         if moving_down:
             self.move_down()
 
-        if not (moving_left or moving_right):
+        if not (moving_left or moving_right or moving_up or moving_down):
             self.rotation = 0
             self.skid()
             # By having calling skid only when the drone isn't moving we prevent it from disrupting snappy direction
@@ -66,15 +69,19 @@ class Drone(Entity.Entity):
 
     def move_up(self):
         super().add(VectorClass.Vector(0, -1).multiply(self.speed))
+        self.speed += 0.25
 
     def move_down(self):
         super().add(VectorClass.Vector(0, 1).multiply(self.speed))
+        self.speed += 0.25
 
     def move_right(self):
         super().add(VectorClass.Vector(1, 0).multiply(self.speed))
+        self.speed += 0.25
 
     def move_left(self):
         super().add(VectorClass.Vector(-1, 0).multiply(self.speed))
+        self.speed += 0.25
 
 
 
@@ -83,7 +90,7 @@ class Drone(Entity.Entity):
         # of skidding to a halt
         if self.skid_value > 0:
             super().add(VectorClass.Vector(1, 0).multiply(self.skid_value))
-            self.skid_value -= 0.3
+            self.skid_value -= 0.7
             # A higher value deducted from the skid_value will result in a shorter skid, a smaller value results in
             # a longer one
 
@@ -94,9 +101,12 @@ class Drone(Entity.Entity):
 
         elif self.skid_value < 0:
             super().add(VectorClass.Vector(1, 0).multiply(self.skid_value))
-            self.skid_value += 0.25
+            self.skid_value += 0.7
             if self.skid_value > 0:
                 self.skid_value = 0
+
+        self.speed = self.START_SPEED
+        # self.speed brought back to original speed so it left doesn't affect right.
 
     def bob(self):
 
