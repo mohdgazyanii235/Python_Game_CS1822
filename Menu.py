@@ -1,12 +1,13 @@
 import SimpleGUICS2Pygame.simpleguics2pygame as simplegui
 
+
 class Menu:
     start_btn = None
     retire_btn = None
     selector = None
     selection_num = 0
     button_selected = False
-    remove_request = False
+    start_game_request = False
     exit_request = False
 
     def __init__(self, width, height):
@@ -33,7 +34,7 @@ class Menu:
                               button_dimensions)
             if self.button_selected:
                 self.button_selected = False
-                self.remove_request = True
+                self.start_game_request = True
 
         elif self.selection_num == 1:
             canvas.draw_image(self.selector, (selector_dimensions[0] / 2, selector_dimensions[1] / 2),

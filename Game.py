@@ -38,6 +38,7 @@ class Game:
         self.player = None
         self.at_start_menu = True
         self.enemies.clear()
+        self.level_elements.clear()
         self.game_frame.set_keydown_handler(self.start_menu.keyDown)
 
     def to_game(self):
@@ -54,14 +55,14 @@ class Game:
 
         if self.at_start_menu:
 
-            if not self.start_menu.remove_request:
+            if not self.start_menu.start_game_request:
                 self.start_menu.update(canvas)
-
-            elif self.start_menu.exit_request:
-                self.game_frame.stop()
-
             else:
+                self.start_menu.start_game_request = False
                 self.to_game()
+
+            if self.start_menu.exit_request:
+                self.game_frame.stop()
 
         else:
             if self.player.exit_request:
