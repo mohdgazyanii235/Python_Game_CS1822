@@ -102,10 +102,10 @@ def draw_drone():
 def draw_human():
     width = random.randint(80, 180)
     height = random.randint(HEIGHT/2, HEIGHT)
-    #For Josh - check. Could you please optimise image.
-    #Know bug - human goes for some reason stops
-    return enemies.enemyHuman("sprite_assets/enemy_sprites/HumanSS.png", 4, 8, Clock.frame_duration,
-                               (width, height), (30, 40), 32, True, 6.5)
+    #For Josh - check. Could you please optimise image. - FIXED, was to do with dimensions of image and rows & columns
+    #Know bug - human goes for some reason stops - FIXED
+    return enemies.enemyHuman("sprite_assets/enemy_sprites/HumanSS.png", 4, 3, Clock.frame_duration,
+                               (width, height), (50, 85), 12, True, 6.5)
 
 def start_game():
     player = Player.Player("sprite_assets/player_sprite/DroneSSTransparent.png", 4, 8, Clock.frame_duration,
