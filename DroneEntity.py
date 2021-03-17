@@ -2,7 +2,6 @@ import Entity
 import VectorClass
 import math
 
-
 class Drone(Entity.Entity):
 
     skid_value = 0

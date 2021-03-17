@@ -1,18 +1,16 @@
 import DroneEntity
 import random
 import VectorClass
+import SimpleGUICS2Pygame.simpleguics2pygame as simplegui
 
-try:
-    import simplegui
-except ImportError:
-    import SimpleGUICS2Pygame.simpleguics2pygame as simplegui
-
-#counts until spawn new enemy
+# counts until spawn new enemy
 counter = 0
-#randoms and pulls out one of 4 options
+# randoms and pulls out one of 4 options
 options = 0
 
+
 class enemyDrone(DroneEntity.Drone):
+
     moving_left = False
     moving_right = False
     moving_up = False
@@ -39,7 +37,7 @@ class enemyDrone(DroneEntity.Drone):
         global counter, options
         counter += 1
         super().update(canvas, self.moving_left, self.moving_right, self.moving_up, self.moving_down)
-        #Spawn new drone every 180 milisec
+        # Spawn new drone every 180 milisec
         if counter == 180:
             options = random.randint(1, 4)
             counter = 0
@@ -65,8 +63,9 @@ class enemyDrone(DroneEntity.Drone):
             self.moving_down = True
 
 
-#to do: enemy human should inherit enemyDrone all except update()
+# to do: enemy human should inherit enemyDrone all except update()
 class enemyHuman(DroneEntity.Drone):
+
     moving_left = False
     moving_right = False
     moving_up = False
@@ -78,7 +77,6 @@ class enemyHuman(DroneEntity.Drone):
     def __init__(self, movement_imgurl, movement_columns,
                  movement_rows, movement_frame_duration, movement_dest_centre, movement_dest_size, movement_cells,
                  movement_loop, speed):
-
         super().__init__(movement_imgurl, movement_columns,
                          movement_rows, movement_frame_duration, movement_dest_centre, (movement_dest_size[0] *
                                                                                         self.size_multiplier,

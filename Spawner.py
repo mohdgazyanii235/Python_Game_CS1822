@@ -1,8 +1,4 @@
-try:
-    import simplegui
-except ImportError:
-    import SimpleGUICS2Pygame.simpleguics2pygame as simplegui
-
+import SimpleGUICS2Pygame.simpleguics2pygame as simplegui
 
 class spawner():
     def __init__(self, num_obj):
