@@ -1,5 +1,6 @@
 import DroneEntity
 import random
+import VectorClass
 
 try:
     import simplegui
@@ -90,4 +91,4 @@ class enemyHuman(DroneEntity.Drone):
 
     def update(self, canvas):
         super().update(canvas, self.moving_left, self.moving_right, self.moving_up, self.moving_down)
-        self.moving_right = True
+        super().add(VectorClass.Vector(1, 0).multiply(self.speed))

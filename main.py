@@ -101,24 +101,18 @@ def draw_drone():
 
 def draw_human():
     width = random.randint(80, 180)
-    height = random.randint(HEIGHT/2, HEIGHT)
+    height = random.randint(HEIGHT//1.2, HEIGHT-20)
+    speed = (random.randint(10,60))*0.1
     #For Josh - check. Could you please optimise image. - FIXED, was to do with dimensions of image and rows & columns
     #Know bug - human goes for some reason stops - FIXED
     return enemies.enemyHuman("sprite_assets/enemy_sprites/HumanSS.png", 4, 3, Clock.frame_duration,
-                               (width, height), (50, 85), 12, True, 6.5)
+                               (width, height), (50, 85), 12, True, speed)
 
 def start_game():
     player = Player.Player("sprite_assets/player_sprite/DroneSSTransparent.png", 4, 8, Clock.frame_duration,
                            (WIDTH / 2, HEIGHT / 2), (320, 83.2), 32, True, 6.5)
 
     entities.pop(0)
-    # draws the drone and adds it to the entities
-    drone = draw_drone()
-    entities.append(drone)
-
-    human = draw_human()
-    entities.append(human)
-
     entities.append(player)
     frame.set_keydown_handler(player.keyDown)
     frame.set_keyup_handler(player.keyUp)
@@ -126,10 +120,12 @@ def start_game():
 
 def draw_entities(canvas):
     # Runs once per frame
-
+    # after 150 miliseconds, new human is created
     # after 300 miliseconds, new helicopter is created and counter resets
     global counter
     counter += 1
+    if counter % 150 == 0:
+        entities.append(draw_human())
     if counter == 300:
         entities.append(draw_drone())
         counter = 0
