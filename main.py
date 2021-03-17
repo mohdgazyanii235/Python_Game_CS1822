@@ -95,10 +95,17 @@ def open_menu():
 def draw_drone():
     width = random.randint(80, WIDTH - 80)
     height = random.randint(5, HEIGHT // 2.5)
-    drone = enemies.enemyDrone("sprite_assets/helicopter_assets/HelicopterSS.png", 4, 8, Clock.frame_duration,
-                               (width, height), (320, 83.2), 32, True, 6.5)
-    return drone
 
+    return enemies.enemyDrone("sprite_assets/helicopter_assets/HelicopterSS.png", 4, 8, Clock.frame_duration,
+                               (width, height), (320, 70.2), 32, True, 6.5)
+
+def draw_human():
+    width = random.randint(80, 180)
+    height = random.randint(HEIGHT/2, HEIGHT)
+    #For Josh - check. Could you please optimise image.
+    #Know bug - human goes for some reason stops
+    return enemies.enemyHuman("sprite_assets/enemy_sprites/HumanSS.png", 4, 8, Clock.frame_duration,
+                               (width, height), (30, 40), 32, True, 6.5)
 
 def start_game():
     player = Player.Player("sprite_assets/player_sprite/DroneSSTransparent.png", 4, 8, Clock.frame_duration,
@@ -108,6 +115,10 @@ def start_game():
     # draws the drone and adds it to the entities
     drone = draw_drone()
     entities.append(drone)
+
+    human = draw_human()
+    entities.append(human)
+
     entities.append(player)
     frame.set_keydown_handler(player.keyDown)
     frame.set_keyup_handler(player.keyUp)
@@ -120,8 +131,7 @@ def draw_entities(canvas):
     global counter
     counter += 1
     if counter == 300:
-        drone = draw_drone()
-        entities.append(drone)
+        entities.append(draw_drone())
         counter = 0
 
     if isinstance(entities[0], Player.Player) and entities[0].get_exit_request():
