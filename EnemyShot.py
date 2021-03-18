@@ -17,7 +17,7 @@ class enemyShot(VectorClass.Vector):
         if self.delay == 0:
             canvas.draw_circle(super().get_p(), self.radius, 1, "black", "red")
         elif self.delay == -1:
-            self.remove_sprite = True
+            self.remove_request = True
         else:
             canvas.draw_circle(super().get_p(), self.radius, 1, "black")
             self.delay -= 1

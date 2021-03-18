@@ -16,7 +16,6 @@ class enemyDrone(DroneEntity.Drone):
     moving_up = False
     moving_down = False
     queued_direction = ""
-    exit_request = False
     size_multiplier = 1
 
     def __init__(self, enemy_drone_sprite, frame_width, frame_height, speed):
@@ -61,7 +60,6 @@ class enemyHuman(DroneEntity.Drone):
     moving_up = False
     moving_down = False
     queued_direction = ""
-    exit_request = False
     size_multiplier = 1
 
     def __init__(self, movement_imgurl, movement_columns,

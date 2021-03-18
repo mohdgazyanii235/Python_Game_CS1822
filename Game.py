@@ -4,6 +4,7 @@ import Menu
 import Player
 import enemies
 import Spritesheet
+import EnemyShot
 
 
 class Game:
@@ -16,6 +17,7 @@ class Game:
     game_over_menu = None
     player = None
     enemies = []
+    early_warning_targets = []
     level_elements = []
 
     sprite_clock = None
@@ -50,6 +52,11 @@ class Game:
                                                 self.sprite_clock.frame_duration,
                                                 (self.WIDTH / 2, self.HEIGHT / 2), (320, 83.2), 32, True)
         self.player = Player.Player(player_sprite, self.WIDTH, self.HEIGHT, 6.5)
+
+        enemy_drone_sprite = Spritesheet.Spritesheet("sprite_assets/enemy_sprites/SimpleEnemyDroneSS.png", 4, 2,
+                                                     self.sprite_clock.frame_duration,
+                                                     (self.WIDTH / 2, self.HEIGHT / 2), (200, 80), 8, True)
+        self.enemies.append(enemies.enemyDrone(enemy_drone_sprite, self.WIDTH, self.HEIGHT, 5))
         self.game_frame.set_keyup_handler(self.player.keyUp)
         self.game_frame.set_keydown_handler(self.player.keyDown)
 
@@ -78,6 +85,15 @@ class Game:
 
             else:
                 self.player.update(canvas)
-                for enemy in self.enemies:
+                for i in range(len(self.enemies)):
                     # Updates all enemies in the game
-                    enemy.update()
+                    if self.enemies[i].remove_request:
+                        self.enemies.pop(i)
+                    else:
+                        self.enemies[i].update(canvas)
+
+                for i in range(len(self.early_warning_targets)):
+                    if self.early_warning_targets[i].remove_request:
+                        self.early_warning_targets.pop(i)
+                    else:
+                        self.early_warning_targets[i].update(canvas)
