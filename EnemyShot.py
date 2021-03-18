@@ -14,10 +14,13 @@ class enemyShot(VectorClass.Vector):
         super().__init__(position[0], position[1])
 
     def update(self, canvas):
-        if self.delay == 0:
-            canvas.draw_circle(super().get_p(), self.radius, 1, "black", "red")
-        elif self.delay == -1:
-            self.remove_request = True
+        if self.delay <= 0:
+            canvas.draw_circle(super().get_p(), self.radius, 1, "black", "light_red")
+
         else:
             canvas.draw_circle(super().get_p(), self.radius, 1, "black")
-            self.delay -= 1
+
+        self.delay -= 1
+
+        if self.delay == -10:
+            self.remove_request = True

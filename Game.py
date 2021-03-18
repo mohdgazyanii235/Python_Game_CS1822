@@ -57,6 +57,9 @@ class Game:
                                                      self.sprite_clock.frame_duration,
                                                      (self.WIDTH / 2, self.HEIGHT / 2), (200, 80), 8, True)
         self.enemies.append(enemies.enemyDrone(enemy_drone_sprite, self.WIDTH, self.HEIGHT, 5))
+
+        self.early_warning_targets.append(EnemyShot.enemyShot(100, 100, (self.WIDTH/2, self.HEIGHT/2)))
+
         self.game_frame.set_keyup_handler(self.player.keyUp)
         self.game_frame.set_keydown_handler(self.player.keyDown)
 
@@ -84,13 +87,15 @@ class Game:
                 self.to_main_menu()
 
             else:
-                self.player.update(canvas)
+
                 for i in range(len(self.enemies)):
                     # Updates all enemies in the game
                     if self.enemies[i].remove_request:
                         self.enemies.pop(i)
                     else:
                         self.enemies[i].update(canvas)
+
+                self.player.update(canvas)
 
                 for i in range(len(self.early_warning_targets)):
                     if self.early_warning_targets[i].remove_request:
