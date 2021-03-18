@@ -11,13 +11,9 @@ class Entity(VectorClass.Vector):
     remove_request = False
     rotation = 0
 
-    def __init__(self, movement_img_url, movement_columns,
-                 movement_rows, movement_frame_duration, movement_dest_centre, movement_dest_size, movement_cells,
-                 movement_loop):
-        super().__init__(movement_dest_centre[0], movement_dest_centre[1])
-        self.movement_sprite = Spritesheet.Spritesheet(movement_img_url, movement_columns,
-                                                       movement_rows, movement_frame_duration, super().get_p(),
-                                                       movement_dest_size, movement_cells, movement_loop)
+    def __init__(self, sprite):
+        super().__init__(sprite.dest_centre[0], sprite.dest_centre[1])
+        self.movement_sprite = sprite
 
     def death(self):
         print(self.death_animation)

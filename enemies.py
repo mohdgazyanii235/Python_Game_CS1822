@@ -19,19 +19,9 @@ class enemyDrone(DroneEntity.Drone):
     exit_request = False
     size_multiplier = 1
 
-    def __init__(self, movement_imgurl, movement_columns,
-                 movement_rows, movement_frame_duration, movement_dest_centre, movement_dest_size, movement_cells,
-                 movement_loop, speed):
+    def __init__(self, enemy_drone_sprite, frame_width, frame_height, speed):
 
-        super().__init__(movement_imgurl, movement_columns,
-                         movement_rows, movement_frame_duration, movement_dest_centre, (movement_dest_size[0] *
-                                                                                        self.size_multiplier,
-                                                                                        movement_dest_size[1] *
-                                                                                        self.size_multiplier),
-                         movement_cells, movement_loop, speed)
-
-        self.frame_width = movement_dest_centre[0] * 2
-        self.frame_height = movement_dest_centre[1] * 2
+        super().__init__(enemy_drone_sprite, frame_width, frame_height, speed)
 
     def update(self, canvas):
         global counter, options

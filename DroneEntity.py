@@ -2,6 +2,7 @@ import Entity
 import VectorClass
 import math
 
+
 class Drone(Entity.Entity):
 
     skid_value = 0
@@ -12,15 +13,13 @@ class Drone(Entity.Entity):
     frame_height = 0
     speed = 0
 
-    def __init__(self, movement_imgurl, movement_columns,
-                 movement_rows, movement_frame_duration, movement_dest_centre, movement_dest_size, movement_cells,
-                 movement_loop, speed):
+    def __init__(self, sprite, frame_width, frame_height, speed):
 
-        self.drone_dimensions = movement_dest_size
+        self.drone_dimensions = sprite.dest_size
+        super().__init__(sprite)
 
-        super().__init__(movement_imgurl, movement_columns,
-                         movement_rows, movement_frame_duration, movement_dest_centre, movement_dest_size,
-                         movement_cells, movement_loop)
+        self.frame_width = frame_width
+        self.frame_height = frame_height
 
         self.speed = speed
 

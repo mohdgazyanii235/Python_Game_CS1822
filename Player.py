@@ -3,27 +3,19 @@ import SimpleGUICS2Pygame.simpleguics2pygame as simplegui
 
 
 class Player(DroneEntity.Drone):
+
     moving_left = False
     moving_right = False
     moving_up = False
     moving_down = False
+
     queued_direction = ""
     exit_request = False
     size_multiplier = 1
 
-    def __init__(self, movement_imgurl, movement_columns,
-                 movement_rows, movement_frame_duration, movement_dest_centre, movement_dest_size, movement_cells,
-                 movement_loop, speed):
+    def __init__(self, player_sprite, frame_width, frame_height, speed):
 
-        super().__init__(movement_imgurl, movement_columns,
-                         movement_rows, movement_frame_duration, movement_dest_centre, (movement_dest_size[0] *
-                                                                                        self.size_multiplier,
-                                                                                        movement_dest_size[1] *
-                                                                                        self.size_multiplier),
-                         movement_cells, movement_loop, speed)
-
-        self.frame_width = movement_dest_centre[0] * 2
-        self.frame_height = movement_dest_centre[1] * 2
+        super().__init__(player_sprite, frame_width, frame_height, speed)
 
     def update(self, canvas):
         super().update(canvas, self.moving_left, self.moving_right, self.moving_up, self.moving_down)
@@ -74,7 +66,6 @@ class Player(DroneEntity.Drone):
                 # If key is released and right is not queued, then stop the player's movement
 
         if key == simplegui.KEY_MAP['right']:
-
             if self.queued_direction == "right":
                 self.queued_direction = ""
 
