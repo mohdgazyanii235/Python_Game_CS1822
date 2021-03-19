@@ -3,8 +3,6 @@ import random
 import Spritesheet
 
 counter = 0
-#index of enemy in list
-index = 0
 
 class Spawner:
 
@@ -29,9 +27,8 @@ class Spawner:
             enemy_drone_sprite = Spritesheet.Spritesheet("sprite_assets/enemy_sprites/SimpleEnemyDroneSS.png", 4, 2,
                                                          self.sprite_clock.frame_duration,
                                                          (x, y), (150, 80), 8, True)
-            index += 1
-            enemy = [index, enemies.enemyDrone(enemy_drone_sprite, self.WIDTH, self.HEIGHT, 5)]
-            self.enemies.append(enemy)
+            drone = enemies.enemyDrone(enemy_drone_sprite, self.WIDTH, self.HEIGHT, 5)
+            self.enemies.append(drone)
         #if counter gets to 300, human is created
         if counter % 120 == 0:
             #Creating stats
@@ -41,9 +38,8 @@ class Spawner:
             enemy_human_sprite = Spritesheet.Spritesheet("sprite_assets/enemy_sprites/HumanSS.png", 4, 2,
                                                          self.sprite_clock.frame_duration,
                                                          (x, y), (50, 85), 8, True)
-            index += 1
-            enemy = [index, enemies.enemyHuman(enemy_human_sprite, self.WIDTH, self.HEIGHT, speed)]
-            self.enemies.append(enemy)
+            human = enemies.enemyHuman(enemy_human_sprite, self.WIDTH, self.HEIGHT, speed)
+            self.enemies.append(human)
 
     #returns list of enemies
     def get(self):
@@ -57,6 +53,6 @@ class Spawner:
     def delete(self, index):
         alive_enemies = []
         for i in self.enemies:
-            if i[0] != index:
+            if i != index:
                 alive_enemies.append[i]
         self.enemies = alive_enemies

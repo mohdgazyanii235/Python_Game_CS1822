@@ -26,35 +26,44 @@ class enemyDrone(DroneEntity.Drone):
         global counter, options
         counter += 1
         super().update(canvas, self.moving_left, self.moving_right, self.moving_up, self.moving_down)
-        # Spawn new drone every 180 milisec. They have break
+        # Break for any movement
         if counter == 20:
             self.moving_left = False
             self.moving_right = False
             self.moving_up = False
             self.moving_bottom = False
+        #Spawn of drone
         if counter == 180:
             options = random.randint(1, 4)
             counter = 0
+        #moving left
         if options == 1:
             self.moving_left = True
             self.moving_right = False
             self.moving_up = False
             self.moving_bottom = False
+        # moving right
         if options == 2:
             self.moving_left = False
             self.moving_right = True
             self.moving_up = False
             self.moving_bottom = False
+        # moving up
         if options == 3:
             self.moving_left = False
             self.moving_right = False
             self.moving_up = True
             self.moving_bottom = False
+        #moving down
         if options == 4:
             self.moving_left = False
             self.moving_right = False
             self.moving_up = False
             self.moving_down = True
+
+        #limits drones height
+        if super().get_p()[1] > 750/2:
+            self.moving_down = False
 
 
 # to do: enemy human should inherit enemyDrone all except update()

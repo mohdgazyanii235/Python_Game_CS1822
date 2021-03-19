@@ -89,16 +89,13 @@ class Game:
                 for i in range(len(self.enemies)):
                     index = 0
                     # Updates all enemies in the game
-                    # UPDATE: enemies[i] consists of index and enemy itself.
-                    # If you want to change enemy, call enemies[i][1] since
-                    # enemies [i][0] is index of the enemy
-                    if self.enemies[i][1].remove_request:
+                    if self.enemies[i].remove_request:
                         #Specify index when delete
                         Spawner.Spawner.delete(self, index)
                         #Old remove of enemy
                         #self.enemies.pop(i)
                     else:
-                        self.enemies[i][1].update(canvas)
+                        self.enemies[i].update(canvas)
 
                 self.player.update(canvas)
 
