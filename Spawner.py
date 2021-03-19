@@ -1,4 +1,3 @@
-import SimpleGUICS2Pygame.simpleguics2pygame as simplegui
 import enemies
 import random
 import Spritesheet
@@ -58,6 +57,6 @@ class Spawner:
     def delete(self, index):
         alive_enemies = []
         for i in self.enemies:
-            if i[0] == index:
+            if i[0] != index:
                 alive_enemies.append[i]
         self.enemies = alive_enemies
