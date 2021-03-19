@@ -51,8 +51,15 @@ class Spawner:
 
     #deletes particular enemy accroding to index
     def delete(self, index):
-        alive_enemies = []
+        #effective but not safe
+        for i in self.enemies:
+            if i == index:
+            alive_enemies.append[i]
+                self.enemies.pop(i)
+
+        #not effective but safe
+        '''alive_enemies = []
         for i in self.enemies:
             if i != index:
                 alive_enemies.append[i]
-        self.enemies = alive_enemies
+        self.enemies = alive_enemies'''
