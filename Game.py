@@ -5,6 +5,7 @@ import Player
 import enemies
 import Spritesheet
 import EnemyShot
+import Spawner
 
 
 class Game:
@@ -47,16 +48,12 @@ class Game:
 
     def to_game(self):
         # Closes the start menu and goes to the game
+        # It only makes first spawn
         self.at_start_menu = False
         player_sprite = Spritesheet.Spritesheet("sprite_assets/player_sprite/DroneSSTransparent.png", 4, 8,
                                                 self.sprite_clock.frame_duration,
                                                 (self.WIDTH / 2, self.HEIGHT / 2), (320, 83.2), 32, True)
         self.player = Player.Player(player_sprite, self.WIDTH, self.HEIGHT, 6.5)
-
-        enemy_drone_sprite = Spritesheet.Spritesheet("sprite_assets/enemy_sprites/SimpleEnemyDroneSS.png", 4, 2,
-                                                     self.sprite_clock.frame_duration,
-                                                     (self.WIDTH / 2, self.HEIGHT / 2), (200, 80), 8, True)
-        self.enemies.append(enemies.enemyDrone(enemy_drone_sprite, self.WIDTH, self.HEIGHT, 5))
 
         self.early_warning_targets.append(EnemyShot.enemyShot(100, 100, (self.WIDTH/2, self.HEIGHT/2)))
 
@@ -64,7 +61,6 @@ class Game:
         self.game_frame.set_keydown_handler(self.player.keyDown)
 
     def update(self, canvas):
-
         self.sprite_clock.tick()
 
         if self.at_start_menu:
@@ -87,13 +83,22 @@ class Game:
                 self.to_main_menu()
 
             else:
+                # spawns enemies
+                Spawner.Spawner.update(self)
 
                 for i in range(len(self.enemies)):
+                    index = 0
                     # Updates all enemies in the game
-                    if self.enemies[i].remove_request:
-                        self.enemies.pop(i)
+                    # UPDATE: enemies[i] consists of index and enemy itself.
+                    # If you want to change enemy, call enemies[i][1] since
+                    # enemies [i][0] is index of the enemy
+                    if self.enemies[i][1].remove_request:
+                        #Specify index when delete
+                        Spawner.Spawner.delete(self, index)
+                        #Old remove of enemy
+                        #self.enemies.pop(i)
                     else:
-                        self.enemies[i].update(canvas)
+                        self.enemies[i][1].update(canvas)
 
                 self.player.update(canvas)
 

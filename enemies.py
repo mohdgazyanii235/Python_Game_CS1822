@@ -26,7 +26,12 @@ class enemyDrone(DroneEntity.Drone):
         global counter, options
         counter += 1
         super().update(canvas, self.moving_left, self.moving_right, self.moving_up, self.moving_down)
-        # Spawn new drone every 180 milisec
+        # Spawn new drone every 180 milisec. They have break
+        if counter == 20:
+            self.moving_left = False
+            self.moving_right = False
+            self.moving_up = False
+            self.moving_bottom = False
         if counter == 180:
             options = random.randint(1, 4)
             counter = 0
@@ -62,18 +67,9 @@ class enemyHuman(DroneEntity.Drone):
     queued_direction = ""
     size_multiplier = 1
 
-    def __init__(self, movement_imgurl, movement_columns,
-                 movement_rows, movement_frame_duration, movement_dest_centre, movement_dest_size, movement_cells,
-                 movement_loop, speed):
-        super().__init__(movement_imgurl, movement_columns,
-                         movement_rows, movement_frame_duration, movement_dest_centre, (movement_dest_size[0] *
-                                                                                        self.size_multiplier,
-                                                                                        movement_dest_size[1] *
-                                                                                        self.size_multiplier),
-                         movement_cells, movement_loop, speed)
+    def __init__(self, enemy_human_sprite, frame_width, frame_height, speed):
 
-        self.frame_width = movement_dest_centre[0] * 2
-        self.frame_height = movement_dest_centre[1] * 2
+        super().__init__(enemy_human_sprite, frame_width, frame_height, speed)
 
     def update(self, canvas):
         super().update(canvas, self.moving_left, self.moving_right, self.moving_up, self.moving_down)
