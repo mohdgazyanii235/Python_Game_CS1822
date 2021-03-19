@@ -3,14 +3,8 @@ import random
 import VectorClass
 import SimpleGUICS2Pygame.simpleguics2pygame as simplegui
 
-# counts until spawn new enemy
-counter = 0
-# randoms and pulls out one of 4 options
-options = 0
-
 
 class enemyDrone(DroneEntity.Drone):
-
     moving_left = False
     moving_right = False
     moving_up = False
@@ -18,57 +12,67 @@ class enemyDrone(DroneEntity.Drone):
     queued_direction = ""
     size_multiplier = 1
 
+    direction = 0
+    direction_duration = 0
+
     def __init__(self, enemy_drone_sprite, frame_width, frame_height, speed):
 
         super().__init__(enemy_drone_sprite, frame_width, frame_height, speed)
 
     def update(self, canvas):
-        global counter, options
-        counter += 1
-        super().update(canvas, self.moving_left, self.moving_right, self.moving_up, self.moving_down)
-        # Break for any movement
-        if counter == 20:
-            self.moving_left = False
-            self.moving_right = False
+
+        if self.direction_duration == 0:
+
             self.moving_up = False
-            self.moving_bottom = False
-        #Spawn of drone
-        if counter == 180:
-            options = random.randint(1, 4)
-            counter = 0
-        #moving left
-        if options == 1:
-            self.moving_left = True
+            self.moving_down = False
             self.moving_right = False
-            self.moving_up = False
-            self.moving_bottom = False
-        # moving right
-        if options == 2:
             self.moving_left = False
-            self.moving_right = True
-            self.moving_up = False
-            self.moving_bottom = False
-        # moving up
-        if options == 3:
-            self.moving_left = False
-            self.moving_right = False
+
+            self.direction = random.randint(0, 8)
+            if self.direction == 0:
+                self.direction_duration = 30
+            else:
+                self.direction_duration = random.choice([25, 50, 75])
+
+        if self.direction == 1:
             self.moving_up = True
-            self.moving_bottom = False
-        #moving down
-        if options == 4:
-            self.moving_left = False
-            self.moving_right = False
-            self.moving_up = False
+
+        elif self.direction <= 2:
+            self.moving_up = True
+            self.moving_right = True
+
+        elif self.direction == 3:
+            self.moving_right = True
+
+        elif self.direction == 4:
+            self.moving_right = True
             self.moving_down = True
 
-        #limits drones height
-        if super().get_p()[1] > 750/2:
+        elif self.direction == 5:
+            self.moving_down = True
+
+        elif self.direction == 6:
+            self.moving_down = True
+            self.moving_left = True
+
+        elif self.direction == 7:
+            self.moving_left = True
+
+        elif self.direction == 8:
+            self.moving_left = True
+            self.moving_up = True
+
+        self.direction_duration -= 1
+
+        # limits drones height
+        if super().get_p()[1] > 750 / 2:
             self.moving_down = False
+
+        super().update(canvas, self.moving_left, self.moving_right, self.moving_up, self.moving_down)
 
 
 # to do: enemy human should inherit enemyDrone all except update()
 class enemyHuman(DroneEntity.Drone):
-
     moving_left = False
     moving_right = False
     moving_up = False
@@ -77,7 +81,6 @@ class enemyHuman(DroneEntity.Drone):
     size_multiplier = 1
 
     def __init__(self, enemy_human_sprite, frame_width, frame_height, speed):
-
         super().__init__(enemy_human_sprite, frame_width, frame_height, speed)
 
     def update(self, canvas):
