@@ -54,7 +54,6 @@ class Spawner:
         #effective but not safe
         for i in self.enemies:
             if i == index:
-            alive_enemies.append[i]
                 self.enemies.pop(i)
 
         #not effective but safe
