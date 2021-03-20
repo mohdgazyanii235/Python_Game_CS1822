@@ -1,10 +1,8 @@
 import DroneEntity
 import random
-import VectorClass
-import SimpleGUICS2Pygame.simpleguics2pygame as simplegui
 
 
-class enemyDrone(DroneEntity.Drone):
+class EnemyDrone(DroneEntity.Drone):
     moving_left = False
     moving_right = False
     moving_up = False
@@ -16,7 +14,6 @@ class enemyDrone(DroneEntity.Drone):
     direction_duration = 0
 
     def __init__(self, enemy_drone_sprite, frame_width, frame_height, speed):
-
         super().__init__(enemy_drone_sprite, frame_width, frame_height, speed)
 
     def get_x(self):
@@ -78,18 +75,3 @@ class enemyDrone(DroneEntity.Drone):
 
 
 
-# to do: enemy human should inherit enemyDrone all except update()
-class enemyHuman(DroneEntity.Drone):
-    moving_left = False
-    moving_right = False
-    moving_up = False
-    moving_down = False
-    queued_direction = ""
-    size_multiplier = 1
-
-    def __init__(self, enemy_human_sprite, frame_width, frame_height, speed):
-        super().__init__(enemy_human_sprite, frame_width, frame_height, speed)
-
-    def update(self, canvas):
-        super().update(canvas, self.moving_left, self.moving_right, self.moving_up, self.moving_down)
-        super().add(VectorClass.Vector(1, 0).multiply(self.speed))

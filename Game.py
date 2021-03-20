@@ -2,7 +2,7 @@ import SimpleGUICS2Pygame.simpleguics2pygame as simplegui
 import Clock
 import Menu
 import Player
-import enemies
+import EnemyDrone
 import Spritesheet
 import EnemyShot
 import Spawner

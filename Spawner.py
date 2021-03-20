@@ -1,4 +1,4 @@
-import enemies
+import EnemyDrone
 import random
 import Spritesheet
 
@@ -38,7 +38,7 @@ class Spawner:
                 enemy_drone_sprite = Spritesheet.Spritesheet("sprite_assets/enemy_sprites/SimpleEnemyDroneSS.png", 4, 2,
                                                              self.frame_duration, (x, y), (150, 80), 8, True)
 
-                drone = enemies.enemyDrone(enemy_drone_sprite, self.spawner_width, self.spawner_height, 5)
+                drone = EnemyDrone.EnemyDrone(enemy_drone_sprite, self.spawner_width, self.spawner_height, 5)
                 current_enemies.append(drone)
 
 
