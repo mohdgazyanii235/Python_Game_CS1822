@@ -22,6 +22,27 @@ class EnemyDrone(DroneEntity.Drone):
     def get_y(self):
         return super().get_p()[1]
 
+    def get_direction(self):
+        return self.direction
+
+    def get_opposite_direction(self):
+        if self.direction == 1:
+            return 5
+        elif self.direction == 2:
+            return 6
+        elif self.direction == 3:
+            return 7
+        elif self.direction == 4:
+            return 8
+        elif self.direction == 5:
+            return 1
+        elif self.direction == 6:
+            return 2
+        elif self.direction == 7:
+            return 3
+        elif self.direction == 8:
+            return 4
+
     def update(self, canvas):
 
         if self.direction_duration == 0:

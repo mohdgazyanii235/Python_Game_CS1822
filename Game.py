@@ -77,6 +77,20 @@ class Game:
                                                    self.sprite_clock.frame_duration)
         # Creates a spawner for the drones
 
+    def enemy_collision_prevent(self):
+        for subject in self.enemy_drones:
+            subject_enemy_left_x = subject.get_x()-50
+            # Added a padding on both sides of the enemy drones so they don't actually collide.
+            subject_enemy_right_x = subject.get_x()+50
+            subject_enemy_top_y = subject.get_y()-85
+            subject_enemy_bottom_y = subject.get_y()+85
+            for comparison in self.enemy_drones:
+                subject_enemy_left_x = subject.get_x() - 50
+                subject_enemy_right_x = subject.get_x() + 50
+                subject_enemy_top_y = subject.get_y() - 85
+                subject_enemy_bottom_y = subject.get_y() + 85
+
+
     def update(self, canvas):
         self.sprite_clock.tick()
 
@@ -89,7 +103,7 @@ class Game:
                 # Otherwise start the game
                 self.start_menu.start_game_request = False
                 self.to_game()
-                print(self.player.collision_checker(self.enemy_drones))
+                print(self.player.player_drone_collision(self.enemy_drones))
 
             if self.start_menu.exit_request:
                 # If the retire button is pressed the game is closed
@@ -97,9 +111,8 @@ class Game:
 
         # this is where the game loop is.
         else:
-
-            if self.player.collision_checker(self.enemy_drones):
-                pass
+            if self.player.player_drone_collision(self.enemy_drones):
+                print(True)
 
             if self.player.exit_request:
                 # If x has been pressed this will be true, and it will be returned to the main menu
