@@ -77,6 +77,20 @@ class Game:
                                                    self.sprite_clock.frame_duration)
         # Creates a spawner for the drones
 
+    def enemy_collision_prevent(self):
+        for subject in self.enemy_drones:
+            subject_enemy_left_x = subject.get_x()-50
+            # Added a padding on both sides of the enemy drones so they don't actually collide.
+            subject_enemy_right_x = subject.get_x()+50
+            subject_enemy_top_y = subject.get_y()-85
+            subject_enemy_bottom_y = subject.get_y()+85
+            for comparison in self.enemy_drones:
+                subject_enemy_left_x = subject.get_x() - 50
+                subject_enemy_right_x = subject.get_x() + 50
+                subject_enemy_top_y = subject.get_y() - 85
+                subject_enemy_bottom_y = subject.get_y() + 85
+
+
     def update(self, canvas):
         self.sprite_clock.tick()
 

@@ -9,7 +9,6 @@ class EnemyDrone(DroneEntity.Drone):
     moving_down = False
     queued_direction = ""
     size_multiplier = 1
-    opposite_direction = 0
 
     direction = 0
     direction_duration = 0
@@ -23,6 +22,26 @@ class EnemyDrone(DroneEntity.Drone):
     def get_y(self):
         return super().get_p()[1]
 
+    def get_direction(self):
+        return self.direction
+
+    def get_opposite_direction(self):
+        if self.direction == 1:
+            return 5
+        elif self.direction == 2:
+            return 6
+        elif self.direction == 3:
+            return 7
+        elif self.direction == 4:
+            return 8
+        elif self.direction == 5:
+            return 1
+        elif self.direction == 6:
+            return 2
+        elif self.direction == 7:
+            return 3
+        elif self.direction == 8:
+            return 4
 
     def update(self, canvas):
 
@@ -40,38 +59,30 @@ class EnemyDrone(DroneEntity.Drone):
                 self.direction_duration = random.choice([25, 50, 75])
 
         if self.direction == 1:
-            self.opposite_direction = 5
             self.moving_up = True
 
         elif self.direction <= 2:
-            self.opposite_direction = 6
             self.moving_up = True
             self.moving_right = True
 
         elif self.direction == 3:
-            self.opposite_direction = 7
             self.moving_right = True
 
         elif self.direction == 4:
-            self.opposite_direction = 8
             self.moving_right = True
             self.moving_down = True
 
         elif self.direction == 5:
-            self.opposite_direction = 1
             self.moving_down = True
 
         elif self.direction == 6:
-            self.opposite_direction = 2
             self.moving_down = True
             self.moving_left = True
 
         elif self.direction == 7:
-            self.opposite_direction = 3
             self.moving_left = True
 
         elif self.direction == 8:
-            self.opposite_direction = 4
             self.moving_left = True
             self.moving_up = True
 
