@@ -26,7 +26,7 @@ class Drone(Entity.Entity):
         self.speed = speed
         self.ORIGINAL_SPEED = self.speed
 
-    def collision_checker(self, enemy_list):
+    def player_drone_collision(self, enemy_list):
         for i in enemy_list:
             aim_x = super().get_p()[0]
             aim_y = super().get_p()[1]
@@ -36,7 +36,9 @@ class Drone(Entity.Entity):
             player_bottom_y = i.get_y() + 40
 
             if player_left_x <= aim_x <= player_right_x and player_top_y <= aim_y <= player_bottom_y:
-                return True
+                return i
+            else:
+                return None
 
     def update(self, canvas, moving_left=False, moving_right=False, moving_up=False, moving_down=False):
 

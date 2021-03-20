@@ -97,7 +97,7 @@ class Game:
 
         # this is where the game loop is.
         else:
-            if self.player.collision_checker(self.enemy_drones):
+            if self.player.player_drone_collision(self.enemy_drones):
                 print(True)
 
             if self.player.exit_request:
