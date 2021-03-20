@@ -48,7 +48,7 @@ class Game:
         # Clears any game entities and opens the start menu
         self.player = None
         self.at_start_menu = True
-        self.enemies.clear()
+        self.enemy_drones.clear()
         self.level_elements.clear()
         self.game_frame.set_keydown_handler(self.start_menu.keyDown)
 
@@ -72,6 +72,8 @@ class Game:
     def update(self, canvas):
         self.sprite_clock.tick()
 
+
+
         if self.at_start_menu:
             # Updates menu screen if menu is open
             if not self.start_menu.start_game_request:
@@ -81,19 +83,21 @@ class Game:
                 # Otherwise start the game
                 self.start_menu.start_game_request = False
                 self.to_game()
+                print(self.player.collision_checker(self.enemy_drones))
 
             if self.start_menu.exit_request:
                 # If the retire button is pressed the game is closed
                 self.game_frame.stop()
 
+        # this is where the game loop is.
         else:
             if self.player.exit_request:
                 # If x has been pressed this will be true, and it will be returned to the main menu
                 self.to_main_menu()
 
             else:
-
-                for i in range(len(self.enemies)):
+                print(self.player.collision_checker(self.enemy_drones))
+                for i in range(len(self.enemy_drones)):
                     # Updates all enemies in the game
                     if self.enemy_drones[i].remove_request:
                         self.enemy_drones.pop(i)
