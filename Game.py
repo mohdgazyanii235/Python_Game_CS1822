@@ -61,7 +61,7 @@ class Game:
                                                 (self.WIDTH / 2, self.HEIGHT / 2), (320, 83.2), 32, True)
         self.player = Player.Player(player_sprite, self.WIDTH, self.HEIGHT, 6.5)
 
-        self.early_warning_targets.append(EnemyShot.enemyShot(100, 100, (self.WIDTH/2, self.HEIGHT/2)))
+        self.early_warning_targets.append(EnemyShot.enemyShot(100, 100, (self.WIDTH / 2, self.HEIGHT / 2)))
 
         self.game_frame.set_keyup_handler(self.player.keyUp)
         self.game_frame.set_keydown_handler(self.player.keyDown)
