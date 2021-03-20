@@ -93,7 +93,7 @@ class Game:
 
             else:
 
-                for i in range(len(self.enemies)):
+                for i in range(len(self.enemy_drones)):
                     # Updates all enemies in the game
                     if self.enemy_drones[i].remove_request:
                         self.enemy_drones.pop(i)
