@@ -30,10 +30,10 @@ class Drone(Entity.Entity):
         for index, i in enumerate(enemy_list):
             aim_x = super().get_p()[0]
             aim_y = super().get_p()[1]
-            player_left_x = i.get_x()-75
-            player_right_x = i.get_x()+75
-            player_top_y = i.get_y() - 40
-            player_bottom_y = i.get_y() + 40
+            player_left_x = i.get_x()-100
+            player_right_x = i.get_x()+100
+            player_top_y = i.get_y() - 60
+            player_bottom_y = i.get_y() + 60
 
             if player_left_x <= aim_x <= player_right_x and player_top_y <= aim_y <= player_bottom_y:
                 return index

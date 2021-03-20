@@ -64,7 +64,7 @@ class EnemyDrone(DroneEntity.Drone):
         if self.direction == 1:
             self.moving_up = True
 
-        elif self.direction <= 2:
+        elif self.direction == 2:
             self.moving_up = True
             self.moving_right = True
 
