@@ -17,9 +17,15 @@ class Game:
 
     game_over_menu = None
     player = None
-    enemies = []
+    enemy_drones = []
+    enemy_humans = []
     early_warning_targets = []
     level_elements = []
+
+    enemy_drone_spawner = None
+    enemy_human_spawner = None
+
+    spawner = None
 
     sprite_clock = None
 
@@ -60,6 +66,9 @@ class Game:
         self.game_frame.set_keyup_handler(self.player.keyUp)
         self.game_frame.set_keydown_handler(self.player.keyDown)
 
+    def level_up(self):
+        self.enemy_drone_spawner = Spawner.Spawner(10, 300, "drone", self.WIDTH, self.HEIGHT / 2)
+
     def update(self, canvas):
         self.sprite_clock.tick()
 
@@ -83,19 +92,13 @@ class Game:
                 self.to_main_menu()
 
             else:
-                # spawns enemies
-                Spawner.Spawner.update(self)
 
                 for i in range(len(self.enemies)):
-                    index = 0
                     # Updates all enemies in the game
-                    if self.enemies[i].remove_request:
-                        #Specify index when delete
-                        Spawner.Spawner.delete(self, index)
-                        #Old remove of enemy
-                        #self.enemies.pop(i)
+                    if self.enemy_drones[i].remove_request:
+                        self.enemy_drones.pop(i)
                     else:
-                        self.enemies[i].update(canvas)
+                        self.enemy_drones[i].update(canvas)
 
                 self.player.update(canvas)
 
