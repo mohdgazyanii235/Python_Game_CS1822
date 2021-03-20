@@ -61,16 +61,21 @@ class Game:
                                                 (self.WIDTH / 2, self.HEIGHT / 2), (320, 83.2), 32, True)
         self.player = Player.Player(player_sprite, self.WIDTH, self.HEIGHT, 6.5)
 
-        self.early_warning_targets.append(EnemyShot.enemyShot(100, 100, (self.WIDTH / 2, self.HEIGHT / 2)))
+        # Adds a player
 
         self.game_frame.set_keyup_handler(self.player.keyUp)
         self.game_frame.set_keydown_handler(self.player.keyDown)
 
+        # Sets key handlers to player functions
+
         self.level_up()
+        # Runs first level_up() to add spawners
 
     def level_up(self):
+        # Where we will put any level ups which change the spawners
         self.enemy_drone_spawner = Spawner.Spawner(10, 300, "drone", self.WIDTH, self.HEIGHT / 2,
                                                    self.sprite_clock.frame_duration)
+        # Creates a spawner for the drones
 
     def update(self, canvas):
         self.sprite_clock.tick()
@@ -104,16 +109,21 @@ class Game:
                 self.enemy_drones = self.enemy_drone_spawner.check_spawn(self.enemy_drones)
 
                 for i in range(len(self.enemy_drones)):
-                    # Updates all enemies in the game
+                    # Updates all enemy drones in the game
                     if self.enemy_drones[i].remove_request:
+                        # Removes any drones with a removal request set to true
                         self.enemy_drones.pop(i)
                     else:
+                        # Updates the enemy drone currently pointed at
                         self.enemy_drones[i].update(canvas)
 
                 self.player.update(canvas)
 
                 for i in range(len(self.early_warning_targets)):
+                    # Loops through any of the enemy's shots
                     if self.early_warning_targets[i].remove_request:
+                        # Removes any shots with a removal request set to true
                         self.early_warning_targets.pop(i)
                     else:
+                        # Updates the current enemy shot
                         self.early_warning_targets[i].update(canvas)

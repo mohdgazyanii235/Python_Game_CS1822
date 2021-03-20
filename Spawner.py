@@ -27,12 +27,13 @@ class Spawner:
     # Updates and when counter passes certain point - enemy spawned and added to list
     def check_spawn(self, current_enemies):
         self.counter += 1
-        # if counter gets to 150, drone is created
+
         if (self.counter % self.spawn_rate == 0) and (len(current_enemies) <= self.maximum):
-            # Creating stats
-            # Creating spritesheet
+            # Every time the spawn_rate is reached and the current number of entities is less than the maximum
+            # add an entity of the corresponding type to the list
 
             if self.type == "drone":
+                # Adds a drone if the spawner is set to spawn them
                 x = random.randint(80, self.spawner_width - 80)
                 y = random.randint(5, self.spawner_height // 2.5)
                 enemy_drone_sprite = Spritesheet.Spritesheet("sprite_assets/enemy_sprites/SimpleEnemyDroneSS.png", 4, 2,
@@ -40,6 +41,7 @@ class Spawner:
 
                 drone = EnemyDrone.EnemyDrone(enemy_drone_sprite, self.spawner_width, self.spawner_height, 5)
                 current_enemies.append(drone)
+                #Adds it to the local list
 
 
         # if counter % 120 == 0:
