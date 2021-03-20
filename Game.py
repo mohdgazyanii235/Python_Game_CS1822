@@ -89,7 +89,7 @@ class Game:
                 # Otherwise start the game
                 self.start_menu.start_game_request = False
                 self.to_game()
-                print(self.player.collision_checker(self.enemy_drones))
+                print(self.player.player_drone_collision(self.enemy_drones))
 
             if self.start_menu.exit_request:
                 # If the retire button is pressed the game is closed
