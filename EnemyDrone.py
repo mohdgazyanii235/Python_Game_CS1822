@@ -25,6 +25,9 @@ class EnemyDrone(DroneEntity.Drone):
     def get_direction(self):
         return self.direction
 
+    def set_direction(self, new_direction):
+        self.direction = new_direction
+
     def get_opposite_direction(self):
         if self.direction == 1:
             return 5
