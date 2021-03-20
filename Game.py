@@ -31,6 +31,8 @@ class Game:
 
     game_frame = None
 
+    level_background = None
+
     def __init__(self):
 
         self.start_menu = Menu.Menu(self.WIDTH, self.HEIGHT)
@@ -70,6 +72,8 @@ class Game:
 
         self.level_up()
         # Runs first level_up() to add spawners
+
+        self.level_background = simplegui._load_local_image("sprite_assets/level_backgrounds/PyGameCityBackground.png")
 
     def level_up(self):
         # Where we will put any level ups which change the spawners
@@ -117,6 +121,12 @@ class Game:
 
         # this is where the game loop is.
         else:
+
+            canvas.draw_image(self.level_background, (self.level_background.get_width()/2,
+                                                      self.level_background.get_height()/2),
+                              (self.level_background.get_width(), self.level_background.get_height()),
+                              (self.WIDTH/2, self.HEIGHT/2), (self.WIDTH * 0.9, self.HEIGHT * 0.9))
+
             index_of_hit = self.player.player_drone_collision(self.enemy_drones)
             if index_of_hit is not None and self.player.is_firing:
                 self.enemy_drones.pop(index_of_hit)
