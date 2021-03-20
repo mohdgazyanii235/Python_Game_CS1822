@@ -3,15 +3,18 @@ import VectorClass
 import math
 
 
+
 class Drone(Entity.Entity):
 
     skid_value = 0
+    skid_value_y = 0
     bob_range = 6
     bob_value = 0
     bob_ascending = True
     frame_width = 0
     frame_height = 0
     speed = 0
+    fire_allowed = False
 
     def __init__(self, sprite, frame_width, frame_height, speed):
 
@@ -22,6 +25,7 @@ class Drone(Entity.Entity):
         self.frame_height = frame_height
 
         self.speed = speed
+        self.ORIGINAL_SPEED = self.speed
 
     def update(self, canvas, moving_left=False, moving_right=False, moving_up=False, moving_down=False):
 
@@ -37,9 +41,11 @@ class Drone(Entity.Entity):
 
         if super().get_p()[1] - self.drone_dimensions[1] / 2 - 6 < 0:
             moving_up = False
+            self.skid_value_y = 0
 
         if super().get_p()[1] + self.drone_dimensions[1] / 2 + 6 > self.frame_height:
             moving_down = False
+            self.skid_value_y = 0
 
         if moving_left:
             self.rotation = -math.radians(12)
@@ -65,6 +71,7 @@ class Drone(Entity.Entity):
 
         self.movement_sprite.draw(canvas, super().get_p(), self.rotation)
 
+
     def move_up(self):
         super().add(VectorClass.Vector(0, -1).multiply(self.speed))
 
@@ -76,6 +83,8 @@ class Drone(Entity.Entity):
 
     def move_left(self):
         super().add(VectorClass.Vector(-1, 0).multiply(self.speed))
+
+
 
     def skid(self):
         # Skid value comes from the speed; by moving at slower increments of the skid value it gives the sense
@@ -96,6 +105,8 @@ class Drone(Entity.Entity):
             self.skid_value += 0.25
             if self.skid_value > 0:
                 self.skid_value = 0
+
+        self.speed = self.ORIGINAL_SPEED
 
     def bob(self):
 

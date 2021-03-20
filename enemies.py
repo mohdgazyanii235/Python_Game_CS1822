@@ -19,6 +19,12 @@ class enemyDrone(DroneEntity.Drone):
 
         super().__init__(enemy_drone_sprite, frame_width, frame_height, speed)
 
+    def get_x(self):
+        return super().get_p()[0]
+
+    def get_y(self):
+        return super().get_p()[1]
+
     def update(self, canvas):
 
         if self.direction_duration == 0:
@@ -69,6 +75,7 @@ class enemyDrone(DroneEntity.Drone):
             self.moving_down = False
 
         super().update(canvas, self.moving_left, self.moving_right, self.moving_up, self.moving_down)
+
 
 
 # to do: enemy human should inherit enemyDrone all except update()
