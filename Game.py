@@ -79,17 +79,16 @@ class Game:
 
     def enemy_collision_prevent(self):
         for subject in self.enemy_drones:
-            subject_enemy_left_x = subject.get_x()-50
+            subject_enemy_left_x = subject.get_x() - 50
             # Added a padding on both sides of the enemy drones so they don't actually collide.
-            subject_enemy_right_x = subject.get_x()+50
-            subject_enemy_top_y = subject.get_y()-85
-            subject_enemy_bottom_y = subject.get_y()+85
+            subject_enemy_right_x = subject.get_x() + 50
+            subject_enemy_top_y = subject.get_y() - 85
+            subject_enemy_bottom_y = subject.get_y() + 85
             for comparison in self.enemy_drones:
                 subject_enemy_left_x = subject.get_x() - 50
                 subject_enemy_right_x = subject.get_x() + 50
                 subject_enemy_top_y = subject.get_y() - 85
                 subject_enemy_bottom_y = subject.get_y() + 85
-
 
     def update(self, canvas):
         self.sprite_clock.tick()
@@ -111,8 +110,11 @@ class Game:
 
         # this is where the game loop is.
         else:
-            if self.player.player_drone_collision(self.enemy_drones):
-                print(True)
+            index_of_hit = self.player.player_drone_collision(self.enemy_drones)
+            if index_of_hit is not None and self.player.is_firing:
+                self.enemy_drones.pop(index_of_hit)
+
+            self.player.is_firing = False
 
             if self.player.exit_request:
                 # If x has been pressed this will be true, and it will be returned to the main menu

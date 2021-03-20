@@ -13,6 +13,8 @@ class Player(DroneEntity.Drone):
     exit_request = False
     size_multiplier = 1
 
+    is_firing = False
+
     def __init__(self, player_sprite, frame_width, frame_height, speed):
 
         super().__init__(player_sprite, frame_width, frame_height, speed)
@@ -44,7 +46,7 @@ class Player(DroneEntity.Drone):
         return self.exit_request
 
     def fire(self):
-        pass
+        self.is_firing = True
 
     def keyUp(self, key):
 
