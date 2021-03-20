@@ -99,7 +99,7 @@ class Game:
         else:
 
             if self.player.collision_checker(self.enemy_drones):
-                print(True)
+                pass
 
             if self.player.exit_request:
                 # If x has been pressed this will be true, and it will be returned to the main menu
