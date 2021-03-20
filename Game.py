@@ -120,6 +120,7 @@ class Game:
             index_of_hit = self.player.player_drone_collision(self.enemy_drones)
             if index_of_hit is not None and self.player.is_firing:
                 self.enemy_drones.pop(index_of_hit)
+            # Checks if player has shot a drone, then removes it
 
             self.player.is_firing = False
 
