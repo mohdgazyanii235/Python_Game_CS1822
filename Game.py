@@ -92,6 +92,9 @@ class Game:
 
         # this is where the game loop is.
         else:
+            if self.player.collision_checker(self.enemy_drones):
+                print(True)
+
             if self.player.exit_request:
                 # If x has been pressed this will be true, and it will be returned to the main menu
                 self.to_main_menu()
