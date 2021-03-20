@@ -66,13 +66,14 @@ class Game:
         self.game_frame.set_keyup_handler(self.player.keyUp)
         self.game_frame.set_keydown_handler(self.player.keyDown)
 
+        self.level_up()
+
     def level_up(self):
-        self.enemy_drone_spawner = Spawner.Spawner(10, 300, "drone", self.WIDTH, self.HEIGHT / 2)
+        self.enemy_drone_spawner = Spawner.Spawner(10, 300, "drone", self.WIDTH, self.HEIGHT / 2,
+                                                   self.sprite_clock.frame_duration)
 
     def update(self, canvas):
         self.sprite_clock.tick()
-
-
 
         if self.at_start_menu:
             # Updates menu screen if menu is open
@@ -96,6 +97,8 @@ class Game:
                 self.to_main_menu()
 
             else:
+
+                self.enemy_drones = self.enemy_drone_spawner.check_spawn(self.enemy_drones)
 
                 for i in range(len(self.enemy_drones)):
                     # Updates all enemies in the game
