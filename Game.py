@@ -77,6 +77,7 @@ class Game:
                                                    self.sprite_clock.frame_duration)
         # Creates a spawner for the drones
 
+
     def enemy_collision_prevent(self):
         for subject in self.enemy_drones:
             subject_enemy_left_x = subject.get_x()-50
@@ -85,10 +86,16 @@ class Game:
             subject_enemy_top_y = subject.get_y()-85
             subject_enemy_bottom_y = subject.get_y()+85
             for comparison in self.enemy_drones:
-                subject_enemy_left_x = subject.get_x() - 50
-                subject_enemy_right_x = subject.get_x() + 50
-                subject_enemy_top_y = subject.get_y() - 85
-                subject_enemy_bottom_y = subject.get_y() + 85
+                comparison_enemy_left_x = comparison.get_x() - 50
+                comparison_enemy_right_x = comparison.get_x() + 50
+                comparison_enemy_top_y = comparison.get_y() - 85
+                comparison_enemy_bottom_y = comparison.get_y() + 85
+                if ((subject_enemy_right_x >= comparison_enemy_left_x) and
+                    (subject_enemy_right_x < comparison_enemy_right_x)) and \
+                        ((subject_enemy_bottom_y >= comparison_enemy_top_y) and
+                         subject_enemy_bottom_y < comparison_enemy_bottom_y):
+                    subject.set_direction(subject.get_opposite_direction())
+                    comparison.set_direction(comparison.get_opposite_direction())
 
 
     def update(self, canvas):
@@ -113,6 +120,8 @@ class Game:
         else:
             if self.player.player_drone_collision(self.enemy_drones):
                 print(True)
+
+            self.enemy_collision_prevent()
 
             if self.player.exit_request:
                 # If x has been pressed this will be true, and it will be returned to the main menu
