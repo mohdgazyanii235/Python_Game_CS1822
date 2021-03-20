@@ -124,7 +124,7 @@ class Game:
 
             self.player.is_firing = False
 
-            self.enemy_collision_prevent()
+            #self.enemy_collision_prevent()
 
             if self.player.exit_request:
                 # If x has been pressed this will be true, and it will be returned to the main menu
