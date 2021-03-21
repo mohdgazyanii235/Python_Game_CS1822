@@ -143,6 +143,11 @@ class Game:
 
                 for i in range(len(self.enemy_drones)):
                     # Updates all enemy drones in the game
+
+                    # Updates remove request for when enemies are off the screen, e.g. humans running off screen
+                    if self.enemy_drones[i].get_x() >= self.WIDTH:
+                        self.enemy_drones[i].remove_request = True 
+
                     if self.enemy_drones[i].remove_request:
                         # Removes any drones with a removal request set to true
                         self.enemy_drones.pop(i)
