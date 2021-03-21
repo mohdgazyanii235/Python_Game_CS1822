@@ -7,7 +7,6 @@ import Spritesheet
 import EnemyShot
 import Spawner
 
-
 class Game:
     WIDTH = 1200
     HEIGHT = 750
@@ -121,7 +120,6 @@ class Game:
 
         # this is where the game loop is.
         else:
-
             canvas.draw_image(self.level_background, (self.level_background.get_width()/2,
                                                       self.level_background.get_height()/2),
                               (self.level_background.get_width(), self.level_background.get_height()),
@@ -141,7 +139,6 @@ class Game:
                 self.to_main_menu()
 
             else:
-
                 self.enemy_drones = self.enemy_drone_spawner.check_spawn(self.enemy_drones)
 
                 for i in range(len(self.enemy_drones)):

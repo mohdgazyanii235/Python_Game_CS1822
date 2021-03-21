@@ -1,9 +1,7 @@
 import EnemyDrone
+import EnemyHuman
 import random
 import Spritesheet
-
-counter = 0
-
 
 class Spawner:
     spawner_width = 0
@@ -14,6 +12,8 @@ class Spawner:
     maximum = 0
     type = ""
     sprite_clock = 0
+    WIDTH = 1200
+    HEIGHT = 750
 
     # declaration
     def __init__(self, maximum, spawn_rate, type, spawner_width, spawner_height, frame_duration):
@@ -43,17 +43,15 @@ class Spawner:
                 current_enemies.append(drone)
                 #Adds it to the local list
 
-
-        # if counter % 120 == 0:
-        #     # Creating stats
-        #     x = random.randint(80, 180)
-        #     y = random.randint(self.HEIGHT // 1.2, self.HEIGHT - 20)
-        #     speed = (random.randint(10, 60)) * 0.1
-        #     enemy_human_sprite = Spritesheet.Spritesheet("sprite_assets/enemy_sprites/HumanSS.png", 4, 2,
-        #                                                  self.sprite_clock.frame_duration,
-        #                                                  (x, y), (50, 85), 8, True)
-        #     human = enemies.enemyHuman(enemy_human_sprite, self.WIDTH, self.HEIGHT, speed)
-        #     self.enemies.append(human)
+                # Adds human
+                #Launches human, used for debugging
+                x = random.randint(80, 180)
+                y = random.randint(self.HEIGHT // 1.2, self.HEIGHT - 20)
+                speed = (random.randint(10, 60)) * 0.1
+                enemy_human_sprite = Spritesheet.Spritesheet("sprite_assets/enemy_sprites/HumanSS.png", 4, 2,
+                                                           self.frame_duration, (x, y), (50, 85), 8, True)
+                human = EnemyHuman.EnemyHuman(enemy_human_sprite, self.WIDTH, self.HEIGHT, speed)
+                current_enemies.append(human)
 
         return current_enemies
 
