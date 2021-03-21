@@ -48,8 +48,8 @@ class Spawner:
                 x = random.randint(80, 180)
                 y = random.randint(self.HEIGHT // 1.2, self.HEIGHT - 20)
                 speed = (random.randint(10, 60)) * 0.1
-                enemy_human_sprite = Spritesheet.Spritesheet("sprite_assets/enemy_sprites/HumanSS.png", 4, 2,
-                                                           self.frame_duration, (x, y), (50, 85), 8, True)
+                enemy_human_sprite = Spritesheet.Spritesheet("sprite_assets/enemy_sprites/HumanSS.png", 4, 3,
+                                                           self.frame_duration, (x, y), (50, 85), 12, True)
                 human = EnemyHuman.EnemyHuman(enemy_human_sprite, self.WIDTH, self.HEIGHT, speed)
                 current_enemies.append(human)
 
