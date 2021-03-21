@@ -94,13 +94,20 @@ class Game:
                 comparison_enemy_top_y = comparison.get_y() - 85
                 comparison_enemy_bottom_y = comparison.get_y() + 85
                 if ((subject_enemy_right_x >= comparison_enemy_left_x) and
-                    (subject_enemy_right_x < comparison_enemy_right_x)) and \
+                    (subject_enemy_right_x <= comparison_enemy_right_x)) and \
                         ((subject_enemy_bottom_y >= comparison_enemy_top_y) and
-                         subject_enemy_bottom_y < comparison_enemy_bottom_y):
+                         (subject_enemy_bottom_y <= comparison_enemy_bottom_y)):
+                    subject.set_direction(subject.get_opposite_direction())
+                    comparison.set_direction(comparison.get_opposite_direction())
+                elif ((subject_enemy_left_x <= comparison_enemy_right_x) and
+                      (subject_enemy_left_x >= comparison_enemy_left_x)) and \
+                    ((subject_enemy_bottom_y >= comparison_enemy_top_y) and
+                     (subject_enemy_bottom_y <= comparison_enemy_bottom_y)):
                     subject.set_direction(subject.get_opposite_direction())
                     comparison.set_direction(comparison.get_opposite_direction())
 
     i_dont_know_what_to_call_this_variable = 0
+    # Just please don't ask me why I put this here, trust me even I don't know. Let's just say it brings me good luck.
 
     def update(self, canvas):
         self.sprite_clock.tick()
@@ -113,6 +120,7 @@ class Game:
             # Checks if player has shot a drone, then removes it
 
             self.player.is_firing = False
+            self.enemy_collision_prevent()
 
         if self.at_start_menu:
             # Updates menu screen if menu is open
