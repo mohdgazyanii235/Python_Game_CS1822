@@ -7,6 +7,7 @@ import Spritesheet
 import EnemyShot
 import Spawner
 
+
 class Game:
     WIDTH = 1200
     HEIGHT = 750
@@ -80,7 +81,6 @@ class Game:
                                                    self.sprite_clock.frame_duration)
         # Creates a spawner for the drones
 
-
     def enemy_collision_prevent(self):
         for subject in self.enemy_drones:
             subject_enemy_left_x = subject.get_x() - 50
@@ -100,8 +100,19 @@ class Game:
                     subject.set_direction(subject.get_opposite_direction())
                     comparison.set_direction(comparison.get_opposite_direction())
 
+    i_dont_know_what_to_call_this_variable = 0
+
     def update(self, canvas):
         self.sprite_clock.tick()
+
+        if self.i_dont_know_what_to_call_this_variable > 0:
+            index_of_hit = self.player.player_drone_collision(self.enemy_drones)
+            if index_of_hit is not None and self.player.is_firing:
+                print(len(self.enemy_drones))
+                self.enemy_drones.pop(index_of_hit)
+            # Checks if player has shot a drone, then removes it
+
+            self.player.is_firing = False
 
         if self.at_start_menu:
             # Updates menu screen if menu is open
@@ -112,6 +123,7 @@ class Game:
                 # Otherwise start the game
                 self.start_menu.start_game_request = False
                 self.to_game()
+                self.i_dont_know_what_to_call_this_variable += 1
                 print(self.player.player_drone_collision(self.enemy_drones))
 
             if self.start_menu.exit_request:
@@ -120,19 +132,19 @@ class Game:
 
         # this is where the game loop is.
         else:
-            canvas.draw_image(self.level_background, (self.level_background.get_width()/2,
-                                                      self.level_background.get_height()/2),
+            canvas.draw_image(self.level_background, (self.level_background.get_width() / 2,
+                                                      self.level_background.get_height() / 2),
                               (self.level_background.get_width(), self.level_background.get_height()),
-                              (self.WIDTH/2, self.HEIGHT/2), (self.WIDTH * 0.9, self.HEIGHT * 0.9))
+                              (self.WIDTH / 2, self.HEIGHT / 2), (self.WIDTH * 0.9, self.HEIGHT * 0.9))
 
             index_of_hit = self.player.player_drone_collision(self.enemy_drones)
             if index_of_hit is not None and self.player.is_firing:
+                print(len(self.enemy_drones))
                 self.enemy_drones.pop(index_of_hit)
             # Checks if player has shot a drone, then removes it
 
             self.player.is_firing = False
 
-            #self.enemy_collision_prevent()
 
             if self.player.exit_request:
                 # If x has been pressed this will be true, and it will be returned to the main menu

@@ -16,6 +16,12 @@ class EnemyHuman(DroneEntity.Drone):
         super().update(canvas, self.moving_left, self.moving_right, self.moving_up, self.moving_down)
         super().add(VectorClass.Vector(1, 0).multiply(self.speed))
 
+    def get_x(self):
+        return super().get_p()[0]
+
+    def get_y(self):
+        return super().get_p()[1]
+
     #Known bug: can only kill enemy[0], if that enemy goes off the screen e.g. human running no other entities can be killed
 
     def get_x(self):
