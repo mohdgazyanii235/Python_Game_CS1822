@@ -1,5 +1,6 @@
 import SimpleGUICS2Pygame.simpleguics2pygame as simplegui
 import Clock
+import EnemyHuman
 import Menu
 import Player
 import EnemyDrone
@@ -34,7 +35,7 @@ class Game :
 
     level_background = None
 
-    def __init__(self) :
+    def __init__(self):
 
         self.start_menu = Menu.Menu(self.WIDTH, self.HEIGHT)
 
@@ -55,7 +56,7 @@ class Game :
         self.level_elements.clear()
         self.game_frame.set_keydown_handler(self.start_menu.keyDown)
 
-    def to_game(self) :
+    def to_game(self):
         # Closes the start menu and goes to the game
         # It only makes first spawn
         self.at_start_menu = False
@@ -76,31 +77,36 @@ class Game :
 
         self.level_background = simplegui._load_local_image("sprite_assets/level_backgrounds/PyGameCityBackground.png")
 
-    def level_up(self) :
+        enemy_human_sprite = Spritesheet.Spritesheet("sprite_assets/enemy_sprites/HumanSS.png", 4, 3,
+                                                     self.sprite_clock.frame_duration, (0, self.HEIGHT), (50, 85), 12, True)
+        human = EnemyHuman.EnemyHuman(enemy_human_sprite, 5)
+        self.enemy_humans.append(human)
+
+    def level_up(self):
         # Where we will put any level ups which change the spawners
         self.enemy_drone_spawner = Spawner.Spawner(10, 300, "drone", self.WIDTH, self.HEIGHT / 2,
                                                    self.sprite_clock.frame_duration)
         # Creates a spawner for the drones
 
     @staticmethod
-    def collision_checker(x1, y1, x2, y2) :
+    def collision_checker(x1, y1, x2, y2):
         constant = 100
         if ((x1 + constant >= x2 - constant) and (x1 + constant <= x2 + constant)) and (
                 (y2 - constant <= y1 + constant <= y2 + constant) or (
-                y2 + constant >= y1 - constant >= y2 - constant)) :
+                y2 + constant >= y1 - constant >= y2 - constant)):
             return True
         elif ((x1 - constant <= x2 + constant) and (x1 - constant >= x2 - constant)) and (
                 (y2 - constant <= y1 + constant <= y2 + constant) or (
-                y2 + constant >= y1 - constant >= y2 - constant)) :
+                y2 + constant >= y1 - constant >= y2 - constant)):
             return True
         else:
             return False
 
     def enemy_collision_prevent(self):
-        for index1, subject in enumerate(self.enemy_drones) :
+        for index1, subject in enumerate(self.enemy_drones):
             subject_x = subject.get_x()
             subject_y = subject.get_y()
-            for index2, comparison in enumerate(self.enemy_drones) :
+            for index2, comparison in enumerate(self.enemy_drones):
                 if index1 == index2:
                     continue
                 else:
@@ -120,12 +126,12 @@ class Game :
 
     # Just please don't ask me why I put this here, trust me even I don't know. Let's just say it brings me good luck.
 
-    def update(self, canvas) :
+    def update(self, canvas):
         self.sprite_clock.tick()
 
-        if self.i_dont_know_what_to_call_this_variable > 0 :
+        if self.i_dont_know_what_to_call_this_variable > 0:
             index_of_hit = self.player.player_drone_collision(self.enemy_drones)
-            if index_of_hit is not None and self.player.is_firing :
+            if index_of_hit is not None and self.player.is_firing:
                 print(len(self.enemy_drones))
                 self.enemy_drones.pop(index_of_hit)
             # Checks if player has shot a drone, then removes it
@@ -133,9 +139,9 @@ class Game :
             self.player.is_firing = False
             self.enemy_collision_prevent()
 
-        if self.at_start_menu :
+        if self.at_start_menu:
             # Updates menu screen if menu is open
-            if not self.start_menu.start_game_request :
+            if not self.start_menu.start_game_request:
                 # If start game hasn't been pressed this flag will be false
                 self.start_menu.update(canvas)
             else :
@@ -145,7 +151,7 @@ class Game :
                 self.i_dont_know_what_to_call_this_variable += 1
                 print(self.player.player_drone_collision(self.enemy_drones))
 
-            if self.start_menu.exit_request :
+            if self.start_menu.exit_request:
                 # If the retire button is pressed the game is closed
                 self.game_frame.stop()
 
@@ -157,7 +163,7 @@ class Game :
                               (self.WIDTH / 2, self.HEIGHT / 2), (self.WIDTH * 0.9, self.HEIGHT * 0.9))
 
             index_of_hit = self.player.player_drone_collision(self.enemy_drones)
-            if index_of_hit is not None and self.player.is_firing :
+            if index_of_hit is not None and self.player.is_firing:
                 print(len(self.enemy_drones))
                 self.enemy_drones.pop(index_of_hit)
             # Checks if player has shot a drone, then removes it
@@ -168,28 +174,31 @@ class Game :
                 # If x has been pressed this will be true, and it will be returned to the main menu
                 self.to_main_menu()
 
-            else :
+            else:
                 self.enemy_drones = self.enemy_drone_spawner.check_spawn(self.enemy_drones)
 
-                for index, i in enumerate(self.enemy_drones) :
+                for index, i in enumerate(self.enemy_drones):
                     # Updates all enemy drones in the game
 
                     # Updates remove request for when enemies are off the screen, e.g. humans running off screen
-                    if i.get_x() >= self.WIDTH :
+                    if i.get_x() >= self.WIDTH:
                         i.remove_request = True
 
-                    if i.remove_request :
+                    if i.remove_request:
                         # Removes any drones with a removal request set to true
                         self.enemy_drones.pop(index)
-                    else :
+                    else:
                         # Updates the enemy drone currently pointed at
                         i.update(canvas)
 
                 self.player.update(canvas)
 
-                for i in range(len(self.early_warning_targets)) :
+                for i in range(len(self.enemy_humans)):
+                    self.enemy_humans[i].update(canvas)
+
+                for i in range(len(self.early_warning_targets)):
                     # Loops through any of the enemy's shots
-                    if self.early_warning_targets[i].remove_request :
+                    if self.early_warning_targets[i].remove_request:
                         # Removes any shots with a removal request set to true
                         self.early_warning_targets.pop(i)
                     else :

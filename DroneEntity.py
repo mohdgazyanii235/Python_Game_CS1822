@@ -5,7 +5,6 @@ import time
 
 
 class Drone(Entity.Entity):
-
     skid_value = 0
     skid_value_y = 0
     bob_range = 6
@@ -32,15 +31,14 @@ class Drone(Entity.Entity):
             print(index)
             aim_x = super().get_p()[0]
             aim_y = super().get_p()[1]
-            player_left_x = i.get_x()-100
-            player_right_x = i.get_x()+100
+            player_left_x = i.get_x() - 100
+            player_right_x = i.get_x() + 100
             player_top_y = i.get_y() - 60
             player_bottom_y = i.get_y() + 60
             if player_left_x <= aim_x <= player_right_x and player_top_y <= aim_y <= player_bottom_y:
                 return index
             else:
                 continue
-
 
     def update(self, canvas, moving_left=False, moving_right=False, moving_up=False, moving_down=False):
 
@@ -86,7 +84,6 @@ class Drone(Entity.Entity):
 
         self.movement_sprite.draw(canvas, super().get_p(), self.rotation)
 
-
     def move_up(self):
         super().add(VectorClass.Vector(0, -1).multiply(self.speed))
 
@@ -98,8 +95,6 @@ class Drone(Entity.Entity):
 
     def move_left(self):
         super().add(VectorClass.Vector(-1, 0).multiply(self.speed))
-
-
 
     def skid(self):
         # Skid value comes from the speed; by moving at slower increments of the skid value it gives the sense

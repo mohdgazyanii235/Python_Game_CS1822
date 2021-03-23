@@ -41,7 +41,7 @@ class Spritesheet:
         if self.frame_index[0] == 0:
             self.frame_index[1] = (self.frame_index[1] + 1) % self.rows
 
-    def draw(self, canvas, position, rotation):
+    def draw(self, canvas, position, rotation=0):
         self.frame_clock += 1
         if self.frame_clock % self.frame_duration == 0:
             self.update_index()
