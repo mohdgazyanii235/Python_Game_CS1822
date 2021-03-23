@@ -44,20 +44,27 @@ class Spawner:
                 current_enemies.append(drone)
                 #Adds it to the local list
 
-        return current_enemies
+            if self.type == "human":
+                #spawns human
+                width = random.randint(80, 180)
+                height = random.randint(HEIGHT//1.2, HEIGHT-20)
+                speed = (random.randint(10,60))*0.1
+                enemy_human_sprite = Spritesheet.Spritesheet("sprite_assets/enemy_sprites/HumanSS.png", 4, 3,
+                                                             self.sprite_clock.frame_duration, (width, height),
+                                                             (50, 85), 12, True)
+                human = EnemyHuman.EnemyHuman(enemy_human_sprite, speed)
+                current_enemies.append(human)
 
-    def initial_spawn(self):
-        #spawn platforms
-        platforms = []
-        #spawn 4 platforms
-        for i in range (0, 4):
-            x = random.randint(80, 180)
-            y = random.randint(self.HEIGHT // 1.2, self.HEIGHT - 20)
-            platform_sprite = Spritesheet.Spritesheet("sprite_assets/environment_sprites/BlockSS.png", 4, 3,
-                                                         self.frame_duration, (x, y), (50, 85), 12, True)
-            platform = Platforms.platform(platform_sprite, self.WIDTH, self.HEIGHT)
-            platforms.append(platform)
-        return platforms
+            if self.type == "platform":
+                # spawn platform
+                y = random.randint(self.HEIGHT // 1.2, self.HEIGHT - 20)
+                speed = (random.randint(5, 30)) * 0.1
+                platform_sprite = Spritesheet.Spritesheet("sprite_assets/environment_sprites/BlockSS.png", 4, 3,
+                                                          self.frame_duration, (self.WIDTH, y), (50, 85), 12, True)
+                platform = Platforms.Platforms(platform_sprite, speed)
+                current_enemies.append(platform)
+
+        return current_enemies
 
 
 
