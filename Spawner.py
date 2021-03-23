@@ -2,6 +2,7 @@ import EnemyDrone
 import EnemyHuman
 import random
 import Spritesheet
+import Platforms
 
 class Spawner:
     spawner_width = 0
@@ -54,6 +55,20 @@ class Spawner:
                 current_enemies.append(human)
 
         return current_enemies
+
+    def initial_spawn(self):
+        #spawn platforms
+        platforms = []
+        #spawn 4 platforms
+        for i in range (0, 4):
+            x = random.randint(80, 180)
+            y = random.randint(self.HEIGHT // 1.2, self.HEIGHT - 20)
+            platform_sprite = Spritesheet.Spritesheet("sprite_assets/environment_sprites/BlockSS.png", 4, 3,
+                                                         self.frame_duration, (x, y), (50, 85), 12, True)
+            platform = Platforms.platform(platform_sprite, self.WIDTH, self.HEIGHT)
+            platforms.append(platform)
+        return platforms
+
 
 
 
