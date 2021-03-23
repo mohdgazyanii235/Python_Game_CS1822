@@ -9,6 +9,7 @@ class EnemyDrone(DroneEntity.Drone):
     moving_down = False
     queued_direction = ""
     size_multiplier = 1
+    CANVAS = None
 
     direction = 0
     direction_duration = 0
@@ -28,26 +29,48 @@ class EnemyDrone(DroneEntity.Drone):
     def set_direction(self, new_direction):
         self.direction = new_direction
 
-    def get_opposite_direction(self):
-        if self.direction == 1:
-            return 5
-        elif self.direction == 2:
-            return 6
-        elif self.direction == 3:
-            return 7
-        elif self.direction == 4:
-            return 8
-        elif self.direction == 5:
-            return 1
-        elif self.direction == 6:
-            return 2
-        elif self.direction == 7:
-            return 3
-        elif self.direction == 8:
-            return 4
+    def move_opposite(self):
+        super().update(self.CANVAS, not self.moving_left, not self.moving_right, not self.moving_up, not self.moving_down)
+
+    def direction_setter(self, direction):
+        if direction == 1:
+            self.moving_up = True
+
+        elif direction == 2:
+            self.moving_up = True
+            self.moving_right = True
+
+        elif direction == 3:
+            self.moving_right = True
+
+        elif direction == 4:
+            self.moving_right = True
+            self.moving_down = True
+
+        elif direction == 5:
+            self.moving_down = True
+
+        elif direction == 6:
+            self.moving_down = True
+            self.moving_left = True
+
+        elif direction == 7:
+            self.moving_left = True
+
+        elif direction == 8:
+            self.moving_left = True
+            self.moving_up = True
+
+        self.direction_duration -= 1
+
+        # limits drones height
+        if super().get_p()[1] > 750 / 2:
+            self.moving_down = False
+
+        super().update(self.CANVAS, self.moving_left, self.moving_right, self.moving_up, self.moving_down)
 
     def update(self, canvas):
-
+        self.CANVAS = canvas
         if self.direction_duration == 0:
 
             self.moving_up = False
@@ -61,41 +84,10 @@ class EnemyDrone(DroneEntity.Drone):
             else:
                 self.direction_duration = random.choice([25, 50, 75])
 
-        if self.direction == 1:
-            self.moving_up = True
+        self.direction_setter(self.direction)
 
-        elif self.direction == 2:
-            self.moving_up = True
-            self.moving_right = True
 
-        elif self.direction == 3:
-            self.moving_right = True
 
-        elif self.direction == 4:
-            self.moving_right = True
-            self.moving_down = True
-
-        elif self.direction == 5:
-            self.moving_down = True
-
-        elif self.direction == 6:
-            self.moving_down = True
-            self.moving_left = True
-
-        elif self.direction == 7:
-            self.moving_left = True
-
-        elif self.direction == 8:
-            self.moving_left = True
-            self.moving_up = True
-
-        self.direction_duration -= 1
-
-        # limits drones height
-        if super().get_p()[1] > 750 / 2:
-            self.moving_down = False
-
-        super().update(canvas, self.moving_left, self.moving_right, self.moving_up, self.moving_down)
 
 
 

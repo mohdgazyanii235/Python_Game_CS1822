@@ -41,3 +41,10 @@ class EnemyHuman(DroneEntity.Drone):
 
     def get_opposite_direction(self):
         return self.direction
+
+    def direction_setter(self, hello):
+        self.direction = "fuck off"
+        return hello
+
+    def move_opposite(self):
+        return self.direction

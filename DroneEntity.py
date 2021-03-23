@@ -28,8 +28,6 @@ class Drone(Entity.Entity):
         self.ORIGINAL_SPEED = self.speed
 
     def player_drone_collision(self, enemy_list):
-        print("------------------------------------------------------------------------------"
-              "------------------------------------------------------------------------------")
         for index, i in enumerate(enemy_list):
             print(index)
             aim_x = super().get_p()[0]
@@ -38,14 +36,7 @@ class Drone(Entity.Entity):
             player_right_x = i.get_x()+100
             player_top_y = i.get_y() - 60
             player_bottom_y = i.get_y() + 60
-            print("------------------------------------------------------------------------------")
-            print("aim_x = %s, aim_y = %s, \n player_left = %s, player_right = %s\n player_top = %s, player_bottom = %s"
-                  % (aim_x, aim_y, player_left_x, player_right_x, player_top_y, player_bottom_y))
-            print("------------------------------------------------------------------------------")
-
             if player_left_x <= aim_x <= player_right_x and player_top_y <= aim_y <= player_bottom_y:
-                print("------------------------------------------------------------------------------"
-                      "------------------------------------------------------------------------------")
                 return index
             else:
                 continue
