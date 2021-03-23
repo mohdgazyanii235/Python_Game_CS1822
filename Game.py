@@ -77,14 +77,15 @@ class Game :
 
         self.level_background = simplegui._load_local_image("sprite_assets/level_backgrounds/PyGameCityBackground.png")
 
-        enemy_human_sprite = Spritesheet.Spritesheet("sprite_assets/enemy_sprites/HumanSS.png", 4, 3,
-                                                     self.sprite_clock.frame_duration, (0, self.HEIGHT), (50, 85), 12, True)
-        human = EnemyHuman.EnemyHuman(enemy_human_sprite, 5)
-        self.enemy_humans.append(human)
-
     def level_up(self):
         # Where we will put any level ups which change the spawners
         self.enemy_drone_spawner = Spawner.Spawner(10, 300, "drone", self.WIDTH, self.HEIGHT / 2,
+                                                   self.sprite_clock.frame_duration)
+
+        self.enemy_human_spawner = Spawner.Spawner(10, 300, "human", self.WIDTH, self.HEIGHT / 2,
+                                                   self.sprite_clock.frame_duration)
+
+        self.platform = Spawner.Spawner(10, 300, "platform", self.WIDTH, self.HEIGHT / 2,
                                                    self.sprite_clock.frame_duration)
         # Creates a spawner for the drones
 
@@ -176,6 +177,8 @@ class Game :
 
             else:
                 self.enemy_drones = self.enemy_drone_spawner.check_spawn(self.enemy_drones)
+                self.enemy_humans = self.enemy_human_spawner.check_spawn(self.enemy_humans)
+                self.level_elements = self.platform.check_spawn(self.level_elements)
 
                 for index, i in enumerate(self.enemy_drones):
                     # Updates all enemy drones in the game
