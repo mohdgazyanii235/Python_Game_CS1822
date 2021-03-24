@@ -11,11 +11,9 @@ class EnemyHuman(Entity.Entity):
     size_multiplier = 1
     direction = 0
     speed = 0
-    is_jumping = True
 
-    run_once = True
+    is_jumping = False
     parabola_constant = 0.0
-
     jump_destination = ()
 
     def __init__(self, enemy_human_sprite, speed):
@@ -34,14 +32,16 @@ class EnemyHuman(Entity.Entity):
         if coord[0] > 1180:
             super().add(VectorClass.Vector(-1, 0).multiply(self.speed))
 
-    def set_jump_location(self, jump_dest):
+    def set_jump_location(self, jump_destination):
         current_x = self.get_p()[0]
         current_y = self.get_p()[1]
 
-        self.jump_destination = jump_dest
+        self.jump_destination = jump_destination
         self.parabola_constant = (current_y - self.jump_destination[1]) / ((current_x - self.jump_destination[0]) ** 2)
         # Uses equation of a parabola (y = a(x-h)**2 + k) to find the constant a which is called parabola_constant
         # for the purpose of greater readability. This is done by rearranging into a = (y - k) / (x-h)**2
+
+        self.is_jumping = True
 
     def jump(self):
 
