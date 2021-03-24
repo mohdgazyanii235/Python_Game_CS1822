@@ -14,6 +14,10 @@ class EnemyDrone(DroneEntity.Drone):
     direction = 0
     direction_duration = 0
 
+    fire_rate = 20
+    fire_count = 0
+    is_firing = False
+
     def __init__(self, enemy_drone_sprite, frame_width, frame_height, speed):
         super().__init__(enemy_drone_sprite, frame_width, frame_height, speed)
 
@@ -86,8 +90,7 @@ class EnemyDrone(DroneEntity.Drone):
 
         self.direction_setter(self.direction)
 
+        self.fire_count += 1
 
-
-
-
-
+        if self.fire_count % self.fire_rate == 0:
+            self.is_firing = True

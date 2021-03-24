@@ -12,7 +12,6 @@ class Drone(Entity.Entity):
     frame_width = 0
     frame_height = 0
     speed = 0
-    fire_allowed = False
 
     def __init__(self, sprite, frame_width, frame_height, speed):
 

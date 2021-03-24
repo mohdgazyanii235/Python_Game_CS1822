@@ -141,6 +141,22 @@ class Game :
         if (player_pos[0] - shot_pos[0])**2 + (player_pos[1] - shot_pos[1])**2 < radius:
             print("HIT!")
 
+    def add_enemy_shot(self):
+        x_accuracy = random.randint(-50, 50)
+        y_accuracy = random.randint(-50, 50)
+        shot_direction = random.randint(0, 2)
+        new_shot_pos = list(self.player.get_p())
+
+        if shot_direction == 0:
+            new_shot_pos[0] += x_accuracy
+        elif shot_direction == 1:
+            new_shot_pos[1] += y_accuracy
+        elif shot_direction == 2:
+            new_shot_pos[0] += x_accuracy
+            new_shot_pos[1] += y_accuracy
+
+        self.early_warning_targets.append(EnemyShot.enemyShot(50, 100, tuple(new_shot_pos)))
+
     def update(self, canvas):
         self.sprite_clock.tick()
 
@@ -193,7 +209,7 @@ class Game :
                 self.to_main_menu()
 
             else:
-                # self.enemy_drones = self.enemy_drone_spawner.check_spawn(self.enemy_drones)
+                self.enemy_drones = self.enemy_drone_spawner.check_spawn(self.enemy_drones)
                 # self.enemy_humans = self.enemy_human_spawner.check_spawn(self.enemy_humans)
                 # self.level_elements = self.platform.check_spawn(self.level_elements)
 
@@ -210,20 +226,25 @@ class Game :
                     else:
                         # Updates the enemy drone currently pointed at
                         i.update(canvas)
+                        if i.is_firing:
+                            self.add_enemy_shot()
+                            i.is_firing = False
 
                 self.player.update(canvas)
 
                 for i in range(len(self.enemy_humans)):
                     self.enemy_humans[i].update(canvas)
 
-                for i in range(len(self.early_warning_targets)):
+                indexes_to_pop = []
+
+                for index, i in enumerate(self.early_warning_targets):
                     # Loops through any of the enemy's shots
-                    if self.early_warning_targets[i].remove_request:
+                    if i.remove_request:
                         # Removes any shots with a removal request set to true
-                        self.early_warning_targets.pop(i)
+                        self.early_warning_targets.pop(index)
                     else:
                         # Updates the current enemy shot
-                        self.early_warning_targets[i].update(canvas)
-                        if self.early_warning_targets[i].is_detonated:
-                            self.check_player_hit(self.early_warning_targets[i].get_p(),
-                                                  self.early_warning_targets[i].radius)
+                        i.update(canvas)
+                        if i.is_detonated:
+                            self.check_player_hit(i.get_p(), i.radius)
+
