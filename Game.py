@@ -34,6 +34,7 @@ class Game :
     game_frame = None
 
     level_background = None
+    score = 0
 
     def __init__(self):
 
@@ -47,6 +48,7 @@ class Game :
         self.game_frame.set_draw_handler(self.update)
         self.to_main_menu()
         self.game_frame.start()
+        self.score = 0
 
     def to_main_menu(self) :
         # Clears any game entities and opens the start menu
@@ -140,8 +142,9 @@ class Game :
         if self.i_dont_know_what_to_call_this_variable > 0:
             index_of_hit = self.player.player_drone_collision(self.enemy_drones)
             if index_of_hit is not None and self.player.is_firing:
-
                 self.enemy_drones.pop(index_of_hit)
+                self.score += 10
+                print('\r' + str(self.score), end='')
             # Checks if player has shot a drone, then removes it
 
             self.player.is_firing = False
@@ -157,35 +160,31 @@ class Game :
                 self.start_menu.start_game_request = False
                 self.to_game()
                 self.i_dont_know_what_to_call_this_variable += 1
-                print(self.player.player_drone_collision(self.enemy_drones))
+                #print(self.player.player_drone_collision(self.enemy_drones))
 
             if self.start_menu.exit_request:
                 # If the retire button is pressed the game is closed
                 self.game_frame.stop()
 
         # this is where the game loop is.
-        else :
+        else:
             canvas.draw_image(self.level_background, (self.level_background.get_width() / 2,
                                                       self.level_background.get_height() / 2),
                               (self.level_background.get_width(), self.level_background.get_height()),
                               (self.WIDTH / 2, self.HEIGHT / 2), (self.WIDTH * 0.9, self.HEIGHT * 0.9))
 
-            index_of_hit = self.player.player_drone_collision(self.enemy_drones)
-            if index_of_hit is not None and self.player.is_firing:
-                print(len(self.enemy_drones))
-                self.enemy_drones.pop(index_of_hit)
             # Checks if player has shot a drone, then removes it
 
             self.player.is_firing = False
 
-            if self.player.exit_request :
+            if self.player.exit_request:
                 # If x has been pressed this will be true, and it will be returned to the main menu
                 self.to_main_menu()
 
             else:
-                # self.enemy_drones = self.enemy_drone_spawner.check_spawn(self.enemy_drones)
-                # self.enemy_humans = self.enemy_human_spawner.check_spawn(self.enemy_humans)
-                # self.level_elements = self.platform.check_spawn(self.level_elements)
+                self.enemy_drones = self.enemy_drone_spawner.check_spawn(self.enemy_drones)
+                self.enemy_humans = self.enemy_human_spawner.check_spawn(self.enemy_humans)
+                self.level_elements = self.platform.check_spawn(self.level_elements)
 
                 for index, i in enumerate(self.enemy_drones):
                     # Updates all enemy drones in the game

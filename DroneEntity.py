@@ -1,7 +1,6 @@
 import Entity
 import VectorClass
 import math
-import time
 
 
 class Drone(Entity.Entity):
@@ -28,7 +27,7 @@ class Drone(Entity.Entity):
 
     def player_drone_collision(self, enemy_list):
         for index, i in enumerate(enemy_list):
-            print(index)
+            #print(index)
             aim_x = super().get_p()[0]
             aim_y = super().get_p()[1]
             player_left_x = i.get_x() - 100
