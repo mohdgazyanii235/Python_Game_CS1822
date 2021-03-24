@@ -4,7 +4,9 @@ import random
 import Spritesheet
 import Platforms
 
+
 class Spawner:
+
     spawner_width = 0
     spawner_height = 0
     enemies = []

@@ -78,7 +78,8 @@ class Game :
         self.level_background = simplegui._load_local_image("sprite_assets/level_backgrounds/PyGameCityBackground.png")
 
         enemy_human_sprite = Spritesheet.Spritesheet("sprite_assets/enemy_sprites/HumanSS.png", 4, 3,
-                                                     self.sprite_clock.frame_duration, (0, self.HEIGHT), (50, 85), 12, True)
+                                                     self.sprite_clock.frame_duration, (self.WIDTH/2, self.HEIGHT/2),
+                                                     (50, 85), 12, True)
         human = EnemyHuman.EnemyHuman(enemy_human_sprite, 5)
         self.enemy_humans.append(human)
 
@@ -114,10 +115,10 @@ class Game :
                     comparison_y = comparison.get_y()
                     if self.collision_checker(subject_x, subject_y, comparison_x,
                                               comparison_y):  # True if there is a collision.
-                        print(subject.get_direction())
+
                         # subject.direction_setter(random.randint(1, 8))
                         subject.move_opposite()
-                        print(subject.get_direction())
+
                         # comparison.direction_setter(random.randint(1, 8))
                         comparison.move_opposite()
 
@@ -132,7 +133,7 @@ class Game :
         if self.i_dont_know_what_to_call_this_variable > 0:
             index_of_hit = self.player.player_drone_collision(self.enemy_drones)
             if index_of_hit is not None and self.player.is_firing:
-                print(len(self.enemy_drones))
+
                 self.enemy_drones.pop(index_of_hit)
             # Checks if player has shot a drone, then removes it
 
