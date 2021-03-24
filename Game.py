@@ -81,6 +81,7 @@ class Game :
                                                      self.sprite_clock.frame_duration, (self.WIDTH/2, self.HEIGHT/2),
                                                      (50, 85), 12, True)
         human = EnemyHuman.EnemyHuman(enemy_human_sprite, 5)
+        human.set_jump_location((900, 100))
         self.enemy_humans.append(human)
 
     def level_up(self):
@@ -182,9 +183,9 @@ class Game :
                 self.to_main_menu()
 
             else:
-                self.enemy_drones = self.enemy_drone_spawner.check_spawn(self.enemy_drones)
-                self.enemy_humans = self.enemy_human_spawner.check_spawn(self.enemy_humans)
-                self.level_elements = self.platform.check_spawn(self.level_elements)
+                # self.enemy_drones = self.enemy_drone_spawner.check_spawn(self.enemy_drones)
+                # self.enemy_humans = self.enemy_human_spawner.check_spawn(self.enemy_humans)
+                # self.level_elements = self.platform.check_spawn(self.level_elements)
 
                 for index, i in enumerate(self.enemy_drones):
                     # Updates all enemy drones in the game
