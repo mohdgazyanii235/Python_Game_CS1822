@@ -30,6 +30,9 @@ class EnemyHuman(Entity.Entity):
             super().add(VectorClass.Vector(1, 0).multiply(self.speed))
 
         self.movement_sprite.draw(canvas, super().get_p())
+        coord = super().get_p()
+        if coord[0] > 1180:
+            super().add(VectorClass.Vector(-1, 0).multiply(self.speed))
 
     def jump(self):
 
