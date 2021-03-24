@@ -64,7 +64,7 @@ class Game :
         self.at_start_menu = False
         player_sprite = Spritesheet.Spritesheet("sprite_assets/player_sprite/DroneNewCell.png", 1, 1,
                                                 self.sprite_clock.frame_duration,
-                                                (self.WIDTH / 2, self.HEIGHT / 2), (320, 83.2), 1, True)
+                                                (self.WIDTH / 2, self.HEIGHT / 2), (320*0.7, 83.2*0.7), 1, True)
         self.player = Player.Player(player_sprite, self.WIDTH, self.HEIGHT, 6.5)
 
         # Adds a player
@@ -85,6 +85,8 @@ class Game :
         # human = EnemyHuman.EnemyHuman(enemy_human_sprite, 3)
         # human.set_jump_location((700, 200))
         # self.enemy_humans.append(human)
+
+        self.early_warning_targets.append(EnemyShot.enemyShot(50, 100, (600, 375)))
 
     def level_up(self):
         # Where we will put any level ups which change the spawners
@@ -133,6 +135,11 @@ class Game :
     i_dont_know_what_to_call_this_variable = 0
 
     # Just please don't ask me why I put this here, trust me even I don't know. Let's just say it brings me good luck.
+
+    def check_player_hit(self, shot_pos, radius):
+        player_pos = self.player.get_p()
+        if (player_pos[0] - shot_pos[0])**2 + (player_pos[1] - shot_pos[1])**2 < radius:
+            print("HIT!")
 
     def update(self, canvas):
         self.sprite_clock.tick()
@@ -186,9 +193,9 @@ class Game :
                 self.to_main_menu()
 
             else:
-                self.enemy_drones = self.enemy_drone_spawner.check_spawn(self.enemy_drones)
-                self.enemy_humans = self.enemy_human_spawner.check_spawn(self.enemy_humans)
-                self.level_elements = self.platform.check_spawn(self.level_elements)
+                # self.enemy_drones = self.enemy_drone_spawner.check_spawn(self.enemy_drones)
+                # self.enemy_humans = self.enemy_human_spawner.check_spawn(self.enemy_humans)
+                # self.level_elements = self.platform.check_spawn(self.level_elements)
 
                 for index, i in enumerate(self.enemy_drones):
                     # Updates all enemy drones in the game
@@ -214,6 +221,9 @@ class Game :
                     if self.early_warning_targets[i].remove_request:
                         # Removes any shots with a removal request set to true
                         self.early_warning_targets.pop(i)
-                    else :
+                    else:
                         # Updates the current enemy shot
                         self.early_warning_targets[i].update(canvas)
+                        if self.early_warning_targets[i].is_detonated:
+                            self.check_player_hit(self.early_warning_targets[i].get_p(),
+                                                  self.early_warning_targets[i].radius)

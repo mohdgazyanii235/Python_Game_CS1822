@@ -16,7 +16,6 @@ class EnemyHuman(Entity.Entity):
     parabola_constant = 0.0
     jump_destination = ()
 
-
     def __init__(self, enemy_human_sprite, speed):
         self.speed = speed
         super().__init__(enemy_human_sprite)
@@ -82,7 +81,3 @@ class EnemyHuman(Entity.Entity):
                 # The jump is then finished, and the human returns to normal behaviour. This code only happens should
                 # the human be descending, as otherwise the human would never ascend if its jumping to a higher
                 # position (as in that case the starting y will always be greater than the destination y)
-
-
-
-
