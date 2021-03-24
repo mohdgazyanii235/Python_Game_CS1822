@@ -62,9 +62,9 @@ class Game :
         # Closes the start menu and goes to the game
         # It only makes first spawn
         self.at_start_menu = False
-        player_sprite = Spritesheet.Spritesheet("sprite_assets/player_sprite/DroneSSTransparent.png", 4, 10,
+        player_sprite = Spritesheet.Spritesheet("sprite_assets/player_sprite/DroneNewCell.png", 1, 1,
                                                 self.sprite_clock.frame_duration,
-                                                (self.WIDTH / 2, self.HEIGHT / 2), (320, 83.2), 38, True)
+                                                (self.WIDTH / 2, self.HEIGHT / 2), (320, 83.2), 1, True)
         self.player = Player.Player(player_sprite, self.WIDTH, self.HEIGHT, 6.5)
 
         # Adds a player
