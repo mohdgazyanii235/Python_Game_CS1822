@@ -16,9 +16,16 @@ class EnemyHuman(Entity.Entity):
     parabola_constant = 0.0
     jump_destination = ()
 
+
     def __init__(self, enemy_human_sprite, speed):
         self.speed = speed
         super().__init__(enemy_human_sprite)
+
+    def get_x(self):
+        return super().get_p()[0]
+
+    def get_y(self):
+        return super().get_p()[1]
 
     def update(self, canvas):
 

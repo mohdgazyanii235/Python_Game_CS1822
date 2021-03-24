@@ -125,10 +125,8 @@ class Game :
                     if self.collision_checker(subject_x, subject_y, comparison_x,
                                               comparison_y):  # True if there is a collision.
 
-                        # subject.direction_setter(random.randint(1, 8))
-                        subject.move_opposite()
 
-                        # comparison.direction_setter(random.randint(1, 8))
+                        subject.move_opposite()
                         comparison.move_opposite()
 
 
@@ -140,11 +138,17 @@ class Game :
         self.sprite_clock.tick()
 
         if self.i_dont_know_what_to_call_this_variable > 0:
-            index_of_hit = self.player.player_drone_collision(self.enemy_drones)
-            if index_of_hit is not None and self.player.is_firing:
-                self.enemy_drones.pop(index_of_hit)
+            index_of_hit_drone = self.player.player_drone_collision(self.enemy_drones)
+            index_of_hit_human = self.player.player_drone_collision(self.enemy_humans)
+            if index_of_hit_drone is not None and self.player.is_firing:
+                self.enemy_drones.pop(index_of_hit_drone)
                 self.score += 10
-                print('\r' + str(self.score), end='')
+                print('\r' + "Killed drone - + 10 = " + str(self.score), end='')
+
+            elif index_of_hit_human is not None and self.player.is_firing:
+                self.enemy_humans.pop(index_of_hit_human)
+                self.score += 20
+                print('\r' + "killed human - + 20 = " + str(self.score), end='')
             # Checks if player has shot a drone, then removes it
 
             self.player.is_firing = False
