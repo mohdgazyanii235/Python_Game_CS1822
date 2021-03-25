@@ -104,7 +104,7 @@ class Game:
 
     @staticmethod
     def collision_checker(x1, y1, x2, y2):
-        constant = 100
+        constant = 150
         if ((x1 + constant >= x2 - constant) and (x1 + constant <= x2 + constant)) and (
                 (y2 - constant <= y1 + constant <= y2 + constant) or (
                 y2 + constant >= y1 - constant >= y2 - constant)):
@@ -165,12 +165,12 @@ class Game:
             index_of_hit_drone = self.player.player_drone_collision(self.enemy_drones)
             index_of_hit_human = self.player.player_drone_collision(self.enemy_humans)
             if index_of_hit_drone is not None and self.player.is_firing:
-                self.enemy_drones.pop(index_of_hit_drone)
+                self.enemy_drones[index_of_hit_drone].remove_request = True
                 self.score += 10
                 print('\r' + "Killed drone - + 10 = " + str(self.score), end='')
 
             elif index_of_hit_human is not None and self.player.is_firing:
-                self.enemy_humans.pop(index_of_hit_human)
+                self.enemy_humans[index_of_hit_human].remove_request = True
                 self.score += 20
                 print('\r' + "killed human - + 20 = " + str(self.score), end='')
             # Checks if player has shot a drone, then removes it
@@ -239,6 +239,8 @@ class Game:
 
                 for index, i in enumerate(self.enemy_humans):
                     if i.get_p()[0] > self.WIDTH + 30:
+                        i.remove_request = True
+                    if i.remove_request:
                         self.enemy_humans.pop(index)
                     i.update(canvas)
 
