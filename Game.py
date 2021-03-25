@@ -101,7 +101,6 @@ class Game:
                                         self.sprite_clock.frame_duration)
 
         self.score = 0
-        self.player.lives = 3
 
         # Creates a spawner for the drones
 
@@ -135,13 +134,11 @@ class Game:
                         subject.move_opposite()
                         comparison.move_opposite()
 
-
     # Just please don't ask me why I put this here, trust me even I don't know. Let's just say it brings me good luck.
 
     def check_player_hit(self, shot_pos, radius):
         player_pos = self.player.get_p()
         if (player_pos[0] - shot_pos[0]) ** 2 + (player_pos[1] - shot_pos[1]) ** 2 < radius ** 2:
-            print("HIT!")
             self.player.take_damage()
 
     def add_enemy_shot(self):
@@ -179,6 +176,12 @@ class Game:
                 self.game_frame.stop()
 
         # this is where the game loop is.
+        elif self.player is None:
+            canvas.draw_image(self.game_over_img, (self.game_over_img.get_width()/2, self.game_over_img.get_height()/2),
+                              (self.game_over_img.get_width(), self.game_over_img.get_height()),
+                              (self.WIDTH / 2, self.HEIGHT / 2),
+                              (self.game_over_img.get_width(), self.game_over_img.get_height()))
+
         else:
             canvas.draw_image(self.level_background, (self.level_background.get_width() / 2,
                                                       self.level_background.get_height() / 2),
@@ -189,12 +192,12 @@ class Game:
 
             index_of_hit_drone = self.player.player_drone_collision(self.enemy_drones)
             index_of_hit_human = self.player.player_drone_collision(self.enemy_humans)
-            if index_of_hit_drone is not None and self.player.is_firing :
+            if index_of_hit_drone is not None and self.player.is_firing:
                 self.enemy_drones[index_of_hit_drone].remove_request = True
                 self.score += 10
                 print('\r' + "Killed drone - + 10 = " + str(self.score), end='')
 
-            elif index_of_hit_human is not None and self.player.is_firing :
+            elif index_of_hit_human is not None and self.player.is_firing:
                 self.enemy_humans[index_of_hit_human].remove_request = True
                 self.score += 20
                 print('\r' + "killed human - + 20 = " + str(self.score), end='')
@@ -208,12 +211,6 @@ class Game:
             if self.player.exit_request:
                 # If x has been pressed this will be true, and it will be returned to the main menu
                 self.to_main_menu()
-
-            elif self.player is None:
-                canvas.draw_image(self.game_over_img, (self.WIDTH/2, self.HEIGHT/2),
-                                  (self.game_over_img.get_width(), self.game_over_img.get_height()),
-                                  (self.WIDTH/2, self.HEIGHT/2),
-                                  (self.game_over_img.get_width(), self.game_over_img.get_height()))
 
             else:
                 self.enemy_drones = self.enemy_drone_spawner.check_spawn(self.enemy_drones)
@@ -234,7 +231,7 @@ class Game:
                         # Updates the enemy drone currently pointed at
                         i.update(canvas)
                         if i.is_firing:
-                            # self.add_enemy_shot()
+                            self.add_enemy_shot()
                             i.is_firing = False
 
                 for index, i in enumerate(self.enemy_humans):
@@ -249,8 +246,8 @@ class Game:
                         self.level_elements.pop(index)
                     i.update(canvas)
 
-                floor = "_"*self.WIDTH
-                canvas.draw_text(floor, (0, self.HEIGHT-55), 10, "Black", "monospace")
+                floor = "_" * self.WIDTH
+                canvas.draw_text(floor, (0, self.HEIGHT - 55), 10, "Black", "monospace")
 
                 self.player.update(canvas)
 
@@ -267,7 +264,7 @@ class Game:
 
                 canvas.draw_text("Score:" + str(self.score), (10, self.HEIGHT - 10), 25, "Black", "monospace")
                 canvas.draw_text("Lives:" + str(self.player.lives), (self.WIDTH - 130, self.HEIGHT - 10), 25,
-                                     "Black", "monospace")
+                                 "Black", "monospace")
 
                 if self.player.remove_request:
                     self.player = None
