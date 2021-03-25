@@ -92,7 +92,7 @@ class Game:
         self.enemy_drone_spawner = Spawner.Spawner(10, 300, "drone", self.WIDTH, self.HEIGHT / 2,
                                                    self.sprite_clock.frame_duration)
 
-        self.enemy_human_spawner = Spawner.Spawner(10, 300, "human", self.WIDTH, self.HEIGHT / 2,
+        self.enemy_human_spawner = Spawner.Spawner(10, 100, "human", self.WIDTH, self.HEIGHT / 2,
                                                    self.sprite_clock.frame_duration)
 
         self.platform = Spawner.Spawner(20, 300, "platform", self.WIDTH, self.HEIGHT / 2,
@@ -209,7 +209,7 @@ class Game:
 
             else:
                 self.enemy_drones = self.enemy_drone_spawner.check_spawn(self.enemy_drones)
-                # self.enemy_humans = self.enemy_human_spawner.check_spawn(self.enemy_humans)
+                self.enemy_humans = self.enemy_human_spawner.check_spawn(self.enemy_humans)
                 self.level_elements = self.platform.check_spawn(self.level_elements)
 
                 for index, i in enumerate(self.enemy_drones):
@@ -236,7 +236,7 @@ class Game:
                     i.update(canvas)
 
                 floor = "_"*self.WIDTH
-                canvas.draw_text(floor,(0, self.HEIGHT-55), 10, "Black", "monospace")
+                canvas.draw_text(floor, (0, self.HEIGHT-55), 10, "Black", "monospace")
 
                 self.player.update(canvas)
 
