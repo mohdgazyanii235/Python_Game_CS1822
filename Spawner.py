@@ -58,12 +58,16 @@ class Spawner:
 
             if self.type == "platform":
                 # spawn platform
-                y = random.randint(self.HEIGHT // 1.2, self.HEIGHT - 20)
-                speed = (random.randint(5, 30)) * 0.1
-                platform_sprite = Spritesheet.Spritesheet("sprite_assets/environment_sprites/BlockSS.png", 4, 3,
-                                                          self.frame_duration, (self.WIDTH, y), (150, 85), 12, True)
+                y = random.choice([125, 175, 225, 275, 325])
+                speed = 1
+                platform_sprite = Spritesheet.Spritesheet("sprite_assets/environment_sprites/BlockSS.png", 1, 1,
+                                                          self.frame_duration, (self.WIDTH, self.HEIGHT - y),
+                                                          (200, 40), 1, True)
                 platform = Platforms.Platforms(platform_sprite, speed)
                 current_enemies.append(platform)
+
+
+
             if self.counter == 1000:
                 self.counter = 0
 

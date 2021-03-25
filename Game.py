@@ -97,7 +97,7 @@ class Game:
         self.enemy_human_spawner = Spawner.Spawner(10, 300, "human", self.WIDTH, self.HEIGHT / 2,
                                                    self.sprite_clock.frame_duration)
 
-        self.platform = Spawner.Spawner(10, 300, "platform", self.WIDTH, self.HEIGHT / 2,
+        self.platform = Spawner.Spawner(10, 250, "platform", self.WIDTH, self.HEIGHT / 2,
                                                    self.sprite_clock.frame_duration)
         # Creates a spawner for the drones
 
@@ -213,7 +213,7 @@ class Game:
             else:
                 self.enemy_drones = self.enemy_drone_spawner.check_spawn(self.enemy_drones)
                 # self.enemy_humans = self.enemy_human_spawner.check_spawn(self.enemy_humans)
-                # self.level_elements = self.platform.check_spawn(self.level_elements)
+                self.level_elements = self.platform.check_spawn(self.level_elements)
 
                 for index, i in enumerate(self.enemy_drones):
                     # Updates all enemy drones in the game
@@ -232,12 +232,13 @@ class Game:
                             self.add_enemy_shot()
                             i.is_firing = False
 
-                self.player.update(canvas)
-
                 for i in range(len(self.enemy_humans)):
                     self.enemy_humans[i].update(canvas)
 
-                indexes_to_pop = []
+                for index, i in enumerate(self.level_elements):
+                    i.update(canvas)
+
+                self.player.update(canvas)
 
                 for index, i in enumerate(self.early_warning_targets):
                     # Loops through any of the enemy's shots
