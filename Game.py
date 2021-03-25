@@ -196,11 +196,15 @@ class Game:
             if index_of_hit_drone is not None and self.player.is_firing:
                 self.enemy_drones[index_of_hit_drone].death()
                 self.score += 10
+                hit = simplegui._load_local_sound('audio_assets/sound_effects/hit2.wav')
+                hit.play()
                 print('\r' + "Killed drone - + 10 = " + str(self.score), end='')
 
             elif index_of_hit_human is not None and self.player.is_firing:
                 self.enemy_humans[index_of_hit_human].death()
                 self.score += 20
+                hit = simplegui._load_local_sound('audio_assets/sound_effects/hit.wav')
+                hit.play()
                 print('\r' + "killed human - + 20 = " + str(self.score), end='')
             # Checks if player has shot a drone, then removes it
 
