@@ -8,7 +8,7 @@ import Spritesheet
 import EnemyShot
 import Spawner
 import random
-from pygame import mixer
+import ScoreBoard
 
 
 class Game:
@@ -17,8 +17,9 @@ class Game:
 
     start_menu = None
     at_start_menu = True
-
+    at_high_score = False
     game_over_menu = None
+
     player = None
     enemy_drones = []
     enemy_humans = []

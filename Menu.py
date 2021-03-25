@@ -8,6 +8,7 @@ class Menu:
     start_game_request = False
     exit_request = False
     selection_height = False
+    current_screen = "menu"
 
     def __init__(self, width, height):
 
@@ -24,6 +25,23 @@ class Menu:
         self.height = height
 
     def update(self, canvas):
+
+        if self.current_screen == "menu":
+            self.render_menu(canvas)
+
+        elif self.current_screen == "manual":
+            self.render_manual(canvas)
+
+        elif self.current_screen == "highscore":
+            self.render_highscore(canvas)
+
+    def render_highscore(self, canvas):
+        pass
+
+    def render_manual(self, canvas):
+        pass
+
+    def render_menu(self, canvas):
         button_dimensions = (self.start_btn.get_width(), self.start_btn.get_height())
 
         canvas.draw_image(self.start_btn, (button_dimensions[0] / 2, button_dimensions[1] / 2), button_dimensions,
@@ -38,9 +56,9 @@ class Menu:
         canvas.draw_image(self.retire_btn, (button_dimensions[0] / 2, button_dimensions[1] / 2), button_dimensions,
                           (self.width / 2, self.height / 2 + 180), button_dimensions)
 
-        canvas.draw_image(self.license_img, (self.license_img.get_width()/2, self.license_img.get_height()/2),
+        canvas.draw_image(self.license_img, (self.license_img.get_width() / 2, self.license_img.get_height() / 2),
                           (self.license_img.get_width(), self.license_img.get_height()),
-                          (self.license_img.get_width()/2 + 10, self.height - self.license_img.get_height()/2 - 10),
+                          (self.license_img.get_width() / 2 + 10, self.height - self.license_img.get_height() / 2 - 10),
                           (self.license_img.get_width(), self.license_img.get_height()))
 
         canvas.draw_image(self.instructions, (self.instructions.get_width() / 2, self.instructions.get_height() / 2),
@@ -51,9 +69,9 @@ class Menu:
 
         canvas.draw_image(self.title, (self.title.get_width() / 2, self.title.get_height() / 2),
                           (self.title.get_width(), self.title.get_height()),
-                          (self.title.get_width()*0.6 / 2 + 10,
-                           self.title.get_height()*0.7 / 2 + 10),
-                          (self.title.get_width()*0.6, self.title.get_height()*0.7))
+                          (self.title.get_width() * 0.6 / 2 + 10,
+                           self.title.get_height() / 2 + 10),
+                          (self.title.get_width() * 0.6, self.title.get_height() * 0.7))
 
         selector_dimensions = (self.selector.get_width(), self.selector.get_height())
 
@@ -66,6 +84,10 @@ class Menu:
 
         elif self.selection_num == 1:
             self.selection_height = -60
+
+            if self.button_selected:
+                self.button_selected = False
+                self.current_screen = "manual"
 
         elif self.selection_num == 2:
             self.selection_height = 60
@@ -96,3 +118,6 @@ class Menu:
 
         if key == simplegui.KEY_MAP['space']:
             self.button_selected = True
+
+        if key == simplegui.KEY_MAP['x'] and self.current_screen != "menu":
+            self.current_screen = "menu"
