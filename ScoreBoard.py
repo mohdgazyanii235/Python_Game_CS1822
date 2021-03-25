@@ -30,19 +30,13 @@ class ScoreBoard:
             if low_score == str(new_score):
                 is_highscore = False
 
+        if is_highscore:
+            file = open("HighScoreTable.txt", "w")
+            for x in self.top_five:
+                file.writelines(x + "\n")
+
         return is_highscore
 
-    def add_score(self, new_name, new_score):
-        pass
 
 
-board = ScoreBoard()
-print(board.top_five)
-print(board.compare_new_score(5))
-print(board.top_five)
-print(board.compare_new_score(3))
-print(board.top_five)
-print(board.compare_new_score(2))
-print(board.top_five)
-print(board.compare_new_score(1))
-print(board.top_five)
+
