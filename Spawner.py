@@ -26,7 +26,7 @@ class Spawner:
         self.spawner_height = spawner_height
         self.frame_duration = frame_duration
 
-    # Updates and when counter passes certain point - enemy spawned and added to list
+    # Updates and when counter passes certain point, enemy spawned and added to list
     def check_spawn(self, current_enemies):
         self.counter += 1
 
