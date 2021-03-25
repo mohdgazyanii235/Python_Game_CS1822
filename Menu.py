@@ -17,6 +17,7 @@ class Menu:
         self.retire_btn = simplegui._load_local_image("sprite_assets/menu_assets/PyGameRetireBtn.png")
         self.selector = simplegui._load_local_image("sprite_assets/menu_assets/PyGameMenuSelector.png")
         self.license_img = simplegui._load_local_image("sprite_assets/menu_assets/PyGameLicenseMessage.png")
+        self.instructions = simplegui._load_local_image("sprite_assets/menu_assets/PyGameOperatorInstructions.png")
 
         self.width = width
         self.height = height
@@ -40,6 +41,12 @@ class Menu:
                           (self.license_img.get_width(), self.license_img.get_height()),
                           (self.license_img.get_width()/2 + 10, self.height - self.license_img.get_height()/2 - 10),
                           (self.license_img.get_width(), self.license_img.get_height()))
+
+        canvas.draw_image(self.instructions, (self.instructions.get_width() / 2, self.instructions.get_height() / 2),
+                          (self.instructions.get_width(), self.instructions.get_height()),
+                          (self.width - self.instructions.get_width() / 2 - 10,
+                           self.instructions.get_height() / 2 + 10),
+                          (self.instructions.get_width(), self.instructions.get_height()))
 
         selector_dimensions = (self.selector.get_width(), self.selector.get_height())
 

@@ -250,6 +250,6 @@ class Game:
                         if i.is_detonated:
                             self.check_player_hit(i.get_p(), i.radius)
 
-                canvas.draw_text("Score: " + str(self.score), (10, self.HEIGHT - 10), 25, "Black", "monospace")
-                canvas.draw_text("Lives: " + str(self.player.lives), (self.WIDTH - 130, self.HEIGHT - 10), 25, "Black",
+                canvas.draw_text("Score:" + str(self.score), (10, self.HEIGHT - 10), 25, "Black", "monospace")
+                canvas.draw_text("Lives:" + str(self.player.lives), (self.WIDTH - 130, self.HEIGHT - 10), 25, "Black",
                                  "monospace")
