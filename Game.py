@@ -135,7 +135,6 @@ class Game:
                         subject.move_opposite(canvas)
                         comparison.move_opposite(canvas)
 
-    # Just please don't ask me why I put this here, trust me even I don't know. Let's just say it brings me good luck.
 
     def check_player_hit(self, shot_pos, radius):
         player_pos = self.player.get_p()
@@ -198,18 +197,18 @@ class Game:
                 self.score += 10
                 hit = simplegui._load_local_sound('audio_assets/sound_effects/hit2.wav')
                 hit.play()
-                print('\r' + "Killed drone - + 10 = " + str(self.score), end='')
+
 
             elif index_of_hit_human is not None and self.player.is_firing:
                 self.enemy_humans[index_of_hit_human].death()
                 self.score += 20
                 hit = simplegui._load_local_sound('audio_assets/sound_effects/hit.wav')
                 hit.play()
-                print('\r' + "killed human - + 20 = " + str(self.score), end='')
+
             # Checks if player has shot a drone, then removes it
 
             self.player.is_firing = False
-            self.enemy_collision_prevent(canvas)
+            #self.enemy_collision_prevent(canvas)
 
             self.player.is_firing = False
 
@@ -236,7 +235,7 @@ class Game:
                         # Updates the enemy drone currently pointed at
                         i.update(canvas)
                         if i.is_firing:
-                            self.add_enemy_shot()
+                            #self.add_enemy_shot()
                             i.is_firing = False
 
                 for index, i in enumerate(self.enemy_humans):

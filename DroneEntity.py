@@ -32,7 +32,7 @@ class Drone(Entity.Entity):
             player_right_x = i.get_x() + 100
             player_top_y = i.get_y() - 60
             player_bottom_y = i.get_y() + 60
-            if player_left_x <= aim_x <= player_right_x and player_top_y <= aim_y <= player_bottom_y:
+            if player_left_x <= aim_x + 20 <= player_right_x and player_top_y <= aim_y - 20 <= player_bottom_y:
                 return index
             else:
                 continue

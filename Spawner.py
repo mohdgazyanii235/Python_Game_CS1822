@@ -53,11 +53,11 @@ class Spawner:
                 # spawns human
                 speed = 1
                 enemy_human_sprite = Spritesheet.Spritesheet("sprite_assets/enemy_sprites/HumanSS.png", 4, 3,
-                                                             self.frame_duration, (0, self.HEIGHT - 61 - 25),
-                                                             (50, 85), 12, True)
+                                                             self.frame_duration, (0, (self.HEIGHT - 85*0.6) - 25),
+                                                             (50*0.6, 85*0.6), 12, True)
                 enemy_human_death_sprite = Spritesheet.Spritesheet("sprite_assets/enemy_sprites/HumanDeath.png", 4, 3,
-                                                                   self.frame_duration, (0, self.HEIGHT - 61 - 25),
-                                                                   (50, 85), 12, False)
+                                                                   self.frame_duration, (0, (self.HEIGHT - 85*0.6)-25),
+                                                                   (50*0.6, 85*0.6), 12, False)
                 human = EnemyHuman.EnemyHuman(enemy_human_sprite, speed, enemy_human_death_sprite)
                 current_enemies.append(human)
 
