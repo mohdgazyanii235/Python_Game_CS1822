@@ -28,8 +28,6 @@ class Game:
     enemy_drone_spawner = None
     enemy_human_spawner = None
 
-    spawner = None
-
     sprite_clock = None
 
     game_frame = None
@@ -53,7 +51,7 @@ class Game:
         self.game_frame.start()
         self.score = 0
 
-    def to_main_menu(self) :
+    def to_main_menu(self):
         # Clears any game entities and opens the start menu
         self.player = None
         self.at_start_menu = True
@@ -67,7 +65,7 @@ class Game:
         self.at_start_menu = False
         player_sprite = Spritesheet.Spritesheet("sprite_assets/player_sprite/DroneNewCell.png", 1, 1,
                                                 self.sprite_clock.frame_duration,
-                                                (self.WIDTH / 2, self.HEIGHT / 2), (320*0.7, 83.2*0.7), 1, True)
+                                                (self.WIDTH / 2, self.HEIGHT / 2), (320 * 0.7, 83.2 * 0.7), 1, True)
         self.player = Player.Player(player_sprite, self.WIDTH, self.HEIGHT, 6.5)
 
         # Adds a player
@@ -97,8 +95,9 @@ class Game:
         self.enemy_human_spawner = Spawner.Spawner(10, 300, "human", self.WIDTH, self.HEIGHT / 2,
                                                    self.sprite_clock.frame_duration)
 
-        self.platform = Spawner.Spawner(10, 250, "platform", self.WIDTH, self.HEIGHT / 2,
-                                                   self.sprite_clock.frame_duration)
+        self.platform = Spawner.Spawner(20, 300, "platform", self.WIDTH, self.HEIGHT / 2,
+                                        self.sprite_clock.frame_duration)
+
         # Creates a spawner for the drones
 
     @staticmethod
@@ -128,10 +127,8 @@ class Game:
                     if self.collision_checker(subject_x, subject_y, comparison_x,
                                               comparison_y):  # True if there is a collision.
 
-
                         subject.move_opposite()
                         comparison.move_opposite()
-
 
     i_dont_know_what_to_call_this_variable = 0
 
@@ -139,7 +136,7 @@ class Game:
 
     def check_player_hit(self, shot_pos, radius):
         player_pos = self.player.get_p()
-        if (player_pos[0] - shot_pos[0])**2 + (player_pos[1] - shot_pos[1])**2 < radius**2:
+        if (player_pos[0] - shot_pos[0]) ** 2 + (player_pos[1] - shot_pos[1]) ** 2 < radius ** 2:
             print("HIT!")
             self.player.take_damage()
 
@@ -189,7 +186,7 @@ class Game:
                 self.start_menu.start_game_request = False
                 self.to_game()
                 self.i_dont_know_what_to_call_this_variable += 1
-                #print(self.player.player_drone_collision(self.enemy_drones))
+                # print(self.player.player_drone_collision(self.enemy_drones))
 
             if self.start_menu.exit_request:
                 # If the retire button is pressed the game is closed
@@ -237,6 +234,9 @@ class Game:
 
                 for index, i in enumerate(self.level_elements):
                     i.update(canvas)
+
+                floor = "_"*self.WIDTH
+                canvas.draw_text(floor,(0, self.HEIGHT-55), 10, "Black", "monospace")
 
                 self.player.update(canvas)
 

@@ -66,8 +66,6 @@ class Spawner:
                 platform = Platforms.Platforms(platform_sprite, speed)
                 current_enemies.append(platform)
 
-
-
             if self.counter == 1000:
                 self.counter = 0
 
