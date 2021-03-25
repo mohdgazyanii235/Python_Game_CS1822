@@ -229,8 +229,10 @@ class Game:
                             self.add_enemy_shot()
                             i.is_firing = False
 
-                for i in range(len(self.enemy_humans)):
-                    self.enemy_humans[i].update(canvas)
+                for index, i in enumerate(self.enemy_humans):
+                    if i.get_p()[0] > self.WIDTH + 30:
+                        self.enemy_humans.pop(index)
+                    i.update(canvas)
 
                 for index, i in enumerate(self.level_elements):
                     i.update(canvas)
