@@ -142,8 +142,8 @@ class Game :
             print("HIT!")
 
     def add_enemy_shot(self):
-        x_accuracy = random.randint(-50, 50)
-        y_accuracy = random.randint(-50, 50)
+        x_accuracy = random.randint(-100, 100)
+        y_accuracy = random.randint(-100, 100)
         shot_direction = random.randint(0, 2)
         new_shot_pos = list(self.player.get_p())
 
@@ -182,7 +182,7 @@ class Game :
             if not self.start_menu.start_game_request:
                 # If start game hasn't been pressed this flag will be false
                 self.start_menu.update(canvas)
-            else :
+            else:
                 # Otherwise start the game
                 self.start_menu.start_game_request = False
                 self.to_game()
