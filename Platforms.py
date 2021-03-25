@@ -4,7 +4,6 @@ import VectorClass
 
 class Platforms(Entity.Entity):
     queued_direction = ""
-    size_multiplier = 1
     direction = 0
     speed = 0
 

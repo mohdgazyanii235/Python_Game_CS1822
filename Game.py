@@ -235,6 +235,8 @@ class Game:
                     i.update(canvas)
 
                 for index, i in enumerate(self.level_elements):
+                    if i.get_p()[0] < -200:
+                        self.level_elements.pop(index)
                     i.update(canvas)
 
                 floor = "_"*self.WIDTH
