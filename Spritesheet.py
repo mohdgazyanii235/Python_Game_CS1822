@@ -3,6 +3,9 @@ import SimpleGUICS2Pygame.simpleguics2pygame as simplegui
 
 
 class Spritesheet:
+
+    cycle_ended = False
+
     def __init__(self,
                  imgurl,
                  columns, rows,
@@ -33,6 +36,7 @@ class Spritesheet:
         if not self.loop:
             if self.cell_count == self.cells:
                 self.dest_size = (0, 0)
+                self.cycle_ended = True
         if self.cell_count == self.cells:
             self.cell_count = 1
             self.frame_index[0] = 0
