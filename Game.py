@@ -45,7 +45,7 @@ class Game:
 
         self.sprite_clock = Clock.Clock()
 
-        self.game_frame = simplegui.create_frame("Name Of The Game...", self.WIDTH, self.HEIGHT)
+        self.game_frame = simplegui.create_frame("ASSASSCIINATION", self.WIDTH, self.HEIGHT)
 
         self.game_frame.set_canvas_background('white')
         self.game_frame.set_draw_handler(self.update)
