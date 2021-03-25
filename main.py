@@ -68,6 +68,11 @@
 # frame.start()
 
 import Game
+from pygame import mixer
+
+mixer.init()
+mixer.music.load("audio_assets/level_music/tyrant-by-kevin-macleod-from-filmmusic-io.mp3")
+mixer.music.play(loops=-1)
 
 Game.Game()
 

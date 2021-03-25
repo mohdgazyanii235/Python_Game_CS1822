@@ -8,9 +8,10 @@ import Spritesheet
 import EnemyShot
 import Spawner
 import random
+from pygame import mixer
 
 
-class Game :
+class Game:
     WIDTH = 1200
     HEIGHT = 750
 
@@ -35,6 +36,8 @@ class Game :
 
     level_background = None
     score = 0
+
+    mixer = None
 
     def __init__(self):
 
