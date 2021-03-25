@@ -37,6 +37,8 @@ class Game:
 
     mixer = None
 
+    game_over_img = simplegui._load_local_image("sprite_assets/game_over_screen/PyGameDeathScreen.png")
+
     def __init__(self):
 
         self.start_menu = Menu.Menu(self.WIDTH, self.HEIGHT)
@@ -207,6 +209,12 @@ class Game:
                 # If x has been pressed this will be true, and it will be returned to the main menu
                 self.to_main_menu()
 
+            elif self.player is None:
+                canvas.draw_image(self.game_over_img, (self.WIDTH/2, self.HEIGHT/2),
+                                  (self.game_over_img.get_width(), self.game_over_img.get_height()),
+                                  (self.WIDTH/2, self.HEIGHT/2),
+                                  (self.game_over_img.get_width(), self.game_over_img.get_height()))
+
             else:
                 self.enemy_drones = self.enemy_drone_spawner.check_spawn(self.enemy_drones)
                 self.enemy_humans = self.enemy_human_spawner.check_spawn(self.enemy_humans)
@@ -243,6 +251,8 @@ class Game:
                 canvas.draw_text(floor, (0, self.HEIGHT-55), 10, "Black", "monospace")
 
                 self.player.update(canvas)
+                if self.player.remove_request:
+                    self.player = None
 
                 for index, i in enumerate(self.early_warning_targets):
                     # Loops through any of the enemy's shots
@@ -255,6 +265,7 @@ class Game:
                         if i.is_detonated:
                             self.check_player_hit(i.get_p(), i.radius)
 
-                canvas.draw_text("Score:" + str(self.score), (10, self.HEIGHT - 10), 25, "Black", "monospace")
-                canvas.draw_text("Lives:" + str(self.player.lives), (self.WIDTH - 130, self.HEIGHT - 10), 25, "Black",
-                                 "monospace")
+                if self.player is not None:
+                    canvas.draw_text("Score:" + str(self.score), (10, self.HEIGHT - 10), 25, "Black", "monospace")
+                    canvas.draw_text("Lives:" + str(self.player.lives), (self.WIDTH - 130, self.HEIGHT - 10), 25,
+                                     "Black", "monospace")

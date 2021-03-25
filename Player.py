@@ -72,7 +72,10 @@ class Player(DroneEntity.Drone):
     def take_damage(self):
         if not self.is_invulnerable:
             self.lives -= 1
-            self.current_grace = 0
+            if self.lives == 0:
+                self.remove_request = True
+            else:
+                self.current_grace = 0
 
     def fire(self):
         if self.reload_progress == self.reload_time:
