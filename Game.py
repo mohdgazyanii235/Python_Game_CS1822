@@ -132,7 +132,6 @@ class Game:
                         subject.move_opposite()
                         comparison.move_opposite()
 
-    i_dont_know_what_to_call_this_variable = 0
 
     # Just please don't ask me why I put this here, trust me even I don't know. Let's just say it brings me good luck.
 
@@ -161,23 +160,6 @@ class Game:
     def update(self, canvas):
         self.sprite_clock.tick()
 
-        if self.i_dont_know_what_to_call_this_variable > 0 and self.player is not None:
-            index_of_hit_drone = self.player.player_drone_collision(self.enemy_drones)
-            index_of_hit_human = self.player.player_drone_collision(self.enemy_humans)
-            if index_of_hit_drone is not None and self.player.is_firing:
-                self.enemy_drones[index_of_hit_drone].remove_request = True
-                self.score += 10
-                print('\r' + "Killed drone - + 10 = " + str(self.score), end='')
-
-            elif index_of_hit_human is not None and self.player.is_firing:
-                self.enemy_humans[index_of_hit_human].remove_request = True
-                self.score += 20
-                print('\r' + "killed human - + 20 = " + str(self.score), end='')
-            # Checks if player has shot a drone, then removes it
-
-            self.player.is_firing = False
-            self.enemy_collision_prevent()
-
         if self.at_start_menu:
             # Updates menu screen if menu is open
             if not self.start_menu.start_game_request:
@@ -187,7 +169,6 @@ class Game:
                 # Otherwise start the game
                 self.start_menu.start_game_request = False
                 self.to_game()
-                self.i_dont_know_what_to_call_this_variable += 1
                 # print(self.player.player_drone_collision(self.enemy_drones))
 
             if self.start_menu.exit_request:
@@ -202,6 +183,22 @@ class Game:
                               (self.WIDTH / 2, self.HEIGHT / 2), (self.WIDTH * 0.9, self.HEIGHT * 0.9))
 
             # Checks if player has shot a drone, then removes it
+
+            index_of_hit_drone = self.player.player_drone_collision(self.enemy_drones)
+            index_of_hit_human = self.player.player_drone_collision(self.enemy_humans)
+            if index_of_hit_drone is not None and self.player.is_firing :
+                self.enemy_drones[index_of_hit_drone].remove_request = True
+                self.score += 10
+                print('\r' + "Killed drone - + 10 = " + str(self.score), end='')
+
+            elif index_of_hit_human is not None and self.player.is_firing :
+                self.enemy_humans[index_of_hit_human].remove_request = True
+                self.score += 20
+                print('\r' + "killed human - + 20 = " + str(self.score), end='')
+            # Checks if player has shot a drone, then removes it
+
+            self.player.is_firing = False
+            self.enemy_collision_prevent()
 
             self.player.is_firing = False
 
@@ -234,7 +231,7 @@ class Game:
                         # Updates the enemy drone currently pointed at
                         i.update(canvas)
                         if i.is_firing:
-                            self.add_enemy_shot()
+                            # self.add_enemy_shot()
                             i.is_firing = False
 
                 for index, i in enumerate(self.enemy_humans):
