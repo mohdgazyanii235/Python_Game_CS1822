@@ -6,7 +6,6 @@ import Platforms
 
 
 class Spawner:
-
     spawner_width = 0
     spawner_height = 0
     enemies = []
@@ -31,7 +30,6 @@ class Spawner:
     def check_spawn(self, current_enemies):
         self.counter += 1
 
-
         if (self.counter % self.spawn_rate == 0) and (len(current_enemies) <= self.maximum):
             # Every time the spawn_rate is reached and the current number of entities is less than the maximum
             # add an entity of the corresponding type to the list
@@ -45,13 +43,13 @@ class Spawner:
 
                 drone = EnemyDrone.EnemyDrone(enemy_drone_sprite, self.spawner_width, self.spawner_height, 5)
                 current_enemies.append(drone)
-                #Adds it to the local list
+                # Adds it to the local list
 
             if self.type == "human":
-                #spawns human
+                # spawns human
                 width = random.randint(80, 180)
-                height = random.randint(self.HEIGHT//1.2, self.HEIGHT-20)
-                speed = (random.randint(10,60))*0.1
+                height = random.randint(self.HEIGHT // 1.2, self.HEIGHT - 20)
+                speed = (random.randint(10, 60)) * 0.1
                 enemy_human_sprite = Spritesheet.Spritesheet("sprite_assets/enemy_sprites/HumanSS.png", 4, 3,
                                                              self.frame_duration, (width, height),
                                                              (50, 85), 12, True)
@@ -70,8 +68,3 @@ class Spawner:
                 self.counter = 0
 
         return current_enemies
-
-
-
-
-

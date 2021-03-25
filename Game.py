@@ -86,8 +86,6 @@ class Game :
         # human.set_jump_location((700, 200))
         # self.enemy_humans.append(human)
 
-        self.early_warning_targets.append(EnemyShot.enemyShot(50, 100, (600, 375)))
-
     def level_up(self):
         # Where we will put any level ups which change the spawners
         self.enemy_drone_spawner = Spawner.Spawner(10, 300, "drone", self.WIDTH, self.HEIGHT / 2,

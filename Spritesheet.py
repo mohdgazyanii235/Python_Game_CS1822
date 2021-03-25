@@ -41,6 +41,12 @@ class Spritesheet:
         if self.frame_index[0] == 0:
             self.frame_index[1] = (self.frame_index[1] + 1) % self.rows
 
+    def change_size(self, size_magnification):
+        temp_size = list(self.dest_size)
+        temp_size[0] *= size_magnification
+        temp_size[1] *= size_magnification
+        self.dest_size = tuple(temp_size)
+
     def draw(self, canvas, position, rotation=0):
         self.frame_clock += 1
         if self.frame_clock % self.frame_duration == 0:

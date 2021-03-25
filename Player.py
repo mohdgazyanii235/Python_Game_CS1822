@@ -15,12 +15,23 @@ class Player(DroneEntity.Drone):
 
     is_firing = False
 
+    reload_time = 20
+    reload_progress = 20
+
     def __init__(self, player_sprite, frame_width, frame_height, speed):
 
         super().__init__(player_sprite, frame_width, frame_height, speed)
 
     def update(self, canvas):
         super().update(canvas, self.moving_left, self.moving_right, self.moving_up, self.moving_down)
+
+        if self.reload_progress < self.reload_time:
+            self.reload_progress += 1
+            if self.reload_progress <= self.reload_time / 2:
+                self.movement_sprite.change_size(1/0.99)
+            else:
+                self.movement_sprite.change_size(0.99)
+
 
     def keyDown(self, key):
         if key == simplegui.KEY_MAP['left']:
@@ -46,7 +57,9 @@ class Player(DroneEntity.Drone):
         return self.exit_request
 
     def fire(self):
-        self.is_firing = True
+        if self.reload_progress == self.reload_time:
+            self.is_firing = True
+            self.reload_progress = 0
 
     def keyUp(self, key):
 
