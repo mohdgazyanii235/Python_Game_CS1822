@@ -83,12 +83,15 @@ class Game:
 
         self.level_background = simplegui._load_local_image("sprite_assets/level_backgrounds/PyGameCityBackground.png")
 
-        # enemy_human_sprite = Spritesheet.Spritesheet("sprite_assets/enemy_sprites/HumanSS.png", 4, 3,
-        #                                              self.sprite_clock.frame_duration, (self.WIDTH/2, self.HEIGHT/2),
-        #                                              (50, 85), 12, True)
-        # human = EnemyHuman.EnemyHuman(enemy_human_sprite, 3)
-        # human.set_jump_location((700, 200))
-        # self.enemy_humans.append(human)
+        enemy_human_sprite = Spritesheet.Spritesheet("sprite_assets/enemy_sprites/HumanSS.png", 4, 3,
+                                                     self.sprite_clock.frame_duration, (self.WIDTH/2, self.HEIGHT/2 - 100),
+                                                     (50 * 0.6, 85 * 0.6), 12, True)
+        enemy_human_death_sprite = Spritesheet.Spritesheet("sprite_assets/enemy_sprites/HumanDeath.png", 4, 3,
+                                                           self.sprite_clock.frame_duration, (self.WIDTH/2, self.HEIGHT/2 - 100),
+                                                           (50 * 0.6, 85 * 0.6), 12, False)
+        human = EnemyHuman.EnemyHuman(enemy_human_sprite, 1, enemy_human_death_sprite)
+        human.set_jump(500)
+        self.enemy_humans.append(human)
 
     def level_up(self):
         # Where we will put any level ups which change the spawners
