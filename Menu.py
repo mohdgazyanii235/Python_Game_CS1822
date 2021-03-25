@@ -92,6 +92,10 @@ class Menu:
         elif self.selection_num == 2:
             self.selection_height = 60
 
+            if self.button_selected:
+                self.button_selected = False
+                self.current_screen = "highscore"
+
         elif self.selection_num == 3:
 
             self.selection_height = 180
@@ -120,4 +124,5 @@ class Menu:
             self.button_selected = True
 
         if key == simplegui.KEY_MAP['x'] and self.current_screen != "menu":
+            self.selection_num = 0
             self.current_screen = "menu"
