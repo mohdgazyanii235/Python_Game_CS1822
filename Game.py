@@ -119,7 +119,7 @@ class Game:
         else:
             return False
 
-    def enemy_collision_prevent(self):
+    def enemy_collision_prevent(self, canvas):
         for index1, subject in enumerate(self.enemy_drones):
             subject_x = subject.get_x()
             subject_y = subject.get_y()
@@ -132,8 +132,8 @@ class Game:
                     if self.collision_checker(subject_x, subject_y, comparison_x,
                                               comparison_y):  # True if there is a collision.
 
-                        subject.move_opposite()
-                        comparison.move_opposite()
+                        subject.move_opposite(canvas)
+                        comparison.move_opposite(canvas)
 
     # Just please don't ask me why I put this here, trust me even I don't know. Let's just say it brings me good luck.
 
@@ -194,18 +194,18 @@ class Game:
             index_of_hit_drone = self.player.player_drone_collision(self.enemy_drones)
             index_of_hit_human = self.player.player_drone_collision(self.enemy_humans)
             if index_of_hit_drone is not None and self.player.is_firing:
-                self.enemy_drones[index_of_hit_drone].remove_request = True
+                self.enemy_drones[index_of_hit_drone].death()
                 self.score += 10
                 print('\r' + "Killed drone - + 10 = " + str(self.score), end='')
 
             elif index_of_hit_human is not None and self.player.is_firing:
-                self.enemy_humans[index_of_hit_human].remove_request = True
+                self.enemy_humans[index_of_hit_human].death()
                 self.score += 20
                 print('\r' + "killed human - + 20 = " + str(self.score), end='')
             # Checks if player has shot a drone, then removes it
 
             self.player.is_firing = False
-            self.enemy_collision_prevent()
+            self.enemy_collision_prevent(canvas)
 
             self.player.is_firing = False
 

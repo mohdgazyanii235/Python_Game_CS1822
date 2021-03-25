@@ -13,10 +13,10 @@ class Drone(Entity.Entity):
     frame_height = 0
     speed = 0
 
-    def __init__(self, sprite, frame_width, frame_height, speed):
+    def __init__(self, sprite, frame_width, frame_height, speed, death_sprite=None):
 
         self.drone_dimensions = sprite.dest_size
-        super().__init__(sprite)
+        super().__init__(sprite, death_sprite)
 
         self.frame_width = frame_width
         self.frame_height = frame_height
@@ -26,7 +26,6 @@ class Drone(Entity.Entity):
 
     def player_drone_collision(self, enemy_list):
         for index, i in enumerate(enemy_list):
-            #print(index)
             aim_x = super().get_p()[0]
             aim_y = super().get_p()[1]
             player_left_x = i.get_x() - 100

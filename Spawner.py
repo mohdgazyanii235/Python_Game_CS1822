@@ -40,8 +40,12 @@ class Spawner:
                 y = random.randint(5, self.spawner_height // 2.5)
                 enemy_drone_sprite = Spritesheet.Spritesheet("sprite_assets/enemy_sprites/SimpleEnemyDroneSS.png", 4, 2,
                                                              self.frame_duration, (x, y), (150, 80), 8, True)
+                enemy_drone_death_sprite = Spritesheet.Spritesheet("sprite_assets/enemy_sprites/EnemyDroneDeath.png",
+                                                                   4, 2, self.frame_duration, (x, y), (150, 80), 8,
+                                                                   False)
 
-                drone = EnemyDrone.EnemyDrone(enemy_drone_sprite, self.spawner_width, self.spawner_height, 5)
+                drone = EnemyDrone.EnemyDrone(enemy_drone_sprite, self.spawner_width, self.spawner_height, 5,
+                                              enemy_drone_death_sprite)
                 current_enemies.append(drone)
                 # Adds it to the local list
 
@@ -51,7 +55,10 @@ class Spawner:
                 enemy_human_sprite = Spritesheet.Spritesheet("sprite_assets/enemy_sprites/HumanSS.png", 4, 3,
                                                              self.frame_duration, (0, self.HEIGHT - 61 - 25),
                                                              (50, 85), 12, True)
-                human = EnemyHuman.EnemyHuman(enemy_human_sprite, speed)
+                enemy_human_death_sprite = Spritesheet.Spritesheet("sprite_assets/enemy_sprites/HumanDeath.png", 4, 3,
+                                                                   self.frame_duration, (0, self.HEIGHT - 61 - 25),
+                                                                   (50, 85), 12, False)
+                human = EnemyHuman.EnemyHuman(enemy_human_sprite, speed, enemy_human_death_sprite)
                 current_enemies.append(human)
 
             if self.type == "platform":

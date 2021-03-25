@@ -16,9 +16,9 @@ class EnemyHuman(Entity.Entity):
     parabola_constant = 0.0
     jump_destination = ()
 
-    def __init__(self, enemy_human_sprite, speed):
+    def __init__(self, enemy_human_sprite, speed, death_sprite=None):
         self.speed = speed
-        super().__init__(enemy_human_sprite)
+        super().__init__(enemy_human_sprite, death_sprite)
 
     def get_x(self):
         return super().get_p()[0]
@@ -27,13 +27,16 @@ class EnemyHuman(Entity.Entity):
         return super().get_p()[1]
 
     def update(self, canvas):
-
-        if self.is_jumping:
-            self.jump()
+        if self.is_dying:
+            self.death_sprite.draw(canvas, super().get_p())
+            if self.death_sprite.cycle_ended:
+                self.remove_request = True
         else:
-            super().add(VectorClass.Vector(1, 0).multiply(self.speed))
-
-        self.movement_sprite.draw(canvas, super().get_p())
+            if self.is_jumping:
+                self.jump()
+            else:
+                super().add(VectorClass.Vector(1, 0).multiply(self.speed))
+            self.movement_sprite.draw(canvas, super().get_p())
 
     def set_jump_location(self, jump_destination):
         current_x = self.get_p()[0]

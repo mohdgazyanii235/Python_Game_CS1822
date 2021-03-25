@@ -9,8 +9,6 @@ class EnemyDrone(DroneEntity.Drone):
     moving_down = False
     queued_direction = ""
     size_multiplier = 1
-    CANVAS = None
-
     direction = 0
     direction_duration = 0
 
@@ -20,8 +18,8 @@ class EnemyDrone(DroneEntity.Drone):
     fire_radius = 0
     fire_accuracy = 0
 
-    def __init__(self, enemy_drone_sprite, frame_width, frame_height, speed):
-        super().__init__(enemy_drone_sprite, frame_width, frame_height, speed)
+    def __init__(self, enemy_drone_sprite, frame_width, frame_height, speed, death_sprite=None):
+        super().__init__(enemy_drone_sprite, frame_width, frame_height, speed, death_sprite)
 
     def get_x(self):
         return super().get_p()[0]
@@ -35,8 +33,8 @@ class EnemyDrone(DroneEntity.Drone):
     def set_direction(self, new_direction):
         self.direction = new_direction
 
-    def move_opposite(self):
-        super().update(self.CANVAS, not self.moving_left, not self.moving_right, not self.moving_up, not self.moving_down)
+    def move_opposite(self, canvas):
+        super().update(canvas, not self.moving_left, not self.moving_right, not self.moving_up, not self.moving_down)
 
     def direction_setter(self, direction):
         if direction == 1:
@@ -73,26 +71,31 @@ class EnemyDrone(DroneEntity.Drone):
         if super().get_p()[1] > 750 / 2:
             self.moving_down = False
 
-        super().update(self.CANVAS, self.moving_left, self.moving_right, self.moving_up, self.moving_down)
-
     def update(self, canvas):
-        self.CANVAS = canvas
-        if self.direction_duration == 0:
 
-            self.moving_up = False
-            self.moving_down = False
-            self.moving_right = False
-            self.moving_left = False
+        if self.is_dying:
+            self.death_sprite.draw(canvas, super().get_p())
+            if self.death_sprite.cycle_ended:
+                self.remove_request = True
+        else:
+            if self.direction_duration == 0:
 
-            self.direction = random.randint(0, 8)
-            if self.direction == 0:
-                self.direction_duration = 30
-            else:
-                self.direction_duration = random.choice([25, 50, 75])
+                self.moving_up = False
+                self.moving_down = False
+                self.moving_right = False
+                self.moving_left = False
 
-        self.direction_setter(self.direction)
+                self.direction = random.randint(0, 8)
+                if self.direction == 0:
+                    self.direction_duration = 30
+                else:
+                    self.direction_duration = random.choice([25, 50, 75])
 
-        self.fire_count += 1
+            self.direction_setter(self.direction)
 
-        if self.fire_count % self.fire_rate == 0:
-            self.is_firing = True
+            self.fire_count += 1
+
+            if self.fire_count % self.fire_rate == 0:
+                self.is_firing = True
+
+            super().update(canvas, self.moving_left, self.moving_right, self.moving_up, self.moving_down)
