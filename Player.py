@@ -15,6 +15,8 @@ class Player(DroneEntity.Drone):
 
     is_firing = False
 
+    lives = 3
+
     reload_time = 20
     reload_progress = 20
 

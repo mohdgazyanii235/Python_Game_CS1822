@@ -139,12 +139,13 @@ class Game:
 
     def check_player_hit(self, shot_pos, radius):
         player_pos = self.player.get_p()
-        if (player_pos[0] - shot_pos[0])**2 + (player_pos[1] - shot_pos[1])**2 < radius:
+        if (player_pos[0] - shot_pos[0])**2 + (player_pos[1] - shot_pos[1])**2 < radius**2:
             print("HIT!")
+            self.player.lives -= 1
 
     def add_enemy_shot(self):
-        x_accuracy = random.randint(-100, 100)
-        y_accuracy = random.randint(-100, 100)
+        x_accuracy = random.randint(-300, 300)
+        y_accuracy = random.randint(-300, 300)
         shot_direction = random.randint(0, 2)
         new_shot_pos = list(self.player.get_p())
 
@@ -249,3 +250,6 @@ class Game:
                         if i.is_detonated:
                             self.check_player_hit(i.get_p(), i.radius)
 
+                canvas.draw_text("Score: " + str(self.score), (10, self.HEIGHT - 10), 25, "Black", "monospace")
+                canvas.draw_text("Lives: " + str(self.player.lives), (self.WIDTH - 130, self.HEIGHT - 10), 25, "Black",
+                                 "monospace")
