@@ -238,6 +238,7 @@ class Game:
                 for index, i in enumerate(self.enemy_humans):
                     if i.get_p()[0] > self.WIDTH + 30:
                         i.remove_request = True
+                        self.score -= 20
                     if i.remove_request:
                         self.enemy_humans.pop(index)
                     i.update(canvas)
