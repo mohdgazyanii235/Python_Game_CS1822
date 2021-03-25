@@ -18,6 +18,7 @@ class Menu:
         self.selector = simplegui._load_local_image("sprite_assets/menu_assets/PyGameMenuSelector.png")
         self.license_img = simplegui._load_local_image("sprite_assets/menu_assets/PyGameLicenseMessage.png")
         self.instructions = simplegui._load_local_image("sprite_assets/menu_assets/PyGameOperatorInstructions.png")
+        self.title = simplegui._load_local_image("sprite_assets/menu_assets/PyGameTitle.png")
 
         self.width = width
         self.height = height
@@ -47,6 +48,12 @@ class Menu:
                           (self.width - self.instructions.get_width() / 2 - 10,
                            self.instructions.get_height() / 2 + 10),
                           (self.instructions.get_width(), self.instructions.get_height()))
+
+        canvas.draw_image(self.title, (self.title.get_width() / 2, self.title.get_height() / 2),
+                          (self.title.get_width(), self.title.get_height()),
+                          (self.title.get_width()*0.6 / 2 + 10,
+                           self.title.get_height()*0.7 / 2 + 10),
+                          (self.title.get_width()*0.6, self.title.get_height()*0.7))
 
         selector_dimensions = (self.selector.get_width(), self.selector.get_height())
 
