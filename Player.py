@@ -20,11 +20,22 @@ class Player(DroneEntity.Drone):
     reload_time = 20
     reload_progress = 20
 
+    grace_period = 50
+    current_grace = 50
+    is_invulnerable = False
+
     def __init__(self, player_sprite, frame_width, frame_height, speed):
 
         super().__init__(player_sprite, frame_width, frame_height, speed)
 
     def update(self, canvas):
+
+        if self.current_grace < self.grace_period:
+            self.is_invulnerable = True
+            self.current_grace += 1
+        else:
+            self.is_invulnerable = False
+
         super().update(canvas, self.moving_left, self.moving_right, self.moving_up, self.moving_down)
 
         if self.reload_progress < self.reload_time:
@@ -57,6 +68,11 @@ class Player(DroneEntity.Drone):
 
     def get_exit_request(self):
         return self.exit_request
+
+    def take_damage(self):
+        if not self.is_invulnerable:
+            self.lives -= 1
+            self.current_grace = 0
 
     def fire(self):
         if self.reload_progress == self.reload_time:

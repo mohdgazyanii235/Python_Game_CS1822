@@ -141,7 +141,7 @@ class Game:
         player_pos = self.player.get_p()
         if (player_pos[0] - shot_pos[0])**2 + (player_pos[1] - shot_pos[1])**2 < radius**2:
             print("HIT!")
-            self.player.lives -= 1
+            self.player.take_damage()
 
     def add_enemy_shot(self):
         x_accuracy = random.randint(-300, 300)
