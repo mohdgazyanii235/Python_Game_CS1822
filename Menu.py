@@ -2,8 +2,6 @@ import SimpleGUICS2Pygame.simpleguics2pygame as simplegui
 
 
 class Menu:
-    start_btn = None
-    retire_btn = None
     selector = None
     selection_num = 0
     button_selected = False
@@ -18,6 +16,7 @@ class Menu:
         self.highscore_btn = simplegui._load_local_image("sprite_assets/menu_assets/PyGameHighscoresBtn.png")
         self.retire_btn = simplegui._load_local_image("sprite_assets/menu_assets/PyGameRetireBtn.png")
         self.selector = simplegui._load_local_image("sprite_assets/menu_assets/PyGameMenuSelector.png")
+        self.license_img = simplegui._load_local_image("sprite_assets/menu_assets/PyGameLicenseMessage.png")
 
         self.width = width
         self.height = height
@@ -36,6 +35,11 @@ class Menu:
 
         canvas.draw_image(self.retire_btn, (button_dimensions[0] / 2, button_dimensions[1] / 2), button_dimensions,
                           (self.width / 2, self.height / 2 + 180), button_dimensions)
+
+        canvas.draw_image(self.license_img, (self.license_img.get_width()/2, self.license_img.get_height()/2),
+                          (self.license_img.get_width(), self.license_img.get_height()),
+                          (self.license_img.get_width()/2 + 10, self.height - self.license_img.get_height()/2 - 10),
+                          (self.license_img.get_width(), self.license_img.get_height()))
 
         selector_dimensions = (self.selector.get_width(), self.selector.get_height())
 
