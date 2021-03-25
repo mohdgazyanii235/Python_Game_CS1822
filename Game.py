@@ -161,7 +161,7 @@ class Game:
     def update(self, canvas):
         self.sprite_clock.tick()
 
-        if self.i_dont_know_what_to_call_this_variable > 0:
+        if self.i_dont_know_what_to_call_this_variable > 0 and self.player is not None:
             index_of_hit_drone = self.player.player_drone_collision(self.enemy_drones)
             index_of_hit_human = self.player.player_drone_collision(self.enemy_humans)
             if index_of_hit_drone is not None and self.player.is_firing:
@@ -253,8 +253,6 @@ class Game:
                 canvas.draw_text(floor, (0, self.HEIGHT-55), 10, "Black", "monospace")
 
                 self.player.update(canvas)
-                if self.player.remove_request:
-                    self.player = None
 
                 for index, i in enumerate(self.early_warning_targets):
                     # Loops through any of the enemy's shots
@@ -267,7 +265,9 @@ class Game:
                         if i.is_detonated:
                             self.check_player_hit(i.get_p(), i.radius)
 
-                if self.player is not None:
-                    canvas.draw_text("Score:" + str(self.score), (10, self.HEIGHT - 10), 25, "Black", "monospace")
-                    canvas.draw_text("Lives:" + str(self.player.lives), (self.WIDTH - 130, self.HEIGHT - 10), 25,
+                canvas.draw_text("Score:" + str(self.score), (10, self.HEIGHT - 10), 25, "Black", "monospace")
+                canvas.draw_text("Lives:" + str(self.player.lives), (self.WIDTH - 130, self.HEIGHT - 10), 25,
                                      "Black", "monospace")
+
+                if self.player.remove_request:
+                    self.player = None
