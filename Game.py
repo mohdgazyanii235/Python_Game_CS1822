@@ -100,6 +100,9 @@ class Game:
         self.platform = Spawner.Spawner(20, 300, "platform", self.WIDTH, self.HEIGHT / 2,
                                         self.sprite_clock.frame_duration)
 
+        self.score = 0
+        self.player.lives = 3
+
         # Creates a spawner for the drones
 
     @staticmethod
