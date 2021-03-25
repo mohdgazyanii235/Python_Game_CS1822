@@ -16,6 +16,9 @@ class ScoreBoard:
 
         file.close()
 
+        for x in range(0, 10 - len(self.top_five)):
+            self.top_five.append("--")
+
     def update(self, canvas):
         pass
 
