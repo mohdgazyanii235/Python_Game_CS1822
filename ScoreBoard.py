@@ -16,18 +16,33 @@ class ScoreBoard:
 
         file.close()
 
-        for x in range(0, 10 - len(self.top_five)):
-            self.top_five.append("--")
-
     def update(self, canvas):
         pass
 
     def compare_new_score(self, new_score):
-        pass
+        is_highscore = True
+
+        self.top_five.append(str(new_score))
+        self.top_five.sort(reverse=True)
+
+        if len(self.top_five) > 5:
+            low_score = self.top_five.pop(5)
+            if low_score == str(new_score):
+                is_highscore = False
+
+        return is_highscore
 
     def add_score(self, new_name, new_score):
         pass
 
 
 board = ScoreBoard()
+print(board.top_five)
+print(board.compare_new_score(5))
+print(board.top_five)
+print(board.compare_new_score(3))
+print(board.top_five)
+print(board.compare_new_score(2))
+print(board.top_five)
+print(board.compare_new_score(1))
 print(board.top_five)
