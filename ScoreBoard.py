@@ -6,32 +6,37 @@ class ScoreBoard:
 
     def __init__(self):
         file = open("HighScoreTable.txt", "r")
-        top_five_string = file.read()
-        self.top_five = re.split("[&&]", top_five_string)
+        item = file.readline()
+
+        while item:
+            item = item[0:len(item) - 1]
+            # Removes the /n
+            self.top_five.append(item)
+            item = file.readline()
+
         file.close()
 
     def update(self, canvas):
         pass
 
     def compare_new_score(self, new_score):
-        for i in range(1, len(self.top_five), 2):
-            if new_score > self.top_five[i]:
-                return True
-        return False
+        is_highscore = True
 
-    def add_score(self, new_name, new_score):
-        new_high_scores = ""
-        for i in range(1, len(self.top_five), 2):
-            if new_score > self.top_five[i]:
-                self.top_five[i] = new_score
-                self.top_five[i - 1] = new_name
-                new_high_scores += new_name + "&&" + str(new_score) + "&&"
-            else:
-                new_high_scores += self.top_five[i - 1] + "&&" + str(self.top_five[i]) + "&&"
-        file = open("HighScoreTable.txt", "w")
-        file.write(new_high_scores)
-        file.close()
+        self.top_five.append(str(new_score))
+        self.top_five.sort(reverse=True)
+
+        if len(self.top_five) > 5:
+            low_score = self.top_five.pop(5)
+            if low_score == str(new_score):
+                is_highscore = False
+
+        if is_highscore:
+            file = open("HighScoreTable.txt", "w")
+            for x in self.top_five:
+                file.writelines(x + "\n")
+
+        return is_highscore
 
 
-a_board = ScoreBoard()
-print(a_board.top_five)
+
+

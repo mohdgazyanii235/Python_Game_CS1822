@@ -8,7 +8,7 @@ import Spritesheet
 import EnemyShot
 import Spawner
 import random
-from pygame import mixer
+import ScoreBoard
 
 
 class Game:
@@ -17,8 +17,9 @@ class Game:
 
     start_menu = None
     at_start_menu = True
-
+    at_high_score = False
     game_over_menu = None
+
     player = None
     enemy_drones = []
     enemy_humans = []
@@ -237,6 +238,7 @@ class Game:
                 for index, i in enumerate(self.enemy_humans):
                     if i.get_p()[0] > self.WIDTH + 30:
                         i.remove_request = True
+                        self.score -= 20
                     if i.remove_request:
                         self.enemy_humans.pop(index)
                     i.update(canvas)
@@ -261,6 +263,9 @@ class Game:
                         i.update(canvas)
                         if i.is_detonated:
                             self.check_player_hit(i.get_p(), i.radius)
+
+                if self.score < 0:
+                    self.score = 0
 
                 canvas.draw_text("Score:" + str(self.score), (10, self.HEIGHT - 10), 25, "Black", "monospace")
                 canvas.draw_text("Lives:" + str(self.player.lives), (self.WIDTH - 130, self.HEIGHT - 10), 25,
