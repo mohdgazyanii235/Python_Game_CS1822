@@ -17,6 +17,8 @@ class EnemyDrone(DroneEntity.Drone):
     fire_rate = 20
     fire_count = 0
     is_firing = False
+    fire_radius = 0
+    fire_accuracy = 0
 
     def __init__(self, enemy_drone_sprite, frame_width, frame_height, speed):
         super().__init__(enemy_drone_sprite, frame_width, frame_height, speed)
