@@ -9,6 +9,7 @@ import EnemyShot
 import Spawner
 import random
 import ScoreBoard
+import math
 
 
 class Game:
@@ -136,6 +137,41 @@ class Game:
         if (player_pos[0] - shot_pos[0]) ** 2 + (player_pos[1] - shot_pos[1]) ** 2 < radius ** 2:
             self.player.take_damage()
 
+    @staticmethod
+    def find_angle(human, platform):
+        start_x = human.get_x()
+        start_y = human.get_y()+25
+        try:
+            angle = math.atan((start_y - platform.get_y()-30) / (start_x - platform.get_x()))
+        except:
+            angle = math.pi / 2
+
+        if platform.get_y()-30 < start_y and platform.get_x() > start_x:
+            angle = abs(angle)
+        elif platform.get_y()-30 < start_y and platform.get_x() < start_x:
+            angle = math.pi - angle
+        elif platform.get_y()-30 > start_y and platform.get_x() < start_x:
+            angle = math.pi + abs(angle)
+        elif platform.get_y()-30 > start_y and platform.get_x() > start_x:
+            angle = (math.pi * 2) - angle
+
+        return angle*1.2
+
+    def make_enemies_jump(self):
+        jump_height_constant = 200
+        jump_width_constant = 100
+        for enemy_human in self.enemy_humans:
+            for platform in self.level_elements:
+                if enemy_human.get_x() >= platform.get_x()+80:
+                    continue
+                if enemy_human.get_y()+25 - jump_height_constant > platform.get_y()-20:
+                    continue
+                if (platform.get_x()-80) - enemy_human.get_x() > jump_width_constant:
+                    continue
+                else:
+                    enemy_human.set_jump(platform.get_y()-40, self.find_angle(enemy_human, platform))
+
+
     def add_enemy_shot(self):
         x_accuracy = random.randint(-300, 300)
         y_accuracy = random.randint(-300, 300)
@@ -183,6 +219,8 @@ class Game:
                               (self.WIDTH / 2, self.HEIGHT / 2), (self.WIDTH * 0.9, self.HEIGHT * 0.9))
 
             # Checks if player has shot a drone, then removes it
+            if len(self.enemy_humans) > 0: # enemy humans have started to come in.
+                self.make_enemies_jump()
 
             index_of_hit_drone = self.player.player_drone_collision(self.enemy_drones)
             index_of_hit_human = self.player.player_drone_collision(self.enemy_humans)
@@ -199,6 +237,8 @@ class Game:
                 hit = simplegui._load_local_sound('audio_assets/sound_effects/hit.wav')
                 hit.play()
 
+
+
             # Checks if player has shot a drone, then removes it
 
             self.player.is_firing = False
@@ -209,6 +249,7 @@ class Game:
             if self.player.exit_request:
                 # If x has been pressed this will be true, and it will be returned to the main menu
                 self.to_main_menu()
+
 
             else:
                 self.enemy_drones = self.enemy_drone_spawner.check_spawn(self.enemy_drones)

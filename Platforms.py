@@ -14,3 +14,9 @@ class Platforms(Entity.Entity):
     def update(self, canvas):
         super().add(VectorClass.Vector(-1, 0).multiply(self.speed))
         self.movement_sprite.draw(canvas, super().get_p())
+
+    def get_x(self):
+        return super().get_p()[0]
+
+    def get_y(self):
+        return super().get_p()[1]
