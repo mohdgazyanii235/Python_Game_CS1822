@@ -23,6 +23,8 @@ class Menu:
 
         self.manual = simplegui._load_local_image("sprite_assets/menu_assets/PyGameManual.png")
 
+        self.highscore_table = simplegui._load_local_image("sprite_assets/menu_assets/PyGameHighscoreTable.png")
+
         self.width = width
         self.height = height
 
@@ -38,7 +40,12 @@ class Menu:
             self.render_highscore(canvas)
 
     def render_highscore(self, canvas):
-        pass
+        canvas.draw_image(self.highscore_table,
+                          (self.highscore_table.get_width() / 2, self.highscore_table.get_height() / 2),
+                          (self.highscore_table.get_width(), self.highscore_table.get_height()),
+                          (self.width / 2, self.height / 2),
+                          (self.highscore_table.get_width() * 1.5, self.highscore_table.get_height() * 1.5))
+
 
     def render_manual(self, canvas):
         canvas.draw_image(self.manual,
