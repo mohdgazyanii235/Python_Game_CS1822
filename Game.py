@@ -182,7 +182,8 @@ class Game:
         elif self.player is None:
             self.to_main_menu()
             self.start_menu.current_screen = "highscore"
-            self.start_menu.highscore_board.compare_new_score(self.score)
+            self.start_menu.highscore_game_over = True
+            self.start_menu.highscore_got_highscore = self.start_menu.highscore_board.compare_new_score(self.score)
         else:
             canvas.draw_image(self.level_background, (self.level_background.get_width() / 2,
                                                       self.level_background.get_height() / 2),

@@ -10,7 +10,10 @@ class Menu:
     exit_request = False
     selection_height = False
     current_screen = "menu"
+
     highscore_board = None
+    highscore_game_over = False
+    highscore_got_highscore = False
 
     def __init__(self, width, height):
 
@@ -64,6 +67,14 @@ class Menu:
 
         canvas.draw_text(self.highscore_board.top_five[4], (self.width / 2 - 70, self.height / 2 + 170),
                          25, "Black", "monospace")
+
+        if self.highscore_game_over:
+            if self.highscore_got_highscore:
+                canvas.draw_text("GAME OVER! NEW HIGH SCORE!", (self.width/4-30, 75),
+                                 45, "Black", "monospace")
+            else:
+                canvas.draw_text("GAME OVER! BETTER LUCK NEXT TIME!", (self.width / 4 - 140, 75),
+                                 45, "Black", "monospace")
 
     def render_manual(self, canvas):
         canvas.draw_image(self.manual,
