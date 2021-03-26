@@ -76,6 +76,8 @@ class Menu:
                 canvas.draw_text("GAME OVER! BETTER LUCK NEXT TIME!", (self.width / 4 - 140, 75),
                                  45, "Black", "monospace")
 
+        canvas.draw_text("[PRESS 'X' TO RETURN TO MAIN MENU]", (10, self.height - 20), 25, "Black", "monospace")
+
     def render_manual(self, canvas):
         canvas.draw_image(self.manual,
                           (self.manual.get_width() / 2, self.manual.get_height() / 2),
