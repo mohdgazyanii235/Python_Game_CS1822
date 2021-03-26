@@ -90,7 +90,7 @@ class Game:
                                                            self.sprite_clock.frame_duration, (self.WIDTH/2, self.HEIGHT/2 - 100),
                                                            (50 * 0.6, 85 * 0.6), 12, False)
         human = EnemyHuman.EnemyHuman(enemy_human_sprite, 1, enemy_human_death_sprite)
-        human.set_jump(500)
+        human.set_jump(100)
         self.enemy_humans.append(human)
 
     def level_up(self):

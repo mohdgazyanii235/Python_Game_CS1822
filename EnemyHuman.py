@@ -27,7 +27,7 @@ class EnemyHuman(Entity.Entity):
     start_y = 0
     power = 30
     dest_y = 0
-    second_call = False
+    is_descending = False
 
     def __init__(self, enemy_human_sprite, speed, death_sprite=None):
         self.speed = speed
@@ -60,17 +60,15 @@ class EnemyHuman(Entity.Entity):
 
     def jump(self):
         if self.is_jumping:  # if user presses mouse button
-            if self.get_p()[1] < self.dest_y:
-                self.time += 0.1
-                po = self.jump_path(self.time)
-                x_component = po[0] - super().get_p()[0]
-                y_component = po[1] - super().get_p()[1]
-                super().add(VectorClass.Vector(x_component, y_component))
-            else:
-                if self.second_call:
-                    self.is_jumping = False
-                else:
-                    self.second_call = True
+            self.time += 0.1
+            po = self.jump_path(self.time)
+            x_component = po[0] - super().get_p()[0]
+            y_component = po[1] - super().get_p()[1]
+            super().add(VectorClass.Vector(x_component, y_component))
+            if y_component > 0 and super().get_p()[1] >= self.dest_y:
+                super().add(VectorClass.Vector(0, self.dest_y - super().get_p()[1] ))
+                print(super().get_p()[1])
+                self.is_jumping = False
 
     def jump_path(self, time):
         vel_x = math.cos(self.angle) * self.power
