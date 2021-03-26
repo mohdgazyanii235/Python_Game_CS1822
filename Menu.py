@@ -50,6 +50,20 @@ class Menu:
                           (self.width / 2, self.height / 2),
                           (self.highscore_table.get_width() * 1.5, self.highscore_table.get_height() * 1.5))
 
+        canvas.draw_text(self.highscore_board.top_five[0], (self.width / 2 - 70, self.height/2 - 95),
+                         25, "Black", "monospace")
+
+        canvas.draw_text(self.highscore_board.top_five[1], (self.width / 2 - 70, self.height / 2 - 30),
+                         25, "Black", "monospace")
+
+        canvas.draw_text(self.highscore_board.top_five[2], (self.width / 2 - 70, self.height / 2 + 35),
+                         25, "Black", "monospace")
+
+        canvas.draw_text(self.highscore_board.top_five[3], (self.width / 2 - 70, self.height / 2 + 105),
+                         25, "Black", "monospace")
+
+        canvas.draw_text(self.highscore_board.top_five[4], (self.width / 2 - 70, self.height / 2 + 170),
+                         25, "Black", "monospace")
 
     def render_manual(self, canvas):
         canvas.draw_image(self.manual,
