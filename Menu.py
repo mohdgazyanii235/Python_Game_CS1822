@@ -1,7 +1,8 @@
 import SimpleGUICS2Pygame.simpleguics2pygame as simplegui
-
+import ScoreBoard
 
 class Menu:
+
     selector = None
     selection_num = 0
     button_selected = False
@@ -9,6 +10,7 @@ class Menu:
     exit_request = False
     selection_height = False
     current_screen = "menu"
+    highscore_board = None
 
     def __init__(self, width, height):
 
@@ -27,6 +29,8 @@ class Menu:
 
         self.width = width
         self.height = height
+
+        self.highscore_board = ScoreBoard.ScoreBoard()
 
     def update(self, canvas):
 
