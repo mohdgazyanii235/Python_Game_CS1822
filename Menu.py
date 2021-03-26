@@ -21,7 +21,7 @@ class Menu:
         self.instructions = simplegui._load_local_image("sprite_assets/menu_assets/PyGameOperatorInstructions.png")
         self.title = simplegui._load_local_image("sprite_assets/menu_assets/PyGameTitle.png")
 
-        self.manual_boarder = simplegui._load_local_image("sprite_assets/menu_assets/PyGameManualBorder.png")
+        self.manual = simplegui._load_local_image("sprite_assets/menu_assets/PyGameManual.png")
 
         self.width = width
         self.height = height
@@ -41,12 +41,11 @@ class Menu:
         pass
 
     def render_manual(self, canvas):
-        canvas.draw_image(self.manual_boarder,
-                          (self.manual_boarder.get_width() / 2, self.manual_boarder.get_height() / 2),
-                          (self.manual_boarder.get_width(), self.manual_boarder.get_height()),
-                          (self.width - self.manual_boarder.get_width() / 2 - 10,
-                           self.manual_boarder.get_height() / 2 + 10),
-                          (self.manual_boarder.get_width(), self.manual_boarder.get_height()))
+        canvas.draw_image(self.manual,
+                          (self.manual.get_width() / 2, self.manual.get_height() / 2),
+                          (self.manual.get_width(), self.manual.get_height()),
+                          (self.width / 2, self.height / 2),
+                          (self.manual.get_width()*1.5, self.manual.get_height()*1.5))
 
     def render_menu(self, canvas):
         button_dimensions = (self.start_btn.get_width(), self.start_btn.get_height())
