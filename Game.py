@@ -60,6 +60,8 @@ class Game:
         self.at_start_menu = True
         self.enemy_drones.clear()
         self.level_elements.clear()
+        self.enemy_humans.clear()
+        self.early_warning_targets.clear()
         self.game_frame.set_keydown_handler(self.start_menu.keyDown)
 
     def to_game(self):
@@ -78,22 +80,12 @@ class Game:
 
         # Sets key handlers to player functions
 
-        self.level_up()
+        self.load_level()
         # Runs first level_up() to add spawners
 
         self.level_background = simplegui._load_local_image("sprite_assets/level_backgrounds/PyGameCityBackground.png")
 
-        enemy_human_sprite = Spritesheet.Spritesheet("sprite_assets/enemy_sprites/HumanSS.png", 4, 3,
-                                                     self.sprite_clock.frame_duration, (self.WIDTH/2, self.HEIGHT/2 - 100),
-                                                     (50 * 0.6, 85 * 0.6), 12, True)
-        enemy_human_death_sprite = Spritesheet.Spritesheet("sprite_assets/enemy_sprites/HumanDeath.png", 4, 3,
-                                                           self.sprite_clock.frame_duration, (self.WIDTH/2, self.HEIGHT/2 - 100),
-                                                           (50 * 0.6, 85 * 0.6), 12, False)
-        human = EnemyHuman.EnemyHuman(enemy_human_sprite, 1, enemy_human_death_sprite)
-        human.set_jump(100)
-        self.enemy_humans.append(human)
-
-    def level_up(self):
+    def load_level(self):
         # Where we will put any level ups which change the spawners
         self.enemy_drone_spawner = Spawner.Spawner(10, 300, "drone", self.WIDTH, self.HEIGHT / 2,
                                                    self.sprite_clock.frame_duration)
