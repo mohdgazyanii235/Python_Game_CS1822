@@ -180,11 +180,9 @@ class Game:
 
         # this is where the game loop is.
         elif self.player is None:
-            canvas.draw_image(self.game_over_img, (self.game_over_img.get_width()/2, self.game_over_img.get_height()/2),
-                              (self.game_over_img.get_width(), self.game_over_img.get_height()),
-                              (self.WIDTH / 2, self.HEIGHT / 2),
-                              (self.game_over_img.get_width(), self.game_over_img.get_height()))
-
+            self.to_main_menu()
+            self.start_menu.current_screen = "highscore"
+            self.start_menu.highscore_board.compare_new_score(self.score)
         else:
             canvas.draw_image(self.level_background, (self.level_background.get_width() / 2,
                                                       self.level_background.get_height() / 2),
@@ -238,7 +236,7 @@ class Game:
                         # Updates the enemy drone currently pointed at
                         i.update(canvas)
                         if i.is_firing:
-                            #self.add_enemy_shot()
+                            self.add_enemy_shot()
                             i.is_firing = False
 
                 for index, i in enumerate(self.enemy_humans):

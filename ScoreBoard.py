@@ -1,6 +1,3 @@
-import re
-
-
 class ScoreBoard:
     top_five = []
 
@@ -15,9 +12,6 @@ class ScoreBoard:
             item = file.readline()
 
         file.close()
-
-    def update(self, canvas):
-        pass
 
     def compare_new_score(self, new_score):
         is_highscore = True
