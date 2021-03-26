@@ -131,7 +131,6 @@ class Game:
                         subject.move_opposite(canvas)
                         comparison.move_opposite(canvas)
 
-
     def check_player_hit(self, shot_pos, radius):
         player_pos = self.player.get_p()
         if (player_pos[0] - shot_pos[0]) ** 2 + (player_pos[1] - shot_pos[1]) ** 2 < radius ** 2:
@@ -170,7 +169,6 @@ class Game:
                     continue
                 else:
                     enemy_human.set_jump(platform.get_y()-40, self.find_angle(enemy_human, platform))
-
 
     def add_enemy_shot(self):
         x_accuracy = random.randint(-300, 300)
